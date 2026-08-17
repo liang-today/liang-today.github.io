@@ -3,6 +3,8 @@ name: Deploy Liangxiang site
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: '17 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -29,6 +31,8 @@ jobs:
           cache: pnpm
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      - name: Sync today's public Liangxiang card
+        run: pnpm run sync:social
       - name: Check and build
         run: pnpm run build
       - name: Configure Pages

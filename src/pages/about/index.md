@@ -3,7 +3,7 @@ layout: ../../layouts/MarkdownLayout.astro
 title: 关于梁相
 description: 梁相的品牌、作者与维护方式、代码仓库、设计原则和项目边界。
 eyebrow: 关于
-aside: 一个从 DSH 使用中长出来的每日社区玩法。
+aside: 一个从 DeepSeek Harness 使用中长出来的每日社区玩法。
 sections:
   - href: '#story'
     label: 为什么叫梁相
@@ -21,7 +21,7 @@ sections:
 
 **众香成势，梁子显相。**
 
-梁相是一个 DSH 社区玩法。每天一道梁案，使用 DSH 凝成香火，花一炷选择夯或拉；社区香火汇成梁位，决定今日梁子。每天结案后，结果收入梁祠。
+梁相是一个 DeepSeek Harness 社区玩法。每天一道梁案，使用 DSH 凝成香火，花一炷选择夯或拉；社区香火汇成梁位，决定今日梁子。每天结案后，结果收入梁祠。
 
 <h2 id="story">为什么叫“梁相”</h2>
 

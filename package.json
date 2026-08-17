@@ -8,7 +8,8 @@
     "dev": "astro dev",
     "build": "astro check && astro build && node scripts/check-dist.mjs",
     "check": "astro check",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "sync:social": "node scripts/update-social-card.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "latest",

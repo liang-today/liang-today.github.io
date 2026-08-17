@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css'
+import today from '../data/today.json'
 
 interface Props {
   title: string
@@ -11,11 +12,23 @@ interface Props {
 const {
   title,
   description,
-  image = '/media/og-liangxiang.png',
+  image,
   pageClass = '',
 } = Astro.props
 const canonical = new URL(Astro.url.pathname, Astro.site)
 const pageTitle = title === '梁相' ? '梁相 · 众香成势，梁子显相' : `${title} · 梁相`
+const stateNames: Record<string, string> = {
+  waiting: '待开梁',
+  liang_gong: '梁工',
+  liang_zong: '梁总',
+  liang_shen: '梁神',
+  liang_sheng: '梁圣',
+  liang_zu: '梁祖',
+}
+const socialState = stateNames[today.liangzi_state] ?? '待开梁'
+const socialVersion = `${today.business_date}-${today.snapshot_version}`
+const socialImage = image ?? `/media/social/today.png?v=${socialVersion}`
+const socialAlt = `今日梁相：${socialState}。${today.case_title}`
 ---
 
 <!doctype html>
@@ -35,14 +48,14 @@ const pageTitle = title === '梁相' ? '梁相 · 众香成势，梁子显相' :
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL(image, Astro.site)} />
-    <meta property="og:image:width" content="1731" />
-    <meta property="og:image:height" content="909" />
-    <meta property="og:image:alt" content="梁相：众香成势，梁子显相。" />
+    <meta property="og:image" content={new URL(socialImage, Astro.site)} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={socialAlt} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL(image, Astro.site)} />
+    <meta name="twitter:image" content={new URL(socialImage, Astro.site)} />
     <title>{pageTitle}</title>
     <script is:inline>
       document.documentElement.classList.add('js')
@@ -61,16 +74,23 @@ const pageTitle = title === '梁相' ? '梁相 · 众香成势，梁子显相' :
           <span class="brand-copy"><strong>梁相</strong><small>liangxiang</small></span>
         </a>
         <nav class="main-nav" aria-label="主导航">
-          <a href="/#play">玩法</a>
-          <a href="/#liangci">梁祠</a>
-          <a href="/guide/">部署指南</a>
-          <a href="/about/">关于</a>
+          <details class="nav-menu">
+            <summary>了解</summary>
+            <div><a href="/#play">玩法</a><a href="/#rules">约束</a><a href="/#liangci">梁祠</a></div>
+          </details>
+          <details class="nav-menu">
+            <summary>使用</summary>
+            <div><a href="/guide/">部署指南</a><a href="/privacy/">隐私与边界</a><a href="/about/">关于</a></div>
+          </details>
+          <details class="nav-menu">
+            <summary>源码</summary>
+            <div><a href="https://github.com/NiYa193/dsh-liang-meter">插件仓库 ↗</a><a href="https://github.com/liang-today/liang-today.github.io">官网仓库 ↗</a></div>
+          </details>
         </nav>
         <div class="header-actions">
           <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题">
             <span aria-hidden="true"></span>
           </button>
-          <a class="header-github" href="https://github.com/NiYa193/dsh-liang-meter" target="_blank" rel="noreferrer">GitHub</a>
         </div>
       </div>
     </header>
@@ -84,7 +104,7 @@ const pageTitle = title === '梁相' ? '梁相 · 众香成势，梁子显相' :
             <span class="brand-seal" aria-hidden="true">相</span>
             <span class="brand-copy"><strong>梁相</strong><small>众香成势，梁子显相。</small></span>
           </a>
-          <p>用 DSH 凝聚香火，投下一炷“夯”或“拉”，共同显出今日梁相。</p>
+          <p>用 DeepSeek Harness 凝聚香火，投下一炷“夯”或“拉”，共同显出今日梁相。</p>
         </div>
         <div class="footer-links">
           <div><strong>了解</strong><a href="/#play">玩法</a><a href="/#rules">约束</a><a href="/#liangci">梁祠</a></div>
@@ -111,6 +131,22 @@ const pageTitle = title === '梁相' ? '梁相 · 众香成势，梁子显相' :
       const updateHeader = () => header?.classList.toggle('is-scrolled', scrollY > 12)
       updateHeader()
       addEventListener('scroll', updateHeader, { passive: true })
+
+      const menus = [...document.querySelectorAll<HTMLDetailsElement>('.nav-menu')]
+      for (const menu of menus) {
+        menu.addEventListener('toggle', () => {
+          if (!menu.open) return
+          for (const other of menus) if (other !== menu) other.open = false
+        })
+      }
+      document.addEventListener('pointerdown', (event) => {
+        const target = event.target
+        if (!(target instanceof Node) || menus.some((menu) => menu.contains(target))) return
+        for (const menu of menus) menu.open = false
+      })
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') for (const menu of menus) menu.open = false
+      })
 
       const observer = new IntersectionObserver((entries) => {
         for (const entry of entries) {

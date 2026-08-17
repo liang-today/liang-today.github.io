@@ -1,0 +1,103 @@
+---
+import today from '../data/today.json'
+
+const labels: Record<string, string> = {
+  waiting: '待开梁',
+  liang_gong: '梁工',
+  liang_zong: '梁总',
+  liang_shen: '梁神',
+  liang_sheng: '梁圣',
+  liang_zu: '梁祖',
+}
+const artwork: Record<string, string> = {
+  waiting: '/artwork/waiting.png',
+  liang_gong: '/artwork/gong.png',
+  liang_zong: '/artwork/zong.png',
+  liang_shen: '/artwork/shen.png',
+  liang_sheng: '/artwork/sheng.png',
+  liang_zu: '/artwork/zu.png',
+}
+const name = labels[today.liangzi_state] ?? labels.waiting
+const image = artwork[today.liangzi_state] ?? artwork.waiting
+const ratio = today.up_ratio === null ? '--' : `${(Math.floor(today.up_ratio * 100 * 1_000_000) / 1_000_000).toFixed(6)}%`
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>今日梁相社交卡</title>
+    <style>
+      * { box-sizing: border-box; }
+      astro-dev-toolbar { display: none !important; }
+      html, body { width: 100%; height: 100%; margin: 0; }
+      body { min-width: 900px; overflow: hidden; color: #20252b; background: #f3f3ef; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+      .card { position: relative; display: grid; width: 100vw; height: 100vh; min-height: 540px; grid-template-columns: 1fr 0.8fr; overflow: hidden; background: linear-gradient(135deg, #f8f8f4 0%, #f1f2ee 58%, #ebece7 100%); isolation: isolate; }
+      .card::before, .card::after { position: absolute; z-index: -1; border: 1px solid rgba(104, 111, 108, .18); border-radius: 50%; content: ''; }
+      .card::before { width: 690px; height: 690px; top: -295px; right: -110px; }
+      .card::after { width: 500px; height: 500px; right: -5px; bottom: -310px; }
+      .copy { display: flex; min-width: 0; flex-direction: column; padding: 64px 38px 54px 72px; }
+      .brand { display: flex; align-items: center; gap: 14px; }
+      .seal { display: grid; width: 48px; height: 48px; place-items: center; border: 2px solid #b94a3e; border-radius: 12px; color: #b94a3e; font-family: ui-serif, "Songti SC", serif; font-size: 27px; font-weight: 800; transform: rotate(-2deg); }
+      .brand strong { display: block; font-size: 22px; letter-spacing: .08em; line-height: 1; }
+      .brand small { display: block; margin-top: 7px; color: #7d8489; font-size: 11px; letter-spacing: .14em; }
+      .eyebrow { margin: auto 0 12px; color: #d1772a; font-size: 17px; font-weight: 760; letter-spacing: .16em; }
+      h1 { margin: 0; font-size: clamp(66px, 7.4vw, 112px); letter-spacing: -.075em; line-height: .92; }
+      h1 span { display: block; margin-top: 17px; color: #555f68; font-size: .48em; font-weight: 630; letter-spacing: -.045em; }
+      .case { max-width: 660px; margin: 34px 0 0; color: #555f68; font-size: clamp(18px, 1.8vw, 25px); font-weight: 560; line-height: 1.45; }
+      .footer { display: flex; align-items: center; gap: 14px; margin-top: auto; color: #858b90; font-size: 15px; }
+      .footer i { width: 4px; height: 4px; border-radius: 50%; background: #536cff; }
+      .figure { position: relative; display: grid; place-items: center; padding: 48px 68px 58px 20px; }
+      .orbit { position: absolute; width: min(41vw, 490px); aspect-ratio: 1; border: 2px solid rgba(109, 118, 115, .24); border-radius: 50%; }
+      .orbit::before { position: absolute; inset: 22px; border: 1px solid rgba(209, 119, 42, .32); border-radius: 50%; content: ''; }
+      .portrait { position: relative; z-index: 1; width: min(36vw, 430px); height: min(36vw, 430px); object-fit: contain; filter: drop-shadow(0 24px 30px rgba(35, 42, 45, .12)); }
+      .state { position: absolute; z-index: 2; right: 58px; bottom: 48px; min-width: 235px; padding: 16px 22px; border: 1px solid rgba(105, 112, 110, .35); border-radius: 14px; background: rgba(250, 250, 247, .9); box-shadow: 0 18px 42px rgba(35, 42, 45, .1); backdrop-filter: blur(10px); }
+      .state span { display: block; color: #858b90; font-size: 13px; font-weight: 700; letter-spacing: .12em; }
+      .state strong { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-top: 3px; color: #20252b; font-size: 32px; }
+      .state small { color: #d1772a; font-size: 15px; font-variant-numeric: tabular-nums; }
+      .live { position: absolute; top: 66px; right: 68px; display: flex; align-items: center; gap: 8px; color: #777e83; font-size: 13px; }
+      .live::before { width: 7px; height: 7px; border-radius: 50%; background: #278464; box-shadow: 0 0 0 5px rgba(39, 132, 100, .12); content: ''; }
+    </style>
+  </head>
+  <body>
+    <main class="card" data-card>
+      <section class="copy">
+        <div class="brand"><span class="seal" aria-hidden="true">相</span><div><strong>梁相</strong><small>LIANGXIANG</small></div></div>
+        <p class="eyebrow">今日梁相</p>
+        <h1>众香成势，<span>梁子显相。</span></h1>
+        <p class="case" data-card-case>{today.case_title}</p>
+        <div class="footer"><span>liang.today</span><i></i><span>DeepSeek Harness 社区玩法</span></div>
+      </section>
+      <section class="figure">
+        <span class="live">社区快照</span>
+        <div class="orbit" aria-hidden="true"></div>
+        <img class="portrait" data-card-image src={image} alt={`${name}形相`} />
+        <div class="state"><span>今日显相</span><strong><b data-card-state>{name}</b><small data-card-ratio>梁位 {ratio}</small></strong></div>
+      </section>
+    </main>
+    <script>
+      const templates = {
+        waiting: { name: '待开梁', image: '/artwork/waiting.png', ratio: '梁位 --', caseTitle: '今日梁案待开' },
+        liang_gong: { name: '梁工', image: '/artwork/gong.png', ratio: '梁位 < 50%', caseTitle: '今日梁案 · 众香成势' },
+        liang_zong: { name: '梁总', image: '/artwork/zong.png', ratio: '梁位 50%–70%', caseTitle: '今日梁案 · 众香成势' },
+        liang_shen: { name: '梁神', image: '/artwork/shen.png', ratio: '梁位 70%–85%', caseTitle: '今日梁案 · 众香成势' },
+        liang_sheng: { name: '梁圣', image: '/artwork/sheng.png', ratio: '梁位 85%–95%', caseTitle: '今日梁案 · 众香成势' },
+        liang_zu: { name: '梁祖', image: '/artwork/zu.png', ratio: '梁位 ≥ 95%', caseTitle: '今日梁案 · 众香成势' },
+      }
+      const requested = new URLSearchParams(location.search).get('state')
+      const card = requested && requested in templates ? templates[requested as keyof typeof templates] : null
+      if (card) {
+        const image = document.querySelector<HTMLImageElement>('[data-card-image]')
+        const state = document.querySelector<HTMLElement>('[data-card-state]')
+        const ratio = document.querySelector<HTMLElement>('[data-card-ratio]')
+        const caseTitle = document.querySelector<HTMLElement>('[data-card-case]')
+        if (image) { image.src = card.image; image.alt = `${card.name}形相` }
+        if (state) state.textContent = card.name
+        if (ratio) ratio.textContent = card.ratio
+        if (caseTitle) caseTitle.textContent = card.caseTitle
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,276 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro'
+
+const states = [
+  { name: '梁工', range: '< 50%', image: '/artwork/gong.png' },
+  { name: '梁总', range: '50% – 70%', image: '/artwork/zong.png' },
+  { name: '梁神', range: '70% – 85%', image: '/artwork/shen.png' },
+  { name: '梁圣', range: '85% – 95%', image: '/artwork/sheng.png' },
+  { name: '梁祖', range: '≥ 95%', image: '/artwork/zu.png' },
+]
+
+const rules = [
+  ['二', '只选夯或拉', '没有中立、弃权或第三选项；两边共用同一份个人香火。'],
+  ['一', '一炷就是一票', '一次被接受的选择只消耗一炷，不设倍率，也不因方向改变。'],
+  ['位', '梁位决定梁子', '中央梁子只看全局夯率；个人 Token、余额与进度都不能越权。'],
+  ['环', '香火环只属于你', '剩余香火决定旺盛程度，下一炷进度由 Token 余量决定，两者互不倒带。'],
+  ['零', '零票就是待开梁', '没有投票时显示“-- / 待开梁”，不制造 50:50 的假均势。'],
+  ['档', '今日不提前入祠', '当天只标记“今日进行中”；日终封存后才成为不可变的日梁。'],
+]
+---
+
+<SiteLayout
+  title="梁相"
+  description="用 DSH 凝聚香火，投下一炷夯或拉；众香汇成梁位，共同显出今日梁相。"
+  pageClass="home-page"
+>
+  <section class="hero">
+    <div class="shell hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">DSH 社区玩法 · v0.6.0 RC</p>
+        <h1>众香成势，<span>梁子显相。</span></h1>
+        <p class="hero-lede">每天一道梁案。用 DSH 凝聚香火，投下一炷“夯”或“拉”；众人的选择汇成梁位，决定今天的梁子。</p>
+        <div class="button-row">
+          <a class="button button-primary" href="#play">看懂玩法</a>
+          <a class="button" href="/guide/">部署 0.6.0</a>
+          <a class="button button-quiet" href="https://github.com/NiYa193/dsh-liang-meter">查看源码 ↗</a>
+        </div>
+        <div class="hero-proof" aria-label="产品要点">
+          <span>Input + Output Token</span>
+          <span>一炷一票</span>
+          <span>日终入梁祠</span>
+        </div>
+      </div>
+
+      <div class="demo-stage">
+        <div class="demo-panel" data-liang-demo>
+          <div class="demo-kicker"><span>今日梁案</span><span class="live-dot">网页演示</span></div>
+          <p class="demo-case">DeepSeek Harness 是夯还是拉？</p>
+          <div class="demo-core">
+            <div class="demo-flank demo-flank-left">今日凝香<strong>7 炷</strong></div>
+            <div class="incense-ring" aria-hidden="true">
+              <div class="demo-avatar-wrap">
+                <img class="demo-avatar" data-demo-avatar src="/artwork/shen.png" alt="" />
+              </div>
+            </div>
+            <div class="demo-flank demo-flank-right">下一炷<strong>3K</strong></div>
+            <div class="ratio-pill" aria-live="polite">梁位 <span data-demo-ratio>83.000000%</span> → <span data-demo-state>梁神</span></div>
+          </div>
+          <div class="demo-votes" aria-label="梁相网页演示按钮">
+            <button class="demo-vote" type="button" data-vote="up">夯 · 升梁</button>
+            <button class="demo-vote" type="button" data-vote="down">拉 · 降梁</button>
+          </div>
+          <div class="demo-stats">
+            <span>三界香火<strong data-demo-total>100</strong></span>
+            <span>五行香客<strong>42</strong></span>
+            <span class="demo-seal" aria-hidden="true">上达</span>
+          </div>
+        </div>
+        <p class="demo-caption">试着夯或拉：这里只演示梁位与显相，不会写入今日梁案。</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="ritual-line" aria-label="刷词元，攒香火，打夯拉，请梁祖。">
+    刷词元，攒香火，打夯拉，<span>请梁祖。</span>
+  </div>
+
+  <section class="section" id="play">
+    <div class="shell">
+      <div class="section-heading" data-reveal>
+        <p class="eyebrow">一天的梁相</p>
+        <h2>从一次对话，到一页编年。</h2>
+        <p>玩法很短，账本很严。个人进度与全局结果在梁子周围相遇，但在数据上始终分开。</p>
+      </div>
+      <div class="steps-grid" data-reveal>
+        <article class="step-card">
+          <div class="step-index"><span>01 · 凝香</span></div>
+          <h3>使用 DSH</h3>
+          <p>输入与输出 Token 按模型权重折算。默认每 <code>50,000</code> Pro 当量凝成一炷香。</p>
+        </article>
+        <article class="step-card">
+          <div class="step-index"><span>02 · 表态</span></div>
+          <h3>投下一炷</h3>
+          <p>面对今日唯一梁案，选择“夯 · 升梁”或“拉 · 降梁”。一次只烧一炷。</p>
+        </article>
+        <article class="step-card">
+          <div class="step-index"><span>03 · 显相</span></div>
+          <h3>众香成梁位</h3>
+          <p>社区夯率就是唯一公开的梁位。它跨过门槛时，梁子从梁工一路显到梁祖。</p>
+        </article>
+        <article class="step-card">
+          <div class="step-index"><span>04 · 入祠</span></div>
+          <h3>日终封存</h3>
+          <p>今日只显示进行中；业务日结束后，最终票数进入梁祠，继续汇成周梁与月梁。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-quiet" aria-labelledby="ritual-title">
+    <div class="shell">
+      <div class="section-heading" data-reveal>
+        <p class="eyebrow">仪式语言</p>
+        <h2 id="ritual-title">克制的梁祠，不是古风游戏。</h2>
+        <p>三界、五行与天听只是少量点睛。底色仍是现代、安静、可信的桌面产品。</p>
+      </div>
+      <div class="motif-grid">
+        <article class="motif-card" data-reveal>
+          <div class="motif-art" aria-hidden="true">
+            <i class="smoke"></i><i class="smoke"></i><i class="smoke"></i><div class="censer"></div>
+          </div>
+          <div><h3>三界香火</h3><p>天、人、地三缕青烟汇入一只三足炉。它是当日梁案已经接受的全部香火，也就是全部票数。</p></div>
+        </article>
+        <article class="motif-card" data-reveal>
+          <div class="motif-art" aria-hidden="true">
+            <div class="pilgrims"><i class="pilgrim"></i><i class="pilgrim"></i><i class="pilgrim pilgrim-center"></i><i class="pilgrim"></i><i class="pilgrim"></i></div>
+          </div>
+          <div><h3>五行香客</h3><p>取经五众同行，中间一人自带微光。它表示至少成功投过一次的独立安装数，不冒充实名人数。</p></div>
+        </article>
+        <article class="motif-card" data-reveal>
+          <div class="motif-art" aria-hidden="true"><div class="edict"><span>旨</span></div></div>
+          <div><h3>上达天听</h3><p>主动向社区节点核对一次权威快照，像取回一封天庭旨意。操作前确认，不修改投票或香火。</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="states-title">
+    <div class="shell">
+      <div class="section-heading" data-reveal>
+        <p class="eyebrow">五态显相</p>
+        <h2 id="states-title">普通人，被一路夯成祖师。</h2>
+        <p>零票时是“待开梁”；有票后只按同一份全局夯率快照显相。门槛固定为 50 / 70 / 85 / 95%。</p>
+      </div>
+      <div class="state-rail" data-reveal>
+        {states.map((state) => (
+          <article class="state-card">
+            <img src={state.image} alt={`${state.name}形相`} loading="lazy" width="256" height="256" />
+            <strong>{state.name}</strong>
+            <small>{state.range}</small>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-quiet" id="liangci">
+    <div class="shell liangci-showcase">
+      <div class="liangci-copy" data-reveal>
+        <p class="eyebrow">梁祠 · immutable archive</p>
+        <h2>今日不下结论，日终才入祠。</h2>
+        <p>梁祠是一座只读的日历档案。它记住每个完整业务日的原始夯拉票数，再按票数加权汇成周梁与月梁。</p>
+        <div class="archive-list">
+          <div><strong>日梁</strong><span>当天结束后不可变，零票与无档案严格区分。</span></div>
+          <div><strong>周梁</strong><span>周一到周日聚合；本周暂梁只算到昨天。</span></div>
+          <div><strong>月梁</strong><span>自然月按原始票数加权，不平均每天的百分比。</span></div>
+        </div>
+        <a class="button" href="/guide/#how-it-works">阅读数据口径</a>
+      </div>
+      <figure class="liangci-frame" data-reveal>
+        <img src="/media/liangci-visual-spec.png" alt="梁祠月历界面示意，包含日梁、周梁、月梁和今日进行中状态" loading="lazy" width="1600" height="1100" />
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="rules">
+    <div class="shell">
+      <div class="section-heading" data-reveal>
+        <p class="eyebrow">不能破的约束</p>
+        <h2>玩笑归玩笑，规则必须认真。</h2>
+        <p>梁相的趣味来自有边界的共同书写。以下规则不是文案装饰，而是代码和测试要共同守住的产品契约。</p>
+      </div>
+      <div class="rules-grid">
+        {rules.map(([mark, title, text]) => (
+          <article class="rule" data-reveal>
+            <span class="rule-mark" aria-hidden="true">{mark}</span>
+            <div><h3>{title}</h3><p>{text}</p></div>
+          </article>
+        ))}
+      </div>
+      <div class="notice" data-reveal>
+        <strong>信任边界：</strong> 当前是社区软信任玩法。服务端能防止同一安装超支、重复扣香和快照错位，但不能证明安装背后是谁，也不能独立验证本机声明的 Token。梁位不是实名人数、民意调查或任何人的本人立场。
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-quiet" aria-labelledby="faq-title">
+    <div class="shell">
+      <div class="section-heading" data-reveal>
+        <p class="eyebrow">先问清楚</p>
+        <h2 id="faq-title">几件最容易误会的事。</h2>
+      </div>
+      <div class="faq-list" data-reveal>
+        <details><summary>“梁相”是在评价梁文锋本人吗？</summary><p>不是。它围绕每天的“今日梁案”进行，是社区内的二元表达玩法；梁位不代表梁文锋本人态度，也不代表事实结论。</p></details>
+        <details><summary>是不是每个人每天只能投一票？</summary><p>不是。一炷香对应一票，使用 DSH 可以继续凝香；只要个人还有香火，就可以重复夯、重复拉或交替选择。</p></details>
+        <details><summary>为什么梁位要显示六位小数？</summary><p>两组互补整数百分比很容易让一次真实投票看起来“毫无变化”。六位小数让被接受的每一炷都可见，并且采用截断，避免跨过未达到的状态门槛。</p></details>
+        <details><summary>网站能直接投票吗？</summary><p>不能。官网是静态说明站，首页面板只做交互演示。真正的凝香、投票与梁祠都在 DSH 插件内完成。</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell cta-band" data-reveal>
+      <div><p class="eyebrow">今日开梁</p><h2>把梁相装进 DSH。</h2><p>从源码构建 0.6.0 RC，或先在本地模式走完一轮。</p></div>
+      <div class="button-row"><a class="button button-primary" href="/guide/">打开部署指南</a><a class="button" href="/privacy/">先看隐私边界</a></div>
+    </div>
+  </section>
+
+  <script is:inline type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: '梁相',
+    alternateName: 'liangxiang',
+    applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'Windows, macOS, Linux',
+    description: '用 DSH 凝聚香火，投下一炷夯或拉，共同显出今日梁相。',
+    url: 'https://liang.today',
+    codeRepository: 'https://github.com/NiYa193/dsh-liang-meter',
+    softwareVersion: '0.6.0',
+    license: 'https://opensource.org/license/mit',
+  })} />
+
+  <script>
+    const panel = document.querySelector<HTMLElement>('[data-liang-demo]')
+    if (panel) {
+      const stateTable = [
+        { min: 0.95, name: '梁祖', image: '/artwork/zu.png' },
+        { min: 0.85, name: '梁圣', image: '/artwork/sheng.png' },
+        { min: 0.70, name: '梁神', image: '/artwork/shen.png' },
+        { min: 0.50, name: '梁总', image: '/artwork/zong.png' },
+        { min: 0, name: '梁工', image: '/artwork/gong.png' },
+      ]
+      let up = 83
+      let down = 17
+      const ratioNode = panel.querySelector<HTMLElement>('[data-demo-ratio]')
+      const stateNode = panel.querySelector<HTMLElement>('[data-demo-state]')
+      const totalNode = panel.querySelector<HTMLElement>('[data-demo-total]')
+      const avatar = panel.querySelector<HTMLImageElement>('[data-demo-avatar]')
+
+      const update = () => {
+        const ratio = up / (up + down)
+        const state = stateTable.find((item) => ratio >= item.min) ?? stateTable[stateTable.length - 1]
+        const truncated = Math.floor(ratio * 100 * 1_000_000) / 1_000_000
+        if (ratioNode) ratioNode.textContent = `${truncated.toFixed(6)}%`
+        if (stateNode) stateNode.textContent = state.name
+        if (totalNode) totalNode.textContent = String(up + down)
+        if (avatar) {
+          avatar.src = state.image
+          avatar.alt = `${state.name}形相`
+        }
+        panel.classList.remove('is-voting')
+        void panel.offsetWidth
+        panel.classList.add('is-voting')
+        setTimeout(() => panel.classList.remove('is-voting'), 320)
+      }
+
+      panel.querySelectorAll<HTMLButtonElement>('[data-vote]').forEach((button) => {
+        button.addEventListener('click', () => {
+          if (button.dataset.vote === 'up') up += 1
+          else down += 1
+          update()
+        })
+      })
+    }
+  </script>
+</SiteLayout>

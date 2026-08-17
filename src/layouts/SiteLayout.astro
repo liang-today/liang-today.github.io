@@ -1,0 +1,126 @@
+---
+import '../styles/global.css'
+
+interface Props {
+  title: string
+  description: string
+  image?: string
+  pageClass?: string
+}
+
+const {
+  title,
+  description,
+  image = '/media/og-liangxiang.png',
+  pageClass = '',
+} = Astro.props
+const canonical = new URL(Astro.url.pathname, Astro.site)
+const pageTitle = title === '梁相' ? '梁相 · 众香成势，梁子显相' : `${title} · 梁相`
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f5f5f2" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#111315" media="(prefers-color-scheme: dark)" />
+    <link rel="canonical" href={canonical} />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" href="/artwork/zu.png" type="image/png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:site_name" content="梁相" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(image, Astro.site)} />
+    <meta property="og:image:width" content="1731" />
+    <meta property="og:image:height" content="909" />
+    <meta property="og:image:alt" content="梁相：众香成势，梁子显相。" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, Astro.site)} />
+    <title>{pageTitle}</title>
+    <script is:inline>
+      document.documentElement.classList.add('js')
+      const savedTheme = localStorage.getItem('liangxiang:site-theme')
+      if (savedTheme === 'light' || savedTheme === 'dark') {
+        document.documentElement.dataset.theme = savedTheme
+      }
+    </script>
+  </head>
+  <body class={pageClass}>
+    <a class="skip-link" href="#main">跳到正文</a>
+    <header class="site-header" data-site-header>
+      <div class="shell header-inner">
+        <a class="brand" href="/" aria-label="梁相首页">
+          <span class="brand-seal" aria-hidden="true">相</span>
+          <span class="brand-copy"><strong>梁相</strong><small>liangxiang</small></span>
+        </a>
+        <nav class="main-nav" aria-label="主导航">
+          <a href="/#play">玩法</a>
+          <a href="/#liangci">梁祠</a>
+          <a href="/guide/">部署指南</a>
+          <a href="/about/">关于</a>
+        </nav>
+        <div class="header-actions">
+          <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题">
+            <span aria-hidden="true"></span>
+          </button>
+          <a class="header-github" href="https://github.com/NiYa193/dsh-liang-meter" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="shell footer-grid">
+        <div>
+          <a class="brand footer-brand" href="/">
+            <span class="brand-seal" aria-hidden="true">相</span>
+            <span class="brand-copy"><strong>梁相</strong><small>众香成势，梁子显相。</small></span>
+          </a>
+          <p>用 DSH 凝聚香火，投下一炷“夯”或“拉”，共同显出今日梁相。</p>
+        </div>
+        <div class="footer-links">
+          <div><strong>了解</strong><a href="/#play">玩法</a><a href="/#rules">约束</a><a href="/#liangci">梁祠</a></div>
+          <div><strong>使用</strong><a href="/guide/">部署指南</a><a href="/privacy/">隐私与边界</a><a href="/about/">关于</a></div>
+          <div><strong>源码</strong><a href="https://github.com/NiYa193/dsh-liang-meter">插件仓库</a><a href="https://github.com/liang-today/liang-today.github.io">官网仓库</a></div>
+        </div>
+      </div>
+      <div class="shell footer-bottom">
+        <span>© {new Date().getFullYear()} 梁相 · MIT License</span>
+        <span>非 DeepSeek 官方产品，与 DeepSeek 及梁文锋本人无官方关联。</span>
+      </div>
+    </footer>
+    <script>
+      const root = document.documentElement
+      const toggle = document.querySelector('.theme-toggle')
+      toggle?.addEventListener('click', () => {
+        const current = root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+        const next = current === 'dark' ? 'light' : 'dark'
+        root.dataset.theme = next
+        localStorage.setItem('liangxiang:site-theme', next)
+      })
+
+      const header = document.querySelector('[data-site-header]')
+      const updateHeader = () => header?.classList.toggle('is-scrolled', scrollY > 12)
+      updateHeader()
+      addEventListener('scroll', updateHeader, { passive: true })
+
+      const observer = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible')
+            observer.unobserve(entry.target)
+          }
+        }
+      }, { threshold: 0.12 })
+      document.querySelectorAll('[data-reveal]').forEach((element) => observer.observe(element))
+    </script>
+  </body>
+</html>

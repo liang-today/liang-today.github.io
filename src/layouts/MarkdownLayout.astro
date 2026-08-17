@@ -1,0 +1,23 @@
+---
+import SiteLayout from './SiteLayout.astro'
+
+const { frontmatter } = Astro.props
+const sections = frontmatter.sections ?? []
+---
+
+<SiteLayout title={frontmatter.title} description={frontmatter.description} pageClass="document-page">
+  <div class="shell document-shell">
+    <aside class="document-aside" aria-label="本页导航">
+      <p class="eyebrow">{frontmatter.eyebrow ?? '梁相文档'}</p>
+      <p>{frontmatter.aside ?? frontmatter.description}</p>
+      {sections.length > 0 && (
+        <nav>
+          {sections.map((section: { href: string; label: string }) => <a href={section.href}>{section.label}</a>)}
+        </nav>
+      )}
+    </aside>
+    <article class="prose">
+      <slot />
+    </article>
+  </div>
+</SiteLayout>

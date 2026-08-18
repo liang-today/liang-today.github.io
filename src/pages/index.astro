@@ -64,7 +64,7 @@ const shrineWeeks: ShrineWeek[] = [
         <p class="hero-rally">梁相还得梁人出！</p>
         <div class="button-row">
           <a class="button button-primary" href="#play">看懂玩法</a>
-          <a class="button" href="/guide/">安装梁相</a>
+          <a class="button" href="/guide/#install">安装梁相</a>
           <a class="button button-quiet" href="https://github.com/liang-today/dsh-liangxiang">查看源码 ↗</a>
         </div>
         <div class="hero-proof" aria-label="产品要点">
@@ -96,11 +96,29 @@ const shrineWeeks: ShrineWeek[] = [
       </div>
 
       <aside class="today-snapshot" aria-label="今日社区快照">
-        <img src={currentState.image} alt={`${currentState.name}形相`} width="112" height="112" />
-        <div class="today-snapshot-copy">
-          <span>今日社区快照 · {today.business_date}</span>
-          <strong>{currentState.name}<small>梁位 {ratioText}</small></strong>
-          <p>{today.case_title} · {today.total_incense} 炷香火 · {today.unique_voters} 位香客</p>
+        <figure class="today-snapshot-figure">
+          <img src={currentState.image} alt={`${currentState.name}形相`} width="192" height="192" />
+        </figure>
+        <div class="today-snapshot-body">
+          <div class="today-snapshot-head">
+            <span>今日社区快照</span>
+            <time datetime={today.business_date}>{today.business_date}</time>
+          </div>
+          <div class="today-snapshot-state">
+            <strong>{currentState.name}</strong>
+            <span>梁位 <em>{ratioText}</em></span>
+          </div>
+          <p class="today-snapshot-case">{today.case_title}</p>
+          <dl class="today-snapshot-metrics">
+            <div>
+              <dt>三界香火</dt>
+              <dd>{today.total_incense}<small>炷</small></dd>
+            </div>
+            <div>
+              <dt>五行香客</dt>
+              <dd>{today.unique_voters}<small>位</small></dd>
+            </div>
+          </dl>
         </div>
         <div class="today-actions">
           <a class="button" href={socialImage} target="_blank">查看社交卡</a>
@@ -191,8 +209,13 @@ const shrineWeeks: ShrineWeek[] = [
 
   <section class="section section-quiet">
     <div class="shell cta-band" data-reveal>
-      <div><p class="eyebrow">今日开梁</p><h2>把梁相装进 DeepSeek Harness。</h2><p>优先通过 npm 安装，也可选择 GitHub Release 安装包或源码自编译。</p></div>
-      <div class="button-row"><a class="button button-primary" href="/guide/">打开部署指南</a><a class="button" href="/privacy/">先看隐私边界</a></div>
+      <div><p class="eyebrow">今日开梁</p><h2>把梁相装进 DeepSeek Harness。</h2><p>当前版本 v0.8.3-beta。安装、升级、卸载与清空本地数据，都在部署指南。</p></div>
+      <div class="button-row">
+        <a class="button button-primary" href="/guide/#install">安装</a>
+        <a class="button" href="/guide/#upgrade">升级</a>
+        <a class="button" href="/guide/#uninstall">卸载</a>
+        <a class="button button-quiet" href="/privacy/">隐私边界</a>
+      </div>
     </div>
   </section>
 

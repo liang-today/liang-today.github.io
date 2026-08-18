@@ -41,7 +41,7 @@ DSH 会从 npm registry 获取 `beta` 标签对应的版本。需要固定在指
 
 ### 方式二：GitHub Release 安装
 
-这种方式适合保存离线安装包或固定版本。前往[插件 Releases 页面](https://github.com/NiYa193/dsh-liang-meter/releases)，下载目标版本的 `dsh-liangxiang-<version>.tgz`；目标版本尚未提供安装包时，请使用 npm 安装。
+这种方式适合保存离线安装包或固定版本。前往[插件 Releases 页面](https://github.com/liang-today/dsh-liangxiang/releases)，下载目标版本的 `dsh-liangxiang-<version>.tgz`；目标版本尚未提供安装包时，请使用 npm 安装。
 
 1. 完全退出正在运行的 DeepSeek Harness WebUI。
 2. 在安装包所在目录安装梁相并启动 DSH：
@@ -58,8 +58,8 @@ dsh web
 这种方式面向需要阅读、修改或参与开发的用户。需要 Node.js 22.19+（推荐 Node 24）、pnpm 10+ 与 Git。
 
 ```bash
-git clone https://github.com/NiYa193/dsh-liang-meter.git
-cd dsh-liang-meter
+git clone https://github.com/liang-today/dsh-liangxiang.git
+cd dsh-liangxiang
 corepack enable
 pnpm install
 pnpm run verify
@@ -193,4 +193,4 @@ pnpm run dev:install
 
 重新安装完成后，完全退出并重新启动 WebUI，再执行一次浏览器强制刷新。
 
-问题仍未解决时，请在[插件仓库](https://github.com/NiYa193/dsh-liang-meter)提交 Issue，附上操作系统、Node/DSH 版本、profile 名称与已经脱敏的错误提示。公开内容中请勿包含 API key、口令或完整日志。
+问题仍未解决时，请在[插件仓库](https://github.com/liang-today/dsh-liangxiang)提交 Issue，附上操作系统、Node/DSH 版本、profile 名称与已经脱敏的错误提示。公开内容中请勿包含 API key、口令或完整日志。

@@ -66,4 +66,4 @@ localStorage.removeItem('liangxiang:badge-position:v1')
 
 ---
 
-发现隐私或安全问题时，请通过[插件仓库](https://github.com/NiYa193/dsh-liang-meter)反馈。公开内容中不要附上 API key、口令或未经脱敏的完整日志。
+发现隐私或安全问题时，请通过[插件仓库](https://github.com/liang-today/dsh-liangxiang)反馈。公开内容中不要附上 API key、口令或未经脱敏的完整日志。

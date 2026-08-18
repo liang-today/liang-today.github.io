@@ -53,7 +53,7 @@ sections:
 
 <h2 id="open-source">作者与开源</h2>
 
-梁相由 [`NiYa193`](https://github.com/NiYa193) 发起并维护。插件、文档和测试在 [`NiYa193/dsh-liang-meter`](https://github.com/NiYa193/dsh-liang-meter) 开源；品牌与官网由 **liang-today** GitHub 组织维护，官网源码位于 [`liang-today/liang-today.github.io`](https://github.com/liang-today/liang-today.github.io)。
+梁相由 [`NiYa193`](https://github.com/NiYa193) 发起。插件、文档和测试在 [`liang-today/dsh-liangxiang`](https://github.com/liang-today/dsh-liangxiang) 开源；品牌与官网由 **liang-today** GitHub 组织维护，官网源码位于 [`liang-today/liang-today.github.io`](https://github.com/liang-today/liang-today.github.io)。
 
 本项目为独立创作，与 DeepSeek 及其关联主体不存在官方关系。
 

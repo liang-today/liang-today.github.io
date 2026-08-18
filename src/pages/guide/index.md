@@ -23,7 +23,7 @@ sections:
 
 全局装过 DSH 就写 `dsh`；否则把 `dsh` 整段换成 `npx --yes @deepseek-ai/dsh`。启动 WebUI 也一样：`dsh web` 或 `npx --yes @deepseek-ai/dsh web`。
 
-> 当前 npm 公开包仍是 `dsh-liangxiang@0.8.0`。发新包之前，`@beta` 升不到源码里的更新。
+> 当前 npm 包是 `dsh-liangxiang@0.8.3-beta`。请使用 `dsh-liangxiang@beta`。
 
 <h2 id="install">安装、升级、卸载</h2>
 

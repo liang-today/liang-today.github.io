@@ -73,13 +73,20 @@ pnpm install && pnpm run dev:install && pnpm run dev:web
 
 <h2 id="upgrade">升级</h2>
 
-升级和安装是同一条命令，不会删除香火账本。
+先完全退出 WebUI。升级不会删除香火账本。
+
+以前若用**本地 `.tgz`** 装过，只再执行 `add @beta` **不会**换成 npm 新包：profile 会继续钉在那份旧 tarball 上。必须先卸再装。
 
 ```bash
-dsh plugin --profile web add dsh-liangxiang@beta
+export DSH_HOME="$HOME/.dsh"
+npx --yes @deepseek-ai/dsh plugin --profile web remove dsh-liangxiang
+npx --yes @deepseek-ai/dsh plugin --profile web add dsh-liangxiang@beta
+npx --yes @deepseek-ai/dsh web
 ```
 
-本地包装完后，案牍应显示 `v0.8.5-beta`。仍显示旧号时，先卸载再按上面重装一次。
+已全局安装 `dsh` 时，把开头换成 `dsh` 即可。装完强制刷新，案牍应显示当前 npm `@beta`（现在是 `v0.8.5-beta`）。
+
+仍是旧号时：确认终端里的 `DSH_HOME` 就是日常目录（常见是 `~/.dsh`），不要在别的 `DSH_HOME` 里重装。
 
 <h2 id="uninstall">卸载</h2>
 
@@ -185,8 +192,8 @@ dsh --profile web --dump-config
 localStorage.removeItem('liangxiang:badge-position:v2')
 ```
 
-**案牍还是旧版本**  
-先 `remove`，再按[升级](#upgrade)重装，然后重启并强制刷新。
+**案牍仍显示旧版本（例如 `v0.8.3-beta`）**  
+多半是当初用桌面或 Release 的 `.tgz` 装的。只重复 `add @beta` 不会换源。按[升级](#upgrade)先 `remove` 再 `add dsh-liangxiang@beta`，两条命令都要带 `export DSH_HOME="$HOME/.dsh"`。然后重启并强制刷新。
 
 ### 连不上社区
 

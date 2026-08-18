@@ -53,11 +53,16 @@ sections:
 
 <h2 id="open-source">作者与开源</h2>
 
-梁相由 [`NiYa193`](https://github.com/NiYa193) 发起。插件、文档和测试在 [`liang-today/dsh-liangxiang`](https://github.com/liang-today/dsh-liangxiang) 开源；品牌与官网由 **liang-today** GitHub 组织维护，官网源码位于 [`liang-today/liang-today.github.io`](https://github.com/liang-today/liang-today.github.io)。
+梁相由 npm 账户 [`fangcc`](https://www.npmjs.com/~fangcc) 发起。公开仓库统一收在 **liang-today** 组织：
+
+| 仓库 | 内容 |
+|---|---|
+| [`liang-today/dsh-liangxiang`](https://github.com/liang-today/dsh-liangxiang) | 插件、文档、测试与发行包 |
+| [`liang-today/liang-today.github.io`](https://github.com/liang-today/liang-today.github.io) | 官网 `liang.today` |
 
 本项目为独立创作，与 DeepSeek 及其关联主体不存在官方关系。
 
-当前 npm 可安装版本为 **0.8.3-beta**，包名为 [`dsh-liangxiang`](https://www.npmjs.com/package/dsh-liangxiang)，由 npm 账户 [`fangcc`](https://www.npmjs.com/~fangcc) 发布。官网优先推荐 `dsh-liangxiang@beta`；固定版本安装包与更新说明以插件仓库的 Releases 页面为准。
+当前版本为 **v0.8.3-beta**，包名 [`dsh-liangxiang`](https://www.npmjs.com/package/dsh-liangxiang)。官网推荐 `dsh-liangxiang@beta`；固定版本安装包以插件仓库 Releases 为准。
 
 <h2 id="principles">设计原则</h2>
 

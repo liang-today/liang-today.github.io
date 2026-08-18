@@ -2,7 +2,7 @@
 layout: ../../layouts/MarkdownLayout.astro
 title: 隐私与边界
 description: 梁相如何保护对话内容、处理必要计数，以及社区玩法当前的信任边界。
-eyebrow: 隐私与信任
+eyebrow: 隐私与边界
 aside: 只传玩法所需的计数，不传对话、代码与文件内容。
 sections:
   - href: '#private'
@@ -12,7 +12,9 @@ sections:
   - href: '#trust'
     label: 信任边界
   - href: '#choice'
-    label: 用户选择
+    label: 本地选择
+  - href: '#console'
+    label: 打开控制台
   - href: '#website'
     label: 官网说明
 ---
@@ -21,7 +23,7 @@ sections:
 
 梁相只处理凝香和投票所需的最小计数，**不会接触对话内容**。
 
-<h2 id="private">这些内容不会被采集</h2>
+<h2 id="private">不会采集</h2>
 
 - prompt、模型回复与 reasoning 内容
 - 源码、文件内容和会话记录
@@ -31,7 +33,7 @@ sections:
 
 文件路径只会用于本机错误提示，不会发送到社区服务，也不会出现在社区服务器日志中。
 
-<h2 id="needed">玩法需要哪些数据</h2>
+<h2 id="needed">必要数据</h2>
 
 | 数据 | 用途 | 是否发送到社区服务 |
 |---|---|---|
@@ -42,27 +44,38 @@ sections:
 
 参与标识不包含实名资料，也不复用 DeepSeek Harness 的遥测标识。它用于维持同一安装下的香火和投票记录，不能证明背后是真人或唯一设备。
 
-<h2 id="trust">社区玩法能保证什么</h2>
+<h2 id="trust">信任边界</h2>
 
 社区服务能够保证：香火不会被花成负数；网络重试不会重复扣香；多人同时争用最后一炷时只会接受一次；页面上的梁位与梁子来自同一份结果；完成的日梁、周梁和月梁不会被改写。
 
 当前社区玩法无法证明每个安装都对应唯一真人，也无法独立核验每台电脑报告的 Token 用量。因此，梁位是梁相社区的趣味参与结果，不是实名投票或民意调查，也不代表任何个人或机构立场。
 
-<h2 id="choice">你可以选择本地体验</h2>
+<h2 id="choice">本地选择</h2>
 
-首次打开梁相时选择“改用本地”，凝香与投票都会留在本机，不连接社区服务。以后仍可在设置中切换。
+首次打开梁相时可改用本地：凝香与投票都留在本机，不连接社区。以后仍可在梁相案牍切换。
 
-悬浮入口被拖出视野时，可以在浏览器开发者工具中运行下面一行，只恢复入口位置，不会改变香火或投票结果：
+卸载插件不会删除本机账本。要清空身份、离线玩法或入口位置，见[部署指南 · 清空本地数据](/guide/#reset)。
+
+<h2 id="console">打开控制台</h2>
+
+恢复入口位置、重看欢迎页等命令，要在 DeepSeek Harness 网页的控制台里执行。
+
+| 系统 | Chrome / Edge | Firefox | Safari |
+|---|---|---|---|
+| macOS | <kbd>⌘</kbd> <kbd>⌥</kbd> <kbd>J</kbd> | <kbd>⌘</kbd> <kbd>⌥</kbd> <kbd>K</kbd> | 先打开「开发」菜单，再 <kbd>⌘</kbd> <kbd>⌥</kbd> <kbd>C</kbd> |
+| Windows / Linux | <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>J</kbd> | <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>K</kbd> | — |
+
+Safari 需先到「设置 → 高级」勾选「在菜单栏中显示开发菜单」。只恢复入口位置：
 
 ```js
-localStorage.removeItem('liangxiang:badge-position:v1')
+localStorage.removeItem('liangxiang:badge-position:v2')
 ```
 
 <h2 id="website">官网说明</h2>
 
 `liang.today` 是梁相的公开说明与演示网站。首页的夯拉演示只改变当前浏览器中的数字；网站没有登录、真实投票、Token 采集或用户数据库。
 
-官网源码可在 [`liang-today/liang-today.github.io`](https://github.com/liang-today/liang-today.github.io) 查看。
+官网源码在 [`liang-today/liang-today.github.io`](https://github.com/liang-today/liang-today.github.io)；插件源码在 [`liang-today/dsh-liangxiang`](https://github.com/liang-today/dsh-liangxiang)。
 
 ---
 

@@ -11,8 +11,10 @@ const sections = frontmatter.sections ?? []
       <p class="eyebrow">{frontmatter.eyebrow ?? '梁相文档'}</p>
       <p>{frontmatter.aside ?? frontmatter.description}</p>
       {sections.length > 0 && (
-        <nav>
-          {sections.map((section: { href: string; label: string }) => <a href={section.href}>{section.label}</a>)}
+        <nav data-doc-nav>
+          {sections.map((section: { href: string; label: string }) => (
+            <a href={section.href}>{section.label}</a>
+          ))}
         </nav>
       )}
     </aside>
@@ -20,4 +22,35 @@ const sections = frontmatter.sections ?? []
       <slot />
     </article>
   </div>
+  <script>
+    const nav = document.querySelector<HTMLElement>('[data-doc-nav]')
+    if (nav) {
+      const links = [...nav.querySelectorAll<HTMLAnchorElement>('a[href^="#"]')]
+      const headings = links
+        .map((link) => document.getElementById(link.hash.slice(1)))
+        .filter((node): node is HTMLElement => node instanceof HTMLElement)
+
+      const setActive = () => {
+        const hash = decodeURIComponent(location.hash)
+        let current = headings[0]?.id ?? ''
+        for (const heading of headings) {
+          if (heading.getBoundingClientRect().top <= 120) current = heading.id
+        }
+        if (hash && headings.some((heading) => `#${heading.id}` === hash)) {
+          const hashed = document.getElementById(hash.slice(1))
+          if (hashed && hashed.getBoundingClientRect().top <= 160) current = hashed.id
+        }
+        for (const link of links) {
+          const active = link.hash === `#${current}`
+          link.classList.toggle('is-active', active)
+          if (active) link.setAttribute('aria-current', 'location')
+          else link.removeAttribute('aria-current')
+        }
+      }
+
+      setActive()
+      addEventListener('scroll', setActive, { passive: true })
+      addEventListener('hashchange', setActive)
+    }
+  </script>
 </SiteLayout>

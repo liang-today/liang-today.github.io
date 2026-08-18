@@ -12,9 +12,11 @@ permissions:
   pages: write
   id-token: write
 
+# Pages 同一时间只能有一个部署。取消进行中的 run 会让下一趟在
+# GitHub Pages API 上报 “in progress deployment”，构建虽过、上线失败。
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:

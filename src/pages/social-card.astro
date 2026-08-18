@@ -30,42 +30,136 @@ const ratio = today.up_ratio === null ? '--' : `${(Math.floor(today.up_ratio * 1
     <meta name="robots" content="noindex" />
     <title>今日梁相社交卡</title>
     <style>
+      @font-face {
+        font-family: "Liangxiang YaHei";
+        font-style: normal;
+        font-weight: 400;
+        font-display: block;
+        src: local("Microsoft YaHei"), local("Microsoft YaHei UI"), local("微软雅黑");
+      }
+      @font-face {
+        font-family: "Liangxiang YaHei";
+        font-style: normal;
+        font-weight: 700;
+        font-display: block;
+        src: local("Microsoft YaHei Bold"), local("Microsoft YaHei UI Bold"), local("微软雅黑 Bold"), local("Microsoft YaHei"), local("微软雅黑");
+      }
       * { box-sizing: border-box; }
       astro-dev-toolbar { display: none !important; }
       html, body { width: 100%; height: 100%; margin: 0; }
-      body { min-width: 1200px; overflow: hidden; color: #20252b; background: #e9eae5; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
-      .card { position: relative; display: grid; width: 1200px; height: 630px; grid-template-columns: 1.08fr .92fr; overflow: hidden; background: linear-gradient(135deg, #fafaf6 0%, #f1f2ed 62%, #e9ebe5 100%); isolation: isolate; }
-      .card::before, .card::after { position: absolute; z-index: -1; border: 1px solid rgba(104, 111, 108, .18); border-radius: 50%; content: ''; }
-      .card::before { width: 620px; height: 620px; top: -300px; right: -74px; }
-      .card::after { width: 470px; height: 470px; right: 28px; bottom: -306px; }
-      .copy { display: flex; min-width: 0; flex-direction: column; padding: 52px 20px 42px 64px; }
-      .brand { display: flex; align-items: center; gap: 13px; }
-      .seal { display: grid; width: 50px; height: 50px; place-items: center; border: 2px solid #b94a3e; border-radius: 11px; color: #b94a3e; font: inherit; font-size: 28px; font-weight: 800; transform: rotate(-2deg); }
-      .brand strong { display: block; font-size: 25px; letter-spacing: .06em; line-height: 1; }
-      .brand small { display: block; margin-top: 7px; color: #727a81; font-size: 13px; font-weight: 650; letter-spacing: .13em; }
-      .eyebrow { margin: 66px 0 12px; color: #d1772a; font-size: 18px; font-weight: 760; letter-spacing: .12em; }
-      h1 { margin: 0; font-size: 82px; letter-spacing: -.075em; line-height: .93; }
-      h1 span { display: block; margin-top: 16px; color: #555f68; font-size: .49em; font-weight: 630; letter-spacing: -.045em; }
-      .case { max-width: 610px; margin: 27px 0 0; color: #555f68; font-size: 24px; font-weight: 650; line-height: 1.4; }
-      .rally { margin: 13px 0 0; color: #b94a3e; font: inherit; font-size: 21px; font-weight: 760; letter-spacing: .06em; }
-      .site { display: flex; align-items: flex-end; gap: 15px; margin-top: auto; }
-      .site strong { color: #20252b; font-size: 38px; letter-spacing: -.025em; line-height: 1; }
-      .site span { color: #727a81; font-size: 15px; font-weight: 620; line-height: 1.25; }
-      .figure { position: relative; display: grid; place-items: center; padding: 40px 52px 122px 0; }
-      .orbit { position: absolute; top: 72px; width: 430px; height: 430px; border: 2px solid rgba(109, 118, 115, .23); border-radius: 50%; }
-      .orbit::before { position: absolute; inset: 22px; border: 1px solid rgba(209, 119, 42, .32); border-radius: 50%; content: ''; }
-      .portrait { position: relative; z-index: 1; width: 350px; height: 350px; object-fit: contain; filter: drop-shadow(0 22px 27px rgba(35, 42, 45, .14)); }
-      .state { position: absolute; z-index: 2; right: 42px; bottom: 120px; min-width: 292px; padding: 16px 20px; border: 1px solid rgba(105, 112, 110, .35); border-radius: 13px; background: rgba(250, 250, 247, .94); box-shadow: 0 16px 38px rgba(35, 42, 45, .11); }
-      .state span { display: block; color: #727a81; font-size: 15px; font-weight: 700; letter-spacing: .1em; }
-      .state strong { display: flex; align-items: baseline; justify-content: space-between; gap: 15px; margin-top: 3px; color: #20252b; font-size: 36px; }
-      .state small { color: #d1772a; font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; }
-      .qr { position: absolute; z-index: 3; right: 42px; bottom: 27px; display: flex; align-items: center; gap: 12px; }
-      .qr img { width: 86px; height: 86px; padding: 5px; border: 1px solid rgba(105, 112, 110, .28); border-radius: 8px; background: #fff; }
-      .qr span { max-width: 96px; color: #5d666d; font-size: 15px; font-weight: 700; line-height: 1.35; }
+      body {
+        min-width: 1200px;
+        overflow: hidden;
+        color: #1f2329;
+        background: #e9eae5;
+        font-family: "Liangxiang YaHei", "Microsoft YaHei", "微软雅黑", "Noto Sans SC", sans-serif;
+        font-weight: 700;
+      }
+      .card {
+        position: relative;
+        display: grid;
+        width: 1200px;
+        height: 630px;
+        grid-template-columns: 1.08fr 0.92fr;
+        overflow: hidden;
+        background: linear-gradient(135deg, #fafaf6 0%, #f3f4ef 58%, #e9ebe5 100%);
+        isolation: isolate;
+      }
+      .card::before, .card::after { position: absolute; z-index: -1; border: 1px solid rgba(104, 111, 108, .16); border-radius: 50%; content: ''; }
+      .card::before { width: 560px; height: 560px; top: -280px; right: -80px; }
+      .card::after { width: 420px; height: 420px; right: 36px; bottom: -250px; }
+      .copy { display: flex; min-width: 0; flex-direction: column; padding: 48px 12px 40px 56px; }
+      .brand { display: flex; align-items: center; gap: 14px; }
+      .seal {
+        display: grid;
+        width: 52px;
+        height: 52px;
+        place-items: center;
+        border: 2px solid #b94a3e;
+        border-radius: 10px;
+        color: #b94a3e;
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 1;
+      }
+      .brand strong { display: block; font-size: 28px; letter-spacing: 0.04em; line-height: 1.1; }
+      .brand small { display: block; margin-top: 6px; color: #6d757c; font-size: 14px; font-weight: 700; letter-spacing: 0.12em; }
+      .eyebrow { margin: 48px 0 10px; color: #c56a1c; font-size: 20px; font-weight: 700; letter-spacing: 0.08em; }
+      h1 { margin: 0; font-size: 68px; font-weight: 700; letter-spacing: 0; line-height: 1.18; }
+      h1 span { display: block; margin-top: 8px; color: #4e585f; }
+      .case { max-width: 560px; margin: 22px 0 0; color: #4e585f; font-size: 24px; font-weight: 700; line-height: 1.45; }
+      .rally { margin: 14px 0 0; color: #b94a3e; font-size: 22px; font-weight: 700; letter-spacing: 0.02em; }
+      .site { display: flex; align-items: flex-end; gap: 14px; margin-top: auto; }
+      .site strong { font-size: 36px; letter-spacing: 0; line-height: 1; }
+      .site span { color: #6d757c; font-size: 16px; font-weight: 700; line-height: 1.35; }
+      .figure {
+        display: grid;
+        grid-template-rows: minmax(0, 1fr) auto;
+        align-items: stretch;
+        min-width: 0;
+        padding: 22px 36px 24px 0;
+      }
+      .portrait-stage {
+        position: relative;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        min-height: 0;
+      }
+      .orbit {
+        position: absolute;
+        width: 320px;
+        height: 320px;
+        border: 2px solid rgba(109, 118, 115, .2);
+        border-radius: 50%;
+      }
+      .orbit::before {
+        position: absolute;
+        inset: 16px;
+        border: 1px solid rgba(209, 119, 42, .28);
+        border-radius: 50%;
+        content: '';
+      }
+      .portrait {
+        position: relative;
+        z-index: 1;
+        width: 292px;
+        height: 292px;
+        object-fit: contain;
+        object-position: center center;
+        filter: drop-shadow(0 18px 24px rgba(35, 42, 45, .14));
+      }
+      .figure-bar {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        gap: 20px;
+        z-index: 2;
+        margin-top: 0;
+        padding: 16px 8px 0;
+        background: #f0f1ec;
+        border-top: 1px solid rgba(105, 112, 110, .22);
+      }
+      .state span { display: block; color: #6d757c; font-size: 16px; font-weight: 700; letter-spacing: 0.08em; }
+      .state strong { display: block; margin-top: 2px; font-size: 42px; font-weight: 700; line-height: 1.1; }
+      .state small { display: block; margin-top: 6px; color: #c56a1c; font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; }
+      .qr { display: flex; align-items: center; gap: 14px; }
+      .qr img {
+        width: 188px;
+        height: 188px;
+        padding: 10px;
+        border: 1px solid rgba(105, 112, 110, .28);
+        border-radius: 14px;
+        background: #fff;
+      }
+      .qr span { max-width: 92px; color: #4e585f; font-size: 18px; font-weight: 700; line-height: 1.4; }
       @media (min-width: 1800px) {
         .card { transform: scale(2); transform-origin: 0 0; }
       }
     </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@700&display=block" rel="stylesheet" />
   </head>
   <body>
     <main class="card" data-card>
@@ -78,10 +172,14 @@ const ratio = today.up_ratio === null ? '--' : `${(Math.floor(today.up_ratio * 1
         <div class="site"><strong>liang.today</strong><span>DeepSeek Harness<br />社区玩法</span></div>
       </section>
       <section class="figure">
-        <div class="orbit" aria-hidden="true"></div>
-        <img class="portrait" data-card-image src={image} alt={`${name}形相`} />
-        <div class="state"><span>今日显相</span><strong><b data-card-state>{name}</b><small data-card-ratio>梁位 {ratio}</small></strong></div>
-        <div class="qr"><img src="/media/liang-today-qr.png" alt="liang.today 二维码" /><span>扫码查看今日梁相</span></div>
+        <div class="portrait-stage">
+          <div class="orbit" aria-hidden="true"></div>
+          <img class="portrait" data-card-image src={image} alt={`${name}形相`} />
+        </div>
+        <div class="figure-bar">
+          <div class="state"><span>今日显相</span><strong data-card-state>{name}</strong><small data-card-ratio>梁位 {ratio}</small></div>
+          <div class="qr"><img src="/media/liang-today-qr.png" alt="liang.today 二维码" /><span>扫码查看今日梁相</span></div>
+        </div>
       </section>
     </main>
     <script>

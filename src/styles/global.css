@@ -270,9 +270,20 @@ input {
   transition: color 140ms ease, background 140ms ease;
 }
 
-.nav-menu a:hover {
+.nav-menu a:hover,
+.nav-link:hover {
   color: var(--text);
   background: var(--bg-subtle);
+}
+
+.nav-link {
+  padding: 7px 12px;
+  border-radius: 7px;
+  color: var(--text-soft);
+  font-size: 14px;
+  white-space: nowrap;
+  text-decoration: none;
+  transition: color 140ms ease, background 140ms ease;
 }
 
 .header-actions {
@@ -2128,7 +2139,8 @@ input {
     overflow: visible;
   }
 
-  .nav-menu summary {
+  .nav-menu summary,
+  .nav-link {
     padding-inline: 8px;
     white-space: nowrap;
   }
@@ -2297,7 +2309,8 @@ input {
 }
 
 @media (max-width: 470px) {
-  .nav-menu summary {
+  .nav-menu summary,
+  .nav-link {
     padding-inline: 6px;
     font-size: 13px;
   }

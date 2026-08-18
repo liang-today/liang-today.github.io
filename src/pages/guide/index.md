@@ -75,6 +75,13 @@ pnpm install && pnpm run dev:install && pnpm run dev:web
 
 先完全退出 WebUI。升级不会删除香火账本。
 
+`@beta` 偶尔装不到最新，两个原因都在 pnpm，不在插件：
+
+- `plugin add` 只把命令转给 pnpm，pnpm 会把解析到的精确号写进 profile（`@beta` 变成 `0.8.5-beta`）；下次再 `add @beta` 就报 Already up to date。
+- pnpm 11 有 24 小时冷静期：发布不足一天的新版本会被跳过，退回上一个够龄版本。
+
+解决方式：让 profile 一直跟踪浮动 `beta`，并把本包排除出冷静期——0.8.6 起插件启动时自动完成。已经钉死的机器先卸再装一次；想在新版本发布当天就装上，从 GitHub Release 拿 `.tgz` 装一次即可（启动后同样切回 `@beta`）。
+
 安装和升级都写 `@beta`，不要钉某一号。若以前装过本地包或旧精确号，先卸再装：
 
 ```bash

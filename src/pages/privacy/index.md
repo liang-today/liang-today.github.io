@@ -2,7 +2,7 @@
 layout: ../../layouts/MarkdownLayout.astro
 title: 隐私与边界
 description: 梁相如何保护对话内容、处理必要计数，以及社区玩法当前的信任边界。
-eyebrow: 隐私与边界
+eyebrow: 隐私边界
 aside: 只传玩法所需的计数，不传对话、代码与文件内容。
 sections:
   - href: '#private'

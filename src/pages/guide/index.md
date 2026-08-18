@@ -46,7 +46,7 @@ dsh web
 
 ### 本地安装包
 
-先进入包所在目录，必须写 **`./文件名.tgz`**。少写 `./`，或写成 `dsh-liangxiang@0.8.3-beta`，都会去 npm 找一个还不存在的包。子命令是 `plugin add`，不是 `web add`。
+先进入包所在目录，必须写 **`./文件名.tgz`**。少写 `./` 时，pnpm 会把文件名当成 npm 包名去拉并报 404。走 npm 请写 `dsh-liangxiang@beta`。子命令是 `plugin add`，不是 `web add`。
 
 ```bash
 export DSH_HOME="$HOME/.dsh"
@@ -136,7 +136,7 @@ Safari 需先到「设置 → 高级」勾选「在菜单栏中显示开发菜�
 ### 安装失败
 
 **报 `ERR_PNPM_FETCH_404`**  
-本地包被当成了 npm 名字。先 `cd` 到包目录，写成 `./dsh-liangxiang-0.8.3-beta.tgz`。不要写 `dsh-liangxiang@0.8.3-beta`，公开 npm 还没有这个号。
+本地包被当成了 npm 名字。先 `cd` 到包目录，写成 `./dsh-liangxiang-0.8.3-beta.tgz`。走 npm 请写 `dsh-liangxiang@beta`，不要把本地文件名当成包名。
 
 **提示没有 `dsh` 命令**  
 改用 `npx --yes @deepseek-ai/dsh`，不必先全局安装。
@@ -188,7 +188,7 @@ localStorage.removeItem('liangxiang:badge-position:v2')
 
 ### 连不上社区
 
-**显示「未连上梁相服务」或「无法连接天庭」**  
+**显示「无法连接天庭」**  
 浏览器打开 `https://api.liang.today/v1/health`。能看到状态但插件仍连不上时，检查代理、防火墙和系统时间。连不上不会卡住整个 WebUI，可在案牍改用离线模式。
 
 ### 香火与打梁

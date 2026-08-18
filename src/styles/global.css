@@ -1335,7 +1335,14 @@ input {
 
 .liangci-native-summary strong {
   margin-top: 3px;
-  font-size: 13px;
+  font-size: 15px;
+}
+
+.liangci-native-summary strong small {
+  margin-left: 4px;
+  color: var(--warm);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
 }
 
 .liangci-native-scroll {

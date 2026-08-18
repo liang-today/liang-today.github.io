@@ -74,25 +74,25 @@ const shrineWeeks: ShrineWeek[] = [
 
       <div class="demo-stage">
         <div class="demo-panel" data-liang-demo>
-          <div class="demo-kicker"><span>今日梁案</span><span class="live-dot">零票演示</span></div>
+          <div class="demo-kicker"><span>今日梁案</span><span class="live-dot">一炷开梁</span></div>
           <p class="demo-case">DeepSeek Harness 是夯还是拉？</p>
           <div class="demo-core">
-            <div class="demo-flank demo-flank-left">今日凝香<strong>0 炷</strong></div>
-            <div class="incense-ring" aria-hidden="true"><div class="demo-avatar-wrap"><img class="demo-avatar" data-demo-avatar src="/artwork/waiting.png" alt="" /></div></div>
+            <div class="demo-flank demo-flank-left">今日凝香<strong>1 炷</strong></div>
+            <div class="incense-ring" aria-hidden="true"><div class="demo-avatar-wrap"><img class="demo-avatar" data-demo-avatar src="/artwork/zu.png" alt="" /></div></div>
             <div class="demo-flank demo-flank-right">下一炷<strong>50K</strong></div>
-            <div class="ratio-pill" aria-live="polite">梁位 <span data-demo-ratio>--</span> → <span data-demo-state>待开梁</span></div>
+            <div class="ratio-pill" aria-live="polite">梁位 <span data-demo-ratio>100.000000%</span> → <span data-demo-state>梁祖</span></div>
           </div>
           <div class="demo-votes" aria-label="梁相网页演示按钮">
             <button class="demo-vote" type="button" data-vote="up">夯 · 升梁</button>
             <button class="demo-vote" type="button" data-vote="down">拉 · 降梁</button>
           </div>
           <div class="demo-stats">
-            <span>三界香火<strong data-demo-total>0</strong></span>
-            <span>五行香客<strong data-demo-users>0</strong></span>
+            <span>三界香火<strong data-demo-total>1</strong></span>
+            <span>五行香客<strong data-demo-users>1</strong></span>
             <button class="demo-reset" type="button" data-demo-reset>重置</button>
           </div>
         </div>
-        <p class="demo-caption">这是从零票开始的本地演示，不会写入社区今日梁案。</p>
+        <p class="demo-caption">这是从一炷“夯”开始的本地演示，不会写入社区今日梁案。</p>
       </div>
 
       <aside class="today-snapshot" aria-label="今日社区快照">
@@ -134,13 +134,13 @@ const shrineWeeks: ShrineWeek[] = [
   <section class="section section-quiet" id="rules" aria-labelledby="states-title">
     <div class="shell">
       <div class="section-heading" data-reveal>
-        <p class="eyebrow">显相与约束</p><h2 id="states-title">玩笑归玩笑，规则必须认真。</h2>
+        <p class="eyebrow">显相与约束</p><h2 id="states-title">一炷一票，梁子依势显相。</h2>
         <p>零票时是待开梁；有票后，梁子只按全局夯率跨过 50 / 70 / 85 / 95% 四道门槛。</p>
       </div>
       <div class="state-rail" data-reveal>
         {states.map((state) => <article class="state-card"><img src={state.image} alt={`${state.name}形相`} loading="lazy" width="256" height="256" /><strong>{state.name}</strong><small>{state.range}</small></article>)}
       </div>
-      <div class="waiting-note" data-reveal><img src="/artwork/waiting.png" alt="" width="54" height="54" /><span><strong>零票例外：待开梁</strong>不是第六档，只是今日尚无人投香时的占位。</span></div>
+      <div class="waiting-note" data-reveal><img src="/artwork/waiting.png" alt="" width="54" height="54" /><span><strong>零票状态：待开梁</strong>第一炷投下后，梁子进入五档显相。</span></div>
       <div class="rules-grid compact-rules">
         {rules.map(([mark, title, text]) => <article class="rule" data-reveal><span class="rule-mark" aria-hidden="true">{mark}</span><div><h3>{title}</h3><p>{text}</p></div></article>)}
       </div>
@@ -151,14 +151,14 @@ const shrineWeeks: ShrineWeek[] = [
   <section class="section" id="liangci">
     <div class="shell">
       <div class="liangci-heading" data-reveal>
-        <div><p class="eyebrow">梁祠 · 只读编年</p><h2>克制的梁祠，不是古风游戏。</h2></div>
+        <div><p class="eyebrow">梁祠 · 只读编年</p><h2>梁祠，记录每日显相。</h2></div>
         <div><p>今日不提前下结论。业务日结束后，原始夯拉票数封存为日梁，再按票数加权汇成周梁与月梁。</p><div class="archive-pills"><span>日梁</span><span>周梁</span><span>月梁</span><span>今日进行中</span></div></div>
       </div>
       <div class="liangci-native" data-reveal aria-label="梁祠界面预览">
         <header class="liangci-native-header">
           <div class="liangci-native-brand"><span aria-hidden="true">祠</span><div><strong>梁祠</strong><small>日梁 · 周梁 · 月梁</small></div></div>
           <div class="liangci-native-month"><i aria-hidden="true">‹</i><strong>2026 年 8 月</strong><i aria-hidden="true">›</i></div>
-          <div class="liangci-native-summary"><span>本月暂梁</span><strong>截至昨日</strong></div>
+          <div class="liangci-native-summary"><span>本月暂梁 · 截至昨日</span><strong>梁圣 <small>88.230000%</small></strong></div>
         </header>
         <div class="liangci-native-scroll">
           <div class="liangci-native-calendar">
@@ -214,7 +214,7 @@ const shrineWeeks: ShrineWeek[] = [
         { min: 0.50, name: '梁总', image: '/artwork/zong.png' },
         { min: 0, name: '梁工', image: '/artwork/gong.png' },
       ]
-      let up = 0
+      let up = 1
       let down = 0
       const ratioNode = panel.querySelector<HTMLElement>('[data-demo-ratio]')
       const stateNode = panel.querySelector<HTMLElement>('[data-demo-state]')
@@ -233,7 +233,7 @@ const shrineWeeks: ShrineWeek[] = [
         if (animate) { panel.classList.remove('is-voting'); void panel.offsetWidth; panel.classList.add('is-voting'); setTimeout(() => panel.classList.remove('is-voting'), 320) }
       }
       panel.querySelectorAll<HTMLButtonElement>('[data-vote]').forEach((button) => button.addEventListener('click', () => { if (button.dataset.vote === 'up') up += 1; else down += 1; update() }))
-      panel.querySelector<HTMLButtonElement>('[data-demo-reset]')?.addEventListener('click', () => { up = 0; down = 0; update(false) })
+      panel.querySelector<HTMLButtonElement>('[data-demo-reset]')?.addEventListener('click', () => { up = 1; down = 0; update(false) })
     }
 
     const shareButton = document.querySelector<HTMLButtonElement>('[data-share-today]')

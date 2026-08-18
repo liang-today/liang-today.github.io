@@ -4,8 +4,10 @@ import { dirname, extname, join, resolve } from 'node:path'
 import { chromium } from 'playwright'
 
 const distRoot = resolve('dist')
-const outputArgument = process.argv.slice(2).find((argument) => argument !== '--')
+const [outputArgument, stateArgument] = process.argv.slice(2).filter((argument) => argument !== '--')
 const outputPath = resolve(outputArgument ?? 'dist/media/social/today.png')
+const allowedStates = new Set(['waiting', 'liang_gong', 'liang_zong', 'liang_shen', 'liang_sheng', 'liang_zu'])
+if (stateArgument && !allowedStates.has(stateArgument)) throw new Error(`Unknown Liangxiang state: ${stateArgument}`)
 const mimeTypes = {
   '.css': 'text/css; charset=utf-8',
   '.html': 'text/html; charset=utf-8',
@@ -46,7 +48,9 @@ try {
     colorScheme: 'light',
     viewport: { width: 2400, height: 1260 },
   })
-  await page.goto(`http://127.0.0.1:${address.port}/social-card/`, { waitUntil: 'networkidle' })
+  const cardUrl = new URL(`http://127.0.0.1:${address.port}/social-card/`)
+  if (stateArgument) cardUrl.searchParams.set('state', stateArgument)
+  await page.goto(cardUrl.toString(), { waitUntil: 'networkidle' })
   await page.locator('[data-card]').waitFor({ state: 'visible' })
   await mkdir(dirname(outputPath), { recursive: true })
   await page.screenshot({ path: outputPath })

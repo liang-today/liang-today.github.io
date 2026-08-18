@@ -38,17 +38,17 @@ sections:
 ### npm（推荐）
 
 ```bash
-npx --yes @deepseek-ai/dsh plugin --profile web add dsh-liangxiang@beta
+npx --yes @deepseek-ai/dsh plugin --profile web add dsh-liangxiang@0.8.5-beta
 npx --yes @deepseek-ai/dsh web
 ```
 
-已全局安装 `dsh` 时，把开头换成 `dsh` 即可。不要运行 `npm i dsh-liangxiang`：那只会装进当前目录的 `node_modules`，不会进入 DSH。npm 简介页右侧的 Install 栏是网站自动生成的，请以这条 `plugin add` 为准。
+已全局安装 `dsh` 时，把开头换成 `dsh` 即可。刚发布的几小时内请写精确版本，不要只写 `@beta`（pnpm 11 会退回上一号）。不要运行 `npm i dsh-liangxiang`：那只会装进当前目录的 `node_modules`，不会进入 DSH。
 
 装好后，案牍会连接社区后端 `https://api.liang.today`。国内 npm 慢时：`npm config set registry https://registry.npmmirror.com`
 
 ### 本地安装包
 
-先进入包所在目录，必须写 **`./文件名.tgz`**。少写 `./` 时，pnpm 会把文件名当成 npm 包名去拉并报 404。走 npm 请写 `dsh-liangxiang@beta`。子命令是 `plugin add`，不是 `web add`。
+先进入包所在目录，必须写 **`./文件名.tgz`**。少写 `./` 时，pnpm 会把文件名当成 npm 包名去拉并报 404。走 npm 请写 `dsh-liangxiang@0.8.5-beta`。子命令是 `plugin add`，不是 `web add`。
 
 ```bash
 export DSH_HOME="$HOME/.dsh"
@@ -75,18 +75,21 @@ pnpm install && pnpm run dev:install && pnpm run dev:web
 
 先完全退出 WebUI。升级不会删除香火账本。
 
-以前若用**本地 `.tgz`** 装过，只再执行 `add @beta` **不会**换成 npm 新包：profile 会继续钉在那份旧 tarball 上。必须先卸再装。
+`plugin add` 只是转给 pnpm，有两层会让你停在旧号：
+
+1. 第一次装 `@beta` 时，profile 会写成**当时的精确版本**（例如 `0.8.3-beta`）。之后再 `add @beta` 会报 Already up to date，不会去解析新标签。
+2. pnpm 11 默认有 `minimumReleaseAge`：刚发布几小时内的版本，用 `@beta` / 包名不会被选中，会退回上一号够龄的版本。
+
+要拿到当前号，先卸，再写**精确版本**：
 
 ```bash
 export DSH_HOME="$HOME/.dsh"
 npx --yes @deepseek-ai/dsh plugin --profile web remove dsh-liangxiang
-npx --yes @deepseek-ai/dsh plugin --profile web add dsh-liangxiang@beta
+npx --yes @deepseek-ai/dsh plugin --profile web add dsh-liangxiang@0.8.5-beta
 npx --yes @deepseek-ai/dsh web
 ```
 
-已全局安装 `dsh` 时，把开头换成 `dsh` 即可。装完强制刷新，案牍应显示当前 npm `@beta`（现在是 `v0.8.5-beta`）。
-
-仍是旧号时：确认终端里的 `DSH_HOME` 就是日常目录（常见是 `~/.dsh`），不要在别的 `DSH_HOME` 里重装。
+已全局安装 `dsh` 时，把开头换成 `dsh` 即可。装完强制刷新，案牍应显示 `v0.8.5-beta`。包发布超过 pnpm 冷静期之后，也可以写 `dsh-liangxiang@beta`。
 
 <h2 id="uninstall">卸载</h2>
 
@@ -193,7 +196,7 @@ localStorage.removeItem('liangxiang:badge-position:v2')
 ```
 
 **案牍仍显示旧版本（例如 `v0.8.3-beta`）**  
-多半是当初用桌面或 Release 的 `.tgz` 装的。只重复 `add @beta` 不会换源。按[升级](#upgrade)先 `remove` 再 `add dsh-liangxiang@beta`，两条命令都要带 `export DSH_HOME="$HOME/.dsh"`。然后重启并强制刷新。
+profile 里钉着旧精确号或本地 `.tgz`。只重复 `add @beta` 会显示 Already up to date。按[升级](#upgrade)先 `remove` 再 `add`，两条命令都要带 `export DSH_HOME="$HOME/.dsh"`。然后重启并强制刷新。
 
 ### 连不上社区
 

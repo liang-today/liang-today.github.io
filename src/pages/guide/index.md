@@ -49,11 +49,11 @@ npm config set registry https://registry.npmmirror.com
 
 ### GitHub Release / 本地 tarball
 
-前往[Releases](https://github.com/liang-today/dsh-liangxiang/releases) 或使用桌面分发包。本地文件**必须带 `./`**，否则 pnpm 会去 npm 拉这个文件名并报 `ERR_PNPM_FETCH_404`。子命令是 `plugin add`，不是 `web add`。
+前往[Releases](https://github.com/liang-today/dsh-liangxiang/releases) 或使用桌面分发包。先进入安装包所在目录，再写 **`./文件名.tgz`**。少写 `./` 时 pnpm 会去 npm 拉这个文件名并报 `ERR_PNPM_FETCH_404`。不要写 `dsh-liangxiang@0.8.3-beta`（公开 npm 还没有这个版本）。子命令是 `plugin add`，不是 `web add`。
 
 ```bash
-dsh plugin --profile web add ./dsh-liangxiang-0.8.3-beta.tgz
-# 或
+export DSH_HOME="$HOME/.dsh"
+cd "$HOME/Desktop/liangxiang"
 npx --yes @deepseek-ai/dsh plugin --profile web add ./dsh-liangxiang-0.8.3-beta.tgz
 ```
 
@@ -125,9 +125,11 @@ command -v dsh
 
 **本地安装包报 ERR_PNPM_FETCH_404**
 
-必须写成 `./dsh-liangxiang-0.8.3-beta.tgz`，并且子命令是 `plugin add`：
+日志里如果出现 `GET https://registry.npmjs.org/dsh-liangxiang-0.8.3-beta.tgz`，说明少写了 `./`，pnpm 去 npm 找这个名字了。先 `cd` 到包所在目录：
 
 ```bash
+export DSH_HOME="$HOME/.dsh"
+cd "$HOME/Desktop/liangxiang"
 npx --yes @deepseek-ai/dsh plugin --profile web add ./dsh-liangxiang-0.8.3-beta.tgz
 ```
 

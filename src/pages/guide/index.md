@@ -19,7 +19,9 @@ sections:
 
 梁相是 DeepSeek Harness WebUI 插件。需要 Node.js 22.19+（推荐 24）和已安装的 DSH。
 
-每次操作都先**完全退出 WebUI**，做完再 `dsh web`，并刷新浏览器一次。升级、卸载都不会删除香火账本。`web` 若不是你的 profile，换成实际名字。
+每次操作都先**完全退出 WebUI**，做完再启动，并刷新浏览器一次。升级、卸载都不会删除香火账本。`web` 若不是你的 profile，换成实际名字。
+
+全局装过 DSH 就写 `dsh`；否则把 `dsh` 整段换成 `npx --yes @deepseek-ai/dsh`。启动 WebUI 也一样：`dsh web` 或 `npx --yes @deepseek-ai/dsh web`。
 
 > 当前 npm 公开包仍是 `dsh-liangxiang@0.8.0`。发新包之前，`@beta` 升不到源码里的更新。
 
@@ -31,13 +33,11 @@ sections:
 
 ```bash
 dsh plugin --profile web add dsh-liangxiang@beta
+# 或
+npx --yes @deepseek-ai/dsh plugin --profile web add dsh-liangxiang@beta
 ```
 
-卸载：
-
-```bash
-dsh plugin --profile web remove dsh-liangxiang
-```
+卸载：`dsh plugin --profile web remove dsh-liangxiang`
 
 国内访问 npm 较慢时：
 
@@ -47,14 +47,17 @@ npm config set registry https://registry.npmmirror.com
 
 社区后端 `https://api.liang.today` 在香港，由本机 DSH 直连。连不上时不会卡住整个 WebUI。
 
-### GitHub Release
+### GitHub Release / 本地 tarball
 
-前往[Releases](https://github.com/liang-today/dsh-liangxiang/releases)，下载 `dsh-liangxiang-<version>.tgz`。尚无 Release 时请用 npm 或本地 tarball。
+前往[Releases](https://github.com/liang-today/dsh-liangxiang/releases) 或使用桌面分发包。本地文件**必须带 `./`**，否则 pnpm 会去 npm 拉这个文件名并报 `ERR_PNPM_FETCH_404`。子命令是 `plugin add`，不是 `web add`。
 
 ```bash
-dsh plugin --profile web add ./dsh-liangxiang-<version>.tgz   # 安装或升级
-dsh plugin --profile web remove dsh-liangxiang               # 卸载
+dsh plugin --profile web add ./dsh-liangxiang-0.8.3-beta.tgz
+# 或
+npx --yes @deepseek-ai/dsh plugin --profile web add ./dsh-liangxiang-0.8.3-beta.tgz
 ```
+
+卸载：`dsh plugin --profile web remove dsh-liangxiang`
 
 ### 源码
 
@@ -118,7 +121,15 @@ command -v pnpm
 command -v dsh
 ```
 
-关闭并重新打开终端，使新安装的命令行路径生效。Apple Silicon 与 Intel 环境请使用同一套 Node 安装路径。
+没有全局 `dsh` 时改用 `npx --yes @deepseek-ai/dsh`，不必先 `npm i -g`。关闭并重新打开终端，使新安装的命令行路径生效。
+
+**本地安装包报 ERR_PNPM_FETCH_404**
+
+必须写成 `./dsh-liangxiang-0.8.3-beta.tgz`，并且子命令是 `plugin add`：
+
+```bash
+npx --yes @deepseek-ai/dsh plugin --profile web add ./dsh-liangxiang-0.8.3-beta.tgz
+```
 
 **插件已安装但入口没有出现**
 
@@ -174,6 +185,7 @@ localStorage.removeItem('liangxiang:badge-position:v1')
 ```bash
 dsh plugin --profile web remove dsh-liangxiang
 dsh plugin --profile web add dsh-liangxiang@beta
+# 或 npx --yes @deepseek-ai/dsh plugin --profile web add ./dsh-liangxiang-0.8.3-beta.tgz
 ```
 
 GitHub 包把第二条换成 `add ./dsh-liangxiang-<version>.tgz`。源码用 `pnpm run dev:uninstall && pnpm run dev:install`。然后重启 WebUI 并强制刷新浏览器。

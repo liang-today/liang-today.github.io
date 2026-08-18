@@ -9,6 +9,7 @@
     "build": "astro check && astro build && node scripts/check-dist.mjs",
     "check": "astro check",
     "preview": "astro preview",
+    "render:social": "node scripts/render-social-card.mjs",
     "sync:social": "node scripts/update-social-card.mjs"
   },
   "dependencies": {
@@ -17,6 +18,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "latest",
+    "playwright": "1.62.1",
     "typescript": "6.0.3"
   }
 }

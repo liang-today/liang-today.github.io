@@ -33,48 +33,55 @@ const ratio = today.up_ratio === null ? '--' : `${(Math.floor(today.up_ratio * 1
       * { box-sizing: border-box; }
       astro-dev-toolbar { display: none !important; }
       html, body { width: 100%; height: 100%; margin: 0; }
-      body { min-width: 900px; overflow: hidden; color: #20252b; background: #f3f3ef; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
-      .card { position: relative; display: grid; width: 100vw; height: 100vh; min-height: 540px; grid-template-columns: 1fr 0.8fr; overflow: hidden; background: linear-gradient(135deg, #f8f8f4 0%, #f1f2ee 58%, #ebece7 100%); isolation: isolate; }
+      body { min-width: 1200px; overflow: hidden; color: #20252b; background: #e9eae5; font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+      .card { position: relative; display: grid; width: 1200px; height: 630px; grid-template-columns: 1.08fr .92fr; overflow: hidden; background: linear-gradient(135deg, #fafaf6 0%, #f1f2ed 62%, #e9ebe5 100%); isolation: isolate; }
       .card::before, .card::after { position: absolute; z-index: -1; border: 1px solid rgba(104, 111, 108, .18); border-radius: 50%; content: ''; }
-      .card::before { width: 690px; height: 690px; top: -295px; right: -110px; }
-      .card::after { width: 500px; height: 500px; right: -5px; bottom: -310px; }
-      .copy { display: flex; min-width: 0; flex-direction: column; padding: 64px 38px 54px 72px; }
-      .brand { display: flex; align-items: center; gap: 14px; }
-      .seal { display: grid; width: 48px; height: 48px; place-items: center; border: 2px solid #b94a3e; border-radius: 12px; color: #b94a3e; font-family: ui-serif, "Songti SC", serif; font-size: 27px; font-weight: 800; transform: rotate(-2deg); }
-      .brand strong { display: block; font-size: 22px; letter-spacing: .08em; line-height: 1; }
-      .brand small { display: block; margin-top: 7px; color: #7d8489; font-size: 11px; letter-spacing: .14em; }
-      .eyebrow { margin: auto 0 12px; color: #d1772a; font-size: 17px; font-weight: 760; letter-spacing: .16em; }
-      h1 { margin: 0; font-size: clamp(66px, 7.4vw, 112px); letter-spacing: -.075em; line-height: .92; }
-      h1 span { display: block; margin-top: 17px; color: #555f68; font-size: .48em; font-weight: 630; letter-spacing: -.045em; }
-      .case { max-width: 660px; margin: 34px 0 0; color: #555f68; font-size: clamp(18px, 1.8vw, 25px); font-weight: 560; line-height: 1.45; }
-      .footer { display: flex; align-items: center; gap: 14px; margin-top: auto; color: #858b90; font-size: 15px; }
-      .footer i { width: 4px; height: 4px; border-radius: 50%; background: #536cff; }
-      .figure { position: relative; display: grid; place-items: center; padding: 48px 68px 58px 20px; }
-      .orbit { position: absolute; width: min(41vw, 490px); aspect-ratio: 1; border: 2px solid rgba(109, 118, 115, .24); border-radius: 50%; }
+      .card::before { width: 620px; height: 620px; top: -300px; right: -74px; }
+      .card::after { width: 470px; height: 470px; right: 28px; bottom: -306px; }
+      .copy { display: flex; min-width: 0; flex-direction: column; padding: 52px 20px 42px 64px; }
+      .brand { display: flex; align-items: center; gap: 13px; }
+      .seal { display: grid; width: 46px; height: 46px; place-items: center; border: 2px solid #b94a3e; border-radius: 11px; color: #b94a3e; font-family: ui-serif, "Songti SC", serif; font-size: 26px; font-weight: 800; transform: rotate(-2deg); }
+      .brand strong { display: block; font-size: 21px; letter-spacing: .08em; line-height: 1; }
+      .brand small { display: block; margin-top: 6px; color: #7d8489; font-size: 10px; letter-spacing: .16em; }
+      .eyebrow { margin: 74px 0 12px; color: #d1772a; font-size: 15px; font-weight: 760; letter-spacing: .15em; }
+      h1 { margin: 0; font-size: 78px; letter-spacing: -.075em; line-height: .93; }
+      h1 span { display: block; margin-top: 16px; color: #555f68; font-size: .49em; font-weight: 630; letter-spacing: -.045em; }
+      .case { max-width: 610px; margin: 27px 0 0; color: #555f68; font-size: 20px; font-weight: 590; line-height: 1.4; }
+      .rally { margin: 13px 0 0; color: #b94a3e; font-family: ui-serif, "Songti SC", serif; font-size: 17px; font-weight: 760; letter-spacing: .08em; }
+      .site { display: flex; align-items: flex-end; gap: 15px; margin-top: auto; }
+      .site strong { color: #20252b; font-size: 31px; letter-spacing: -.025em; line-height: 1; }
+      .site span { color: #858b90; font-size: 12px; line-height: 1.25; }
+      .figure { position: relative; display: grid; place-items: center; padding: 40px 52px 122px 0; }
+      .orbit { position: absolute; top: 72px; width: 430px; height: 430px; border: 2px solid rgba(109, 118, 115, .23); border-radius: 50%; }
       .orbit::before { position: absolute; inset: 22px; border: 1px solid rgba(209, 119, 42, .32); border-radius: 50%; content: ''; }
-      .portrait { position: relative; z-index: 1; width: min(36vw, 430px); height: min(36vw, 430px); object-fit: contain; filter: drop-shadow(0 24px 30px rgba(35, 42, 45, .12)); }
-      .state { position: absolute; z-index: 2; right: 58px; bottom: 48px; min-width: 235px; padding: 16px 22px; border: 1px solid rgba(105, 112, 110, .35); border-radius: 14px; background: rgba(250, 250, 247, .9); box-shadow: 0 18px 42px rgba(35, 42, 45, .1); backdrop-filter: blur(10px); }
-      .state span { display: block; color: #858b90; font-size: 13px; font-weight: 700; letter-spacing: .12em; }
-      .state strong { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-top: 3px; color: #20252b; font-size: 32px; }
-      .state small { color: #d1772a; font-size: 15px; font-variant-numeric: tabular-nums; }
-      .live { position: absolute; top: 66px; right: 68px; display: flex; align-items: center; gap: 8px; color: #777e83; font-size: 13px; }
-      .live::before { width: 7px; height: 7px; border-radius: 50%; background: #278464; box-shadow: 0 0 0 5px rgba(39, 132, 100, .12); content: ''; }
+      .portrait { position: relative; z-index: 1; width: 350px; height: 350px; object-fit: contain; filter: drop-shadow(0 22px 27px rgba(35, 42, 45, .14)); }
+      .state { position: absolute; z-index: 2; right: 42px; bottom: 112px; min-width: 242px; padding: 14px 19px; border: 1px solid rgba(105, 112, 110, .35); border-radius: 13px; background: rgba(250, 250, 247, .94); box-shadow: 0 16px 38px rgba(35, 42, 45, .11); }
+      .state span { display: block; color: #858b90; font-size: 11px; font-weight: 700; letter-spacing: .13em; }
+      .state strong { display: flex; align-items: baseline; justify-content: space-between; gap: 15px; margin-top: 2px; color: #20252b; font-size: 30px; }
+      .state small { color: #d1772a; font-size: 13px; font-variant-numeric: tabular-nums; }
+      .qr { position: absolute; z-index: 3; right: 42px; bottom: 27px; display: flex; align-items: center; gap: 12px; }
+      .qr img { width: 74px; height: 74px; padding: 5px; border: 1px solid rgba(105, 112, 110, .28); border-radius: 8px; background: #fff; }
+      .qr span { max-width: 72px; color: #666f75; font-size: 11px; font-weight: 690; line-height: 1.35; }
+      @media (min-width: 1800px) {
+        .card { transform: scale(2); transform-origin: 0 0; }
+      }
     </style>
   </head>
   <body>
     <main class="card" data-card>
       <section class="copy">
         <div class="brand"><span class="seal" aria-hidden="true">相</span><div><strong>梁相</strong><small>LIANGXIANG</small></div></div>
-        <p class="eyebrow">今日梁相</p>
+        <p class="eyebrow">今日梁相 · {today.business_date}</p>
         <h1>众香成势，<span>梁子显相。</span></h1>
         <p class="case" data-card-case>{today.case_title}</p>
-        <div class="footer"><span>liang.today</span><i></i><span>DeepSeek Harness 社区玩法</span></div>
+        <p class="rally">梁相还得梁人出！</p>
+        <div class="site"><strong>liang.today</strong><span>DeepSeek Harness<br />社区玩法</span></div>
       </section>
       <section class="figure">
-        <span class="live">社区快照</span>
         <div class="orbit" aria-hidden="true"></div>
         <img class="portrait" data-card-image src={image} alt={`${name}形相`} />
         <div class="state"><span>今日显相</span><strong><b data-card-state>{name}</b><small data-card-ratio>梁位 {ratio}</small></strong></div>
+        <div class="qr"><img src="/media/liang-today-qr.png" alt="liang.today 二维码" /><span>扫码查看今日梁相</span></div>
       </section>
     </main>
     <script>

@@ -30,6 +30,24 @@ const ratioText = today.up_ratio === null
   ? '--'
   : `${(Math.floor(today.up_ratio * 100 * 1_000_000) / 1_000_000).toFixed(6)}%`
 const socialImage = `/media/social/today.png?v=${today.business_date}-${today.snapshot_version}`
+
+const shrineStates: Record<string, { name: string; image: string }> = {
+  gong: { name: '梁工', image: '/artwork/gong.png' },
+  zong: { name: '梁总', image: '/artwork/zong.png' },
+  shen: { name: '梁神', image: '/artwork/shen.png' },
+  sheng: { name: '梁圣', image: '/artwork/sheng.png' },
+  zu: { name: '梁祖', image: '/artwork/zu.png' },
+}
+type ShrineDay = { day: number; state?: string; outside?: boolean; future?: boolean; today?: boolean }
+type ShrineWeek = { days: ShrineDay[]; state: string | null; label: string }
+const shrineWeeks: ShrineWeek[] = [
+  { days: [{ day: 27, outside: true }, { day: 28, outside: true }, { day: 29, outside: true }, { day: 30, outside: true }, { day: 31, outside: true }, { day: 1, state: 'gong' }, { day: 2, state: 'zong' }], state: 'zong', label: '周梁' },
+  { days: [{ day: 3, state: 'shen' }, { day: 4, state: 'zong' }, { day: 5, state: 'sheng' }, { day: 6, state: 'zu' }, { day: 7, state: 'shen' }, { day: 8, state: 'gong' }, { day: 9, state: 'sheng' }], state: 'shen', label: '周梁' },
+  { days: [{ day: 10, state: 'zong' }, { day: 11, state: 'shen' }, { day: 12, state: 'sheng' }, { day: 13, state: 'zu' }, { day: 14, state: 'shen' }, { day: 15, state: 'sheng' }, { day: 16, state: 'zong' }], state: 'sheng', label: '周梁' },
+  { days: [{ day: 17, state: 'sheng' }, { day: 18, today: true }, { day: 19, future: true }, { day: 20, future: true }, { day: 21, future: true }, { day: 22, future: true }, { day: 23, future: true }], state: null, label: '本周暂梁' },
+  { days: [{ day: 24, future: true }, { day: 25, future: true }, { day: 26, future: true }, { day: 27, future: true }, { day: 28, future: true }, { day: 29, future: true }, { day: 30, future: true }], state: null, label: '待积' },
+  { days: [{ day: 31, future: true }, { day: 1, outside: true }, { day: 2, outside: true }, { day: 3, outside: true }, { day: 4, outside: true }, { day: 5, outside: true }, { day: 6, outside: true }], state: null, label: '待积' },
+]
 ---
 
 <SiteLayout
@@ -43,6 +61,7 @@ const socialImage = `/media/social/today.png?v=${today.business_date}-${today.sn
         <p class="eyebrow">DeepSeek Harness 社区玩法 · v0.6.0 RC</p>
         <h1>众香成势，<span>梁子显相。</span></h1>
         <p class="hero-lede">每天一道梁案。使用 DeepSeek Harness 凝成香火，投下一炷“夯”或“拉”；众人的选择汇成梁位，决定今天的梁子。</p>
+        <p class="hero-rally">梁相还得梁人出！</p>
         <div class="button-row">
           <a class="button button-primary" href="#play">看懂玩法</a>
           <a class="button" href="/guide/">安装梁相</a>
@@ -96,7 +115,7 @@ const socialImage = `/media/social/today.png?v=${today.business_date}-${today.sn
     <div class="shell">
       <div class="section-heading" data-reveal>
         <p class="eyebrow">一天的梁相</p><h2>从一次对话，到一页编年。</h2>
-        <p>玩法只有四步：凝香、表态、显相、入祠。个人香火与全局梁位在画面上相遇，在账本中始终分开。</p>
+        <p>玩法只有四步：凝香、表态、显相、入祠。个人香火与全局梁位在画面上相遇，在计算中始终分开。</p>
       </div>
       <div class="steps-grid" data-reveal>
         <article class="step-card"><div class="step-index"><span>01 · 凝香</span></div><h3>使用 DSH</h3><p>Input + Output Token 按模型权重折算，默认每 50,000 Pro 当量凝成一炷。</p></article>
@@ -106,8 +125,8 @@ const socialImage = `/media/social/today.png?v=${today.business_date}-${today.sn
       </div>
       <div class="ritual-strip" data-reveal>
         <div><strong>三界香火</strong><span>今天已经接受的全部票数</span></div>
-        <div><strong>五行香客</strong><span>至少成功投过一票的独立安装</span></div>
-        <div><strong>上达天听</strong><span>主动核对社区最新权威快照</span></div>
+        <div><strong>五行香客</strong><span>至少成功投过一次的参与者</span></div>
+        <div><strong>上达天听</strong><span>主动刷新社区最新结果</span></div>
       </div>
     </div>
   </section>
@@ -125,7 +144,7 @@ const socialImage = `/media/social/today.png?v=${today.business_date}-${today.sn
       <div class="rules-grid compact-rules">
         {rules.map(([mark, title, text]) => <article class="rule" data-reveal><span class="rule-mark" aria-hidden="true">{mark}</span><div><h3>{title}</h3><p>{text}</p></div></article>)}
       </div>
-      <div class="notice" data-reveal><strong>信任边界：</strong>当前是社区软信任玩法。梁位不是实名人数、民意调查，也不代表梁文锋本人立场。</div>
+      <div class="notice" data-reveal><strong>说明：</strong>梁位只代表梁相社区的匿名参与结果，不是民意调查，也不代表梁文锋本人立场。</div>
     </div>
   </section>
 
@@ -135,13 +154,44 @@ const socialImage = `/media/social/today.png?v=${today.business_date}-${today.sn
         <div><p class="eyebrow">梁祠 · 只读编年</p><h2>克制的梁祠，不是古风游戏。</h2></div>
         <div><p>今日不提前下结论。业务日结束后，原始夯拉票数封存为日梁，再按票数加权汇成周梁与月梁。</p><div class="archive-pills"><span>日梁</span><span>周梁</span><span>月梁</span><span>今日进行中</span></div></div>
       </div>
-      <figure class="liangci-frame" data-reveal><img src="/media/liangci-visual-spec.png" alt="梁祠月历界面示意，包含日梁、周梁、月梁和今日进行中状态" loading="lazy" width="1600" height="1100" /></figure>
+      <div class="liangci-native" data-reveal aria-label="梁祠界面预览">
+        <header class="liangci-native-header">
+          <div class="liangci-native-brand"><span aria-hidden="true">祠</span><div><strong>梁祠</strong><small>日梁 · 周梁 · 月梁</small></div></div>
+          <div class="liangci-native-month"><i aria-hidden="true">‹</i><strong>2026 年 8 月</strong><i aria-hidden="true">›</i></div>
+          <div class="liangci-native-summary"><span>本月暂梁</span><strong>截至昨日</strong></div>
+        </header>
+        <div class="liangci-native-scroll">
+          <div class="liangci-native-calendar">
+            <div class="liangci-weekdays">{['一', '二', '三', '四', '五', '六', '日'].map((day) => <span>周{day}</span>)}<span>周梁</span></div>
+            {shrineWeeks.map((week) => (
+              <div class="liangci-calendar-row">
+                {week.days.map((item) => {
+                  const state = item.state ? shrineStates[item.state] : null
+                  return <div class:list={['liangci-day', { 'is-outside': item.outside, 'is-future': item.future, 'is-today': item.today }]}>
+                    <span class="liangci-day-number">{item.day}</span>
+                    {item.today
+                      ? <strong class="liangci-today-mark">今日<br />进行中</strong>
+                      : state
+                        ? <><img src={state.image} alt="" width="54" height="54" /><small>{state.name}</small></>
+                        : <small>--</small>}
+                  </div>
+                })}
+                <div class="liangci-week-result">
+                  <span>{week.label}</span>
+                  {week.state ? <><img src={shrineStates[week.state].image} alt="" width="54" height="54" /><strong>{shrineStates[week.state].name}</strong></> : <strong>--</strong>}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <footer class="liangci-native-detail"><span class="liangci-detail-seal" aria-hidden="true">今</span><div><strong>8 月 18 日 · 今日进行中</strong><p>今日梁案不会提前入祠；日终后才封存为不可改写的日梁。</p></div><span class="liangci-preview-label">界面预览</span></footer>
+      </div>
     </div>
   </section>
 
   <section class="section section-quiet">
     <div class="shell cta-band" data-reveal>
-      <div><p class="eyebrow">今日开梁</p><h2>把梁相装进 DeepSeek Harness。</h2><p>正式 Release 发布后可直接安装；现在也可以从源码启动独立开发环境。</p></div>
+      <div><p class="eyebrow">今日开梁</p><h2>把梁相装进 DeepSeek Harness。</h2><p>正式发布后可直接安装；当前预览版本可按部署指南从源码体验。</p></div>
       <div class="button-row"><a class="button button-primary" href="/guide/">打开部署指南</a><a class="button" href="/privacy/">先看隐私边界</a></div>
     </div>
   </section>

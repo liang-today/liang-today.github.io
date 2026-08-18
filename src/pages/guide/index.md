@@ -39,6 +39,14 @@ dsh web
 
 DSH 会从 npm registry 获取 `beta` 标签对应的版本。需要固定在指定版本时，将 `@beta` 替换为版本号，例如 `dsh-liangxiang@0.8.0`。
 
+国内访问 npmjs 较慢或超时时，可改用 npmmirror：
+
+```bash
+npm config set registry https://registry.npmmirror.com
+```
+
+社区后端 `https://api.liang.today` 位于香港，由本机 DeepSeek Harness 直连。连不上时插件不会卡住整个 WebUI，几秒后进入主界面并提示“无法连接天庭”，随后自动重连。源码自编译依赖 GitHub，在内地不稳定时请优先使用 npm 安装。
+
 ### 方式二：GitHub Release 安装
 
 这种方式适合保存离线安装包或固定版本。前往[插件 Releases 页面](https://github.com/liang-today/dsh-liangxiang/releases)，下载目标版本的 `dsh-liangxiang-<version>.tgz`；目标版本尚未提供安装包时，请使用 npm 安装。

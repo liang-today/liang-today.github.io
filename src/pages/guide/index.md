@@ -29,7 +29,7 @@ sections:
 
 全局装过 DSH 就写 `dsh`；否则把下面的 `dsh` 整段换成 `npx --yes @deepseek-ai/dsh`。
 
-> 当前版本 **v0.8.3-beta**。远程安装请写 `dsh-liangxiang@beta`，不要写 `@0.8.0`。
+> 当前版本 **v0.8.4-beta**。远程安装请写 `dsh-liangxiang@beta`，不要写 `@0.8.0`。
 
 <h2 id="install">安装</h2>
 
@@ -42,6 +42,8 @@ dsh plugin --profile web add dsh-liangxiang@beta
 dsh web
 ```
 
+不要运行 `npm i dsh-liangxiang` 或 `npm dsh-liangxiang`。梁相不是命令行工具；那样会让 npm 把包名当成子命令。
+
 装好后，案牍会连接社区后端 `https://api.liang.today`。国内 npm 慢时：`npm config set registry https://registry.npmmirror.com`
 
 ### 本地安装包
@@ -51,7 +53,7 @@ dsh web
 ```bash
 export DSH_HOME="$HOME/.dsh"
 cd "$HOME/Desktop/liangxiang"
-dsh plugin --profile web add ./dsh-liangxiang-0.8.3-beta.tgz
+dsh plugin --profile web add ./dsh-liangxiang-0.8.4-beta.tgz
 dsh web
 ```
 
@@ -77,7 +79,7 @@ pnpm install && pnpm run dev:install && pnpm run dev:web
 dsh plugin --profile web add dsh-liangxiang@beta
 ```
 
-本地包装完后，案牍应显示 `v0.8.3-beta`。仍显示旧号时，先卸载再按上面重装一次。
+本地包装完后，案牍应显示 `v0.8.4-beta`。仍显示旧号时，先卸载再按上面重装一次。
 
 <h2 id="uninstall">卸载</h2>
 
@@ -136,7 +138,7 @@ Safari 需先到「设置 → 高级」勾选「在菜单栏中显示开发菜�
 ### 安装失败
 
 **报 `ERR_PNPM_FETCH_404`**  
-本地包被当成了 npm 名字。先 `cd` 到包目录，写成 `./dsh-liangxiang-0.8.3-beta.tgz`。走 npm 请写 `dsh-liangxiang@beta`，不要把本地文件名当成包名。
+本地包被当成了 npm 名字。先 `cd` 到包目录，写成 `./dsh-liangxiang-0.8.4-beta.tgz`。走 npm 请写 `dsh-liangxiang@beta`，不要把本地文件名当成包名。
 
 **提示没有 `dsh` 命令**  
 改用 `npx --yes @deepseek-ai/dsh`，不必先全局安装。

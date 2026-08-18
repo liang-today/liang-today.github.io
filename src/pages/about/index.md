@@ -55,7 +55,7 @@ sections:
 
 梁相由个人开发者发起，由 **liang-today** GitHub 组织维护品牌与官网。插件、文档和测试在 [`NiYa193/dsh-liang-meter`](https://github.com/NiYa193/dsh-liang-meter) 开源；官网在 [`liang-today/liang-today.github.io`](https://github.com/liang-today/liang-today.github.io) 开源。作者与贡献者信息以仓库提交记录为准。
 
-当前版本为 **0.6.0 RC**。正式 Release 发布后，安装包与更新说明会出现在插件仓库的 Releases 页面。
+当前 npm 可安装版本为 **0.8.0**，包名为 [`dsh-liangxiang`](https://www.npmjs.com/package/dsh-liangxiang)。官网优先推荐 npm 安装；固定版本安装包与更新说明以插件仓库的 Releases 页面为准。
 
 <h2 id="principles">设计原则</h2>
 

@@ -1,9 +1,9 @@
 ---
 layout: ../../layouts/MarkdownLayout.astro
 title: 部署指南
-description: 梁相的 Release 安装、源码安装，以及 Windows、macOS、Linux 的常见问题处理方法。
+description: 梁相的 npm 安装、GitHub Release 安装、源码自编译安装，以及 Windows、macOS、Linux 的常见问题处理方法。
 eyebrow: 安装与恢复
-aside: 先选择 Release 或源码安装；遇到问题，再查看对应操作系统。
+aside: 优先使用 npm；也可选择 GitHub Release 或源码自编译。
 sections:
   - href: '#install'
     label: 选择安装方式
@@ -17,29 +17,47 @@ sections:
 
 # 部署指南
 
-梁相是 DeepSeek Harness WebUI 插件，支持 Windows、macOS 与 Linux。正式发布后优先使用 **Release 安装**；当前预览版本可以通过 **源码安装**体验。
+梁相是 DeepSeek Harness WebUI 插件，支持 Windows、macOS 与 Linux。推荐通过 **npm 安装**；需要固定版本或离线安装时可使用 **GitHub Release**，需要修改或审查代码时可选择 **源码自编译安装**。
 
-> 梁相目前为 0.6.0 RC，公开 Release 尚未发布。
+> 当前 npm 可安装版本：`dsh-liangxiang@0.8.0`。现阶段建议显式使用 `@beta` 安装。
 
 <h2 id="install">选择安装方式</h2>
 
-### 方式一：Release 安装（正式发布后推荐）
+### 方式一：npm 安装（推荐）
 
-1. 前往[插件 Releases 页面](https://github.com/NiYa193/dsh-liang-meter/releases)，下载 `dsh-liangxiang-<version>.tgz`。
-2. 关闭正在运行的 DeepSeek Harness WebUI。
-3. 将安装包加入日常使用的 profile。`<profile>` 替换为你的 profile 名称：
+需要 Node.js 22.19+（推荐 Node 24），并已安装 DeepSeek Harness。
+
+1. 完全退出正在运行的 DeepSeek Harness WebUI。
+2. 将梁相加入日常使用的 profile。`<profile>` 替换为你的 profile 名称：
+
+```bash
+dsh plugin --profile <profile> add dsh-liangxiang@beta
+dsh --profile <profile> --dump-config
+```
+
+3. 配置中出现 `dsh-liangxiang` 后，重新启动 WebUI。
+4. 页面边缘出现“今日梁相”入口，即表示安装完成。
+
+DSH 会从 npm registry 获取 `beta` 标签对应的版本。需要固定在指定版本时，将 `@beta` 替换为版本号，例如 `dsh-liangxiang@0.8.0`。
+
+### 方式二：GitHub Release 安装
+
+这种方式适合保存离线安装包或固定版本。前往[插件 Releases 页面](https://github.com/NiYa193/dsh-liang-meter/releases)，下载目标版本的 `dsh-liangxiang-<version>.tgz`；目标版本尚未提供安装包时，请使用 npm 安装。
+
+1. 完全退出正在运行的 DeepSeek Harness WebUI。
+2. 在安装包所在目录运行以下命令，`<profile>` 替换为你的 profile 名称：
 
 ```bash
 dsh plugin --profile <profile> add ./dsh-liangxiang-<version>.tgz
 dsh --profile <profile> --dump-config
 ```
 
-4. 配置中出现 `dsh-liangxiang` 后，重新启动 WebUI。
-5. 页面边缘出现“今日梁相”入口，即表示安装完成。
+3. 配置中出现 `dsh-liangxiang` 后，重新启动 WebUI。
+4. 页面边缘出现“今日梁相”入口，即表示安装完成。
 
-### 方式二：源码安装（当前可用）
+### 方式三：源码自编译安装
 
-需要 Node.js 22.19+（推荐 Node 24）与 pnpm 10+。
+这种方式面向需要阅读、修改或参与开发的用户。需要 Node.js 22.19+（推荐 Node 24）、pnpm 10+ 与 Git。
 
 ```bash
 git clone https://github.com/NiYa193/dsh-liang-meter.git
@@ -51,9 +69,9 @@ pnpm run dev:install
 pnpm run dev:web
 ```
 
-默认访问地址为 `http://127.0.0.1:3080`。这套安装会使用独立的开发 profile，不会改动日常使用的 DeepSeek Harness profile。
+默认访问地址为 `http://127.0.0.1:3080`。源码自编译安装使用独立的开发 profile，不会改动日常使用的 DeepSeek Harness profile。
 
-Windows 用户请在 Git Bash 或 WSL 中运行源码安装命令。
+Windows 用户请在 Git Bash 或 WSL 中运行源码自编译命令。
 
 <h2 id="incense">香火怎么算</h2>
 
@@ -83,9 +101,9 @@ dsh --profile <profile> --dump-config
 3. 确认配置中包含 `dsh-liangxiang`，随后重新启动 WebUI。
 4. 页面仍未更新时，执行一次浏览器强制刷新。
 
-**源码安装命令无法运行**
+**源码自编译命令无法运行**
 
-源码安装脚本需要 Git Bash 或 WSL。先在对应终端确认以下命令可用：
+源码自编译脚本需要 Git Bash 或 WSL。先在对应终端确认以下命令可用：
 
 ```bash
 node --version
@@ -126,6 +144,14 @@ dsh --profile <profile> --dump-config
 
 ### 三个平台都适用
 
+**npm 无法下载梁相**
+
+```bash
+npm view dsh-liangxiang@beta version
+```
+
+能够返回版本号时，表示 npm registry 可用。若命令报错，请检查网络、代理与 npm registry 设置，再重新执行安装命令。
+
 **入口被拖到屏幕外**
 
 在浏览器开发者工具中执行：
@@ -146,12 +172,18 @@ localStorage.removeItem('liangxiang:badge-position:v1')
 
 <h2 id="reinstall">重新安装</h2>
 
-当覆盖安装后仍显示旧版本时，先完整卸载，再安装目标版本：
+当覆盖安装后仍显示旧版本时，完全退出 WebUI，先卸载旧版本，再从 npm 安装最新版本：
 
 ```bash
 dsh plugin --profile <profile> remove dsh-liangxiang
-dsh plugin --profile <profile> add ./dsh-liangxiang-<version>.tgz
+dsh plugin --profile <profile> add dsh-liangxiang@beta
 dsh --profile <profile> --dump-config
+```
+
+使用 GitHub Release 安装包时，将第二条命令替换为：
+
+```bash
+dsh plugin --profile <profile> add ./dsh-liangxiang-<version>.tgz
 ```
 
 源码环境可以运行：

@@ -31,10 +31,14 @@ jobs:
           cache: pnpm
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      - name: Install social-card browser
+        run: pnpm exec playwright install --with-deps chromium
       - name: Sync today's public Liangxiang card
         run: pnpm run sync:social
       - name: Check and build
         run: pnpm run build
+      - name: Render today's high-resolution social card
+        run: pnpm run render:social
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact

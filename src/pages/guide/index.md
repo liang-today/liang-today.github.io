@@ -29,7 +29,7 @@ sections:
 
 全局装过 DSH 就写 `dsh`；否则把下面的 `dsh` 整段换成 `npx --yes @deepseek-ai/dsh`。
 
-> 当前版本 **v0.8.5-beta**。远程安装请写 `dsh-liangxiang@beta`，不要写 `@0.8.0`。
+> 当前版本 **v0.8.6-beta**。远程安装请写 `dsh-liangxiang@beta`，不要写 `@0.8.0`。
 
 <h2 id="install">安装</h2>
 
@@ -38,22 +38,22 @@ sections:
 ### npm（推荐）
 
 ```bash
-npx --yes @deepseek-ai/dsh plugin --profile web add dsh-liangxiang@0.8.5-beta
+npx --yes @deepseek-ai/dsh plugin --profile web add dsh-liangxiang@beta
 npx --yes @deepseek-ai/dsh web
 ```
 
-已全局安装 `dsh` 时，把开头换成 `dsh` 即可。刚发布的几小时内请写精确版本，不要只写 `@beta`（pnpm 11 会退回上一号）。不要运行 `npm i dsh-liangxiang`：那只会装进当前目录的 `node_modules`，不会进入 DSH。
+已全局安装 `dsh` 时，把开头换成 `dsh` 即可。不要运行 `npm i dsh-liangxiang`：那只会装进当前目录的 `node_modules`，不会进入 DSH。不要钉死某一号。
 
 装好后，案牍会连接社区后端 `https://api.liang.today`。国内 npm 慢时：`npm config set registry https://registry.npmmirror.com`
 
 ### 本地安装包
 
-先进入包所在目录，必须写 **`./文件名.tgz`**。少写 `./` 时，pnpm 会把文件名当成 npm 包名去拉并报 404。走 npm 请写 `dsh-liangxiang@0.8.5-beta`。子命令是 `plugin add`，不是 `web add`。
+先进入包所在目录，必须写 **`./文件名.tgz`**。少写 `./` 时，pnpm 会把文件名当成 npm 包名去拉并报 404。走 npm 请写 `dsh-liangxiang@beta`。子命令是 `plugin add`，不是 `web add`。
 
 ```bash
 export DSH_HOME="$HOME/.dsh"
 cd "$HOME/Desktop/liangxiang"
-dsh plugin --profile web add ./dsh-liangxiang-0.8.5-beta.tgz
+dsh plugin --profile web add ./dsh-liangxiang-0.8.6-beta.tgz
 dsh web
 ```
 
@@ -75,21 +75,23 @@ pnpm install && pnpm run dev:install && pnpm run dev:web
 
 先完全退出 WebUI。升级不会删除香火账本。
 
-`plugin add` 只是转给 pnpm，有两层会让你停在旧号：
-
-1. 第一次装 `@beta` 时，profile 会写成**当时的精确版本**（例如 `0.8.3-beta`）。之后再 `add @beta` 会报 Already up to date，不会去解析新标签。
-2. pnpm 11 默认有 `minimumReleaseAge`：刚发布几小时内的版本，用 `@beta` / 包名不会被选中，会退回上一号够龄的版本。
-
-要拿到当前号，先卸，再写**精确版本**：
+安装和升级都写 `@beta`，不要钉某一号。若以前装过本地包或旧精确号，先卸再装：
 
 ```bash
 export DSH_HOME="$HOME/.dsh"
 npx --yes @deepseek-ai/dsh plugin --profile web remove dsh-liangxiang
-npx --yes @deepseek-ai/dsh plugin --profile web add dsh-liangxiang@0.8.5-beta
+npx --yes @deepseek-ai/dsh plugin --profile web add dsh-liangxiang@beta
 npx --yes @deepseek-ai/dsh web
 ```
 
-已全局安装 `dsh` 时，把开头换成 `dsh` 即可。装完强制刷新，案牍应显示 `v0.8.5-beta`。包发布超过 pnpm 冷静期之后，也可以写 `dsh-liangxiang@beta`。
+已全局安装 `dsh` 时，把开头换成 `dsh` 即可。装完强制刷新。插件启动后会把 profile 依赖改成浮动的 `beta`，并排除 pnpm 11 对新年份的 24 小时冷静期。若还没启动过带此逻辑的版本，也可自己在 `$DSH_HOME/profiles/web/pnpm-workspace.yaml` 加上：
+
+```yaml
+minimumReleaseAgeExclude:
+  - dsh-liangxiang
+```
+
+然后再执行一次 `add @beta`。
 
 <h2 id="uninstall">卸载</h2>
 
@@ -148,7 +150,7 @@ Safari 需先到「设置 → 高级」勾选「在菜单栏中显示开发菜�
 ### 安装失败
 
 **报 `ERR_PNPM_FETCH_404`**  
-本地包被当成了 npm 名字。先 `cd` 到包目录，写成 `./dsh-liangxiang-0.8.5-beta.tgz`。走 npm 请写 `dsh-liangxiang@beta`，不要把本地文件名当成包名。
+本地包被当成了 npm 名字。先 `cd` 到包目录，写成 `./dsh-liangxiang-0.8.6-beta.tgz`。走 npm 请写 `dsh-liangxiang@beta`，不要把本地文件名当成包名。
 
 **提示没有 `dsh` 命令**  
 改用 `npx --yes @deepseek-ai/dsh`，不必先全局安装。

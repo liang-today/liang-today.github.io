@@ -1,83 +1,74 @@
 ---
 layout: ../../layouts/MarkdownLayout.astro
 title: 部署指南
-description: 梁相的 npm 安装、GitHub Release 安装、源码自编译安装，以及 Windows、macOS、Linux 的常见问题处理方法。
-eyebrow: 安装与恢复
-aside: 优先使用 npm；也可选择 GitHub Release 或源码自编译。
+description: 梁相的 npm、GitHub Release、源码三条路径：安装、升级、卸载，以及常见问题处理。
+eyebrow: 安装、升级与卸载
+aside: 优先 npm 远程拉包；也可使用 GitHub 安装包或源码。
 sections:
   - href: '#install'
-    label: 选择安装方式
+    label: 安装、升级、卸载
   - href: '#incense'
     label: 香火怎么算
   - href: '#troubleshooting'
     label: 按系统排障
   - href: '#reinstall'
-    label: 重新安装
+    label: 仍显示旧版本时
 ---
 
 # 部署指南
 
-梁相是 DeepSeek Harness WebUI 插件，支持 Windows、macOS 与 Linux。推荐通过 **npm 安装**；需要固定版本或离线安装时可使用 **GitHub Release**，需要修改或审查代码时可选择 **源码自编译安装**。
+梁相是 DeepSeek Harness WebUI 插件。需要 Node.js 22.19+（推荐 24）和已安装的 DSH。
 
-> 当前 npm 可安装版本：`dsh-liangxiang@0.8.0`。现阶段建议显式使用 `@beta` 安装。
+每次操作都先**完全退出 WebUI**，做完再 `dsh web`，并刷新浏览器一次。升级、卸载都不会删除香火账本。`web` 若不是你的 profile，换成实际名字。
 
-<h2 id="install">选择安装方式</h2>
+> 当前 npm 公开包仍是 `dsh-liangxiang@0.8.0`。发新包之前，`@beta` 升不到源码里的更新。
 
-### 方式一：npm 安装（推荐）
+<h2 id="install">安装、升级、卸载</h2>
 
-需要 Node.js 22.19+（推荐 Node 24），并已安装 DeepSeek Harness。
+### npm（推荐，远程拉包）
 
-1. 完全退出正在运行的 DeepSeek Harness WebUI。
-2. 安装梁相并启动 DSH：
+安装和升级是同一条命令，DSH 会从 npm 拉取当前 `@beta`：
 
 ```bash
 dsh plugin --profile web add dsh-liangxiang@beta
-dsh web
 ```
 
-3. 页面边缘出现“今日梁相”入口，即表示安装完成。
+卸载：
 
-DSH 会从 npm registry 获取 `beta` 标签对应的版本。需要固定在指定版本时，将 `@beta` 替换为版本号，例如 `dsh-liangxiang@0.8.0`。
+```bash
+dsh plugin --profile web remove dsh-liangxiang
+```
 
-国内访问 npmjs 较慢或超时时，可改用 npmmirror：
+国内访问 npm 较慢时：
 
 ```bash
 npm config set registry https://registry.npmmirror.com
 ```
 
-社区后端 `https://api.liang.today` 位于香港，由本机 DeepSeek Harness 直连。连不上时插件不会卡住整个 WebUI，几秒后进入主界面并提示“无法连接天庭”，随后自动重连。源码自编译依赖 GitHub，在内地不稳定时请优先使用 npm 安装。
+社区后端 `https://api.liang.today` 在香港，由本机 DSH 直连。连不上时不会卡住整个 WebUI。
 
-### 方式二：GitHub Release 安装
+### GitHub Release
 
-这种方式适合保存离线安装包或固定版本。前往[插件 Releases 页面](https://github.com/liang-today/dsh-liangxiang/releases)，下载目标版本的 `dsh-liangxiang-<version>.tgz`；目标版本尚未提供安装包时，请使用 npm 安装。
-
-1. 完全退出正在运行的 DeepSeek Harness WebUI。
-2. 在安装包所在目录安装梁相并启动 DSH：
+前往[Releases](https://github.com/liang-today/dsh-liangxiang/releases)，下载 `dsh-liangxiang-<version>.tgz`。尚无 Release 时请用 npm 或本地 tarball。
 
 ```bash
-dsh plugin --profile web add ./dsh-liangxiang-<version>.tgz
-dsh web
+dsh plugin --profile web add ./dsh-liangxiang-<version>.tgz   # 安装或升级
+dsh plugin --profile web remove dsh-liangxiang               # 卸载
 ```
 
-3. 页面边缘出现“今日梁相”入口，即表示安装完成。
+### 源码
 
-### 方式三：源码自编译安装
-
-这种方式面向需要阅读、修改或参与开发的用户。需要 Node.js 22.19+（推荐 Node 24）、pnpm 10+ 与 Git。
+使用独立开发 profile，不改日常 DSH。Windows 请在 Git Bash 或 WSL 中执行。
 
 ```bash
 git clone https://github.com/liang-today/dsh-liangxiang.git
 cd dsh-liangxiang
-corepack enable
-pnpm install
-pnpm run verify
-pnpm run dev:install
-pnpm run dev:web
+pnpm install && pnpm run dev:install && pnpm run dev:web   # 安装
+git pull && pnpm install && pnpm run dev:install           # 升级
+pnpm run dev:uninstall                                     # 卸载
 ```
 
-默认访问地址为 `http://127.0.0.1:3080`。源码自编译安装使用独立的开发 profile，不会改动日常使用的 DeepSeek Harness profile。
-
-Windows 用户请在 Git Bash 或 WSL 中运行源码自编译命令。
+默认开发地址 `http://127.0.0.1:3080`。
 
 <h2 id="incense">香火怎么算</h2>
 
@@ -176,29 +167,15 @@ localStorage.removeItem('liangxiang:badge-position:v1')
 
 第一炷需要 50,000 Pro 当量；V4-Flash 与其他模型大约需要 100,000 原始 Token。用量达到门槛后，香火会自动更新。
 
-<h2 id="reinstall">重新安装</h2>
+<h2 id="reinstall">仍显示旧版本时</h2>
 
-当覆盖安装后仍显示旧版本时，完全退出 WebUI，先卸载旧版本，再从 npm 安装最新版本：
+先卸载再按上面的路径重装一次：
 
 ```bash
 dsh plugin --profile web remove dsh-liangxiang
 dsh plugin --profile web add dsh-liangxiang@beta
-dsh web
 ```
 
-使用 GitHub Release 安装包时，将第二条命令替换为：
-
-```bash
-dsh plugin --profile web add ./dsh-liangxiang-<version>.tgz
-```
-
-源码环境可以运行：
-
-```bash
-pnpm run dev:uninstall
-pnpm run dev:install
-```
-
-重新安装完成后，完全退出并重新启动 WebUI，再执行一次浏览器强制刷新。
+GitHub 包把第二条换成 `add ./dsh-liangxiang-<version>.tgz`。源码用 `pnpm run dev:uninstall && pnpm run dev:install`。然后重启 WebUI 并强制刷新浏览器。
 
 问题仍未解决时，请在[插件仓库](https://github.com/liang-today/dsh-liangxiang)提交 Issue，附上操作系统、Node/DSH 版本、profile 名称与已经脱敏的错误提示。公开内容中请勿包含 API key、口令或完整日志。

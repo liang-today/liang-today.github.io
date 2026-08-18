@@ -55,6 +55,8 @@ sections:
 
 梁相由个人开发者发起，由 **liang-today** GitHub 组织维护品牌与官网。插件、文档和测试在 [`NiYa193/dsh-liang-meter`](https://github.com/NiYa193/dsh-liang-meter) 开源；官网在 [`liang-today/liang-today.github.io`](https://github.com/liang-today/liang-today.github.io) 开源。作者与贡献者信息以仓库提交记录为准。
 
+本项目为独立创作，与 DeepSeek 及其关联主体不存在官方关系。
+
 当前 npm 可安装版本为 **0.8.0**，包名为 [`dsh-liangxiang`](https://www.npmjs.com/package/dsh-liangxiang)。官网优先推荐 npm 安装；固定版本安装包与更新说明以插件仓库的 Releases 页面为准。
 
 <h2 id="principles">设计原则</h2>
@@ -66,7 +68,7 @@ sections:
 ### 玩法轻松，事实清楚
 
 - 投票只有夯与拉，一炷就是一票。
-- 梁位是社区参与者的夯率，不是民调或本人立场。
+- 梁位是社区参与者的夯率，不构成民调，也不代表任何个人或机构立场。
 - 五行香客表示至少成功投过一次的参与者数量，不等于实名人数。
 - 官网只提供说明与演示，不处理真实投票。
 

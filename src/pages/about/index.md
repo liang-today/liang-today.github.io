@@ -23,9 +23,9 @@ sections:
 
 <h2 id="story">梁相的含义</h2>
 
-**梁相**是众香汇成梁位后，梁子在当日呈现的形相。香火承载每次表态，梁位记录众人的选择，梁子依势显相，日终结果收入梁祠。
+**梁相**是众香汇成梁位后，梁子在当日呈现的形相。“相”既指梁子的可见状态，也指众人选择形成的当日结果；“梁”连接梁子、梁位与梁祠，构成完整的命名主轴。
 
-中文品牌统一写作 **梁相**，英文标识为 **liangxiang**，主域名为 **liang.today**。
+英文标识 **liangxiang** 延续中文读音，主域名 **liang.today** 将品牌落在“今日一案、日终入祠”的每日节奏上。
 
 ```text
 今日开梁案
@@ -53,11 +53,11 @@ sections:
 
 <h2 id="open-source">作者与开源</h2>
 
-梁相由个人开发者发起，由 **liang-today** GitHub 组织维护品牌与官网。插件、文档和测试在 [`NiYa193/dsh-liang-meter`](https://github.com/NiYa193/dsh-liang-meter) 开源；官网在 [`liang-today/liang-today.github.io`](https://github.com/liang-today/liang-today.github.io) 开源。作者与贡献者信息以仓库提交记录为准。
+梁相由 [`NiYa193`](https://github.com/NiYa193) 发起并维护。插件、文档和测试在 [`NiYa193/dsh-liang-meter`](https://github.com/NiYa193/dsh-liang-meter) 开源；品牌与官网由 **liang-today** GitHub 组织维护，官网源码位于 [`liang-today/liang-today.github.io`](https://github.com/liang-today/liang-today.github.io)。
 
 本项目为独立创作，与 DeepSeek 及其关联主体不存在官方关系。
 
-当前 npm 可安装版本为 **0.8.0**，包名为 [`dsh-liangxiang`](https://www.npmjs.com/package/dsh-liangxiang)。官网优先推荐 npm 安装；固定版本安装包与更新说明以插件仓库的 Releases 页面为准。
+当前 npm 可安装版本为 **0.8.0**，包名为 [`dsh-liangxiang`](https://www.npmjs.com/package/dsh-liangxiang)，由 npm 账户 [`fangcc`](https://www.npmjs.com/~fangcc) 发布。官网优先推荐 npm 安装；固定版本安装包与更新说明以插件仓库的 Releases 页面为准。
 
 <h2 id="principles">设计原则</h2>
 

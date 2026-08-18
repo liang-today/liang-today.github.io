@@ -28,15 +28,14 @@ sections:
 需要 Node.js 22.19+（推荐 Node 24），并已安装 DeepSeek Harness。
 
 1. 完全退出正在运行的 DeepSeek Harness WebUI。
-2. 将梁相加入日常使用的 profile。`<profile>` 替换为你的 profile 名称：
+2. 安装梁相并启动 DSH：
 
 ```bash
-dsh plugin --profile <profile> add dsh-liangxiang@beta
-dsh --profile <profile> --dump-config
+dsh plugin --profile web add dsh-liangxiang@beta
+dsh web
 ```
 
-3. 配置中出现 `dsh-liangxiang` 后，重新启动 WebUI。
-4. 页面边缘出现“今日梁相”入口，即表示安装完成。
+3. 页面边缘出现“今日梁相”入口，即表示安装完成。
 
 DSH 会从 npm registry 获取 `beta` 标签对应的版本。需要固定在指定版本时，将 `@beta` 替换为版本号，例如 `dsh-liangxiang@0.8.0`。
 
@@ -45,15 +44,14 @@ DSH 会从 npm registry 获取 `beta` 标签对应的版本。需要固定在指
 这种方式适合保存离线安装包或固定版本。前往[插件 Releases 页面](https://github.com/NiYa193/dsh-liang-meter/releases)，下载目标版本的 `dsh-liangxiang-<version>.tgz`；目标版本尚未提供安装包时，请使用 npm 安装。
 
 1. 完全退出正在运行的 DeepSeek Harness WebUI。
-2. 在安装包所在目录运行以下命令，`<profile>` 替换为你的 profile 名称：
+2. 在安装包所在目录安装梁相并启动 DSH：
 
 ```bash
-dsh plugin --profile <profile> add ./dsh-liangxiang-<version>.tgz
-dsh --profile <profile> --dump-config
+dsh plugin --profile web add ./dsh-liangxiang-<version>.tgz
+dsh web
 ```
 
-3. 配置中出现 `dsh-liangxiang` 后，重新启动 WebUI。
-4. 页面边缘出现“今日梁相”入口，即表示安装完成。
+3. 页面边缘出现“今日梁相”入口，即表示安装完成。
 
 ### 方式三：源码自编译安装
 
@@ -95,7 +93,7 @@ Windows 用户请在 Git Bash 或 WSL 中运行源码自编译命令。
 2. 在 PowerShell 查看当前 profile：
 
 ```powershell
-dsh --profile <profile> --dump-config
+dsh --profile web --dump-config
 ```
 
 3. 确认配置中包含 `dsh-liangxiang`，随后重新启动 WebUI。
@@ -126,7 +124,7 @@ command -v dsh
 **插件已安装但入口没有出现**
 
 ```bash
-dsh --profile <profile> --dump-config
+dsh --profile web --dump-config
 ```
 
 确认启动 WebUI 时使用的 profile 与安装插件时一致，然后完全退出并重新启动 WebUI。
@@ -137,7 +135,7 @@ dsh --profile <profile> --dump-config
 
 ```bash
 id
-dsh --profile <profile> --dump-config
+dsh --profile web --dump-config
 ```
 
 确认安装插件与启动 WebUI 使用同一系统用户、同一 profile。通过 systemd 或容器运行时，重启对应服务或容器后再刷新页面。
@@ -175,15 +173,15 @@ localStorage.removeItem('liangxiang:badge-position:v1')
 当覆盖安装后仍显示旧版本时，完全退出 WebUI，先卸载旧版本，再从 npm 安装最新版本：
 
 ```bash
-dsh plugin --profile <profile> remove dsh-liangxiang
-dsh plugin --profile <profile> add dsh-liangxiang@beta
-dsh --profile <profile> --dump-config
+dsh plugin --profile web remove dsh-liangxiang
+dsh plugin --profile web add dsh-liangxiang@beta
+dsh web
 ```
 
 使用 GitHub Release 安装包时，将第二条命令替换为：
 
 ```bash
-dsh plugin --profile <profile> add ./dsh-liangxiang-<version>.tgz
+dsh plugin --profile web add ./dsh-liangxiang-<version>.tgz
 ```
 
 源码环境可以运行：

@@ -57,7 +57,7 @@ sections:
 
 本项目为独立创作，与 DeepSeek 及其关联主体不存在官方关系。
 
-当前 npm 可安装版本为 **0.8.0**，包名为 [`dsh-liangxiang`](https://www.npmjs.com/package/dsh-liangxiang)，由 npm 账户 [`fangcc`](https://www.npmjs.com/~fangcc) 发布。官网优先推荐 npm 安装；固定版本安装包与更新说明以插件仓库的 Releases 页面为准。
+当前 npm 可安装版本为 **0.8.3-beta**，包名为 [`dsh-liangxiang`](https://www.npmjs.com/package/dsh-liangxiang)，由 npm 账户 [`fangcc`](https://www.npmjs.com/~fangcc) 发布。官网优先推荐 `dsh-liangxiang@beta`；固定版本安装包与更新说明以插件仓库的 Releases 页面为准。
 
 <h2 id="principles">设计原则</h2>
 

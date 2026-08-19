@@ -75,6 +75,8 @@ localStorage.removeItem('liangxiang:badge-position:v2')
 
 `liang.today` 是梁相的公开说明与演示网站。首页的夯拉演示只改变当前浏览器中的数字；网站没有登录、真实投票、Token 采集或用户数据库。
 
+官网用 [GoatCounter](https://www.goatcounter.com/) 统计每日访客和页面浏览，便于了解传播效果。它不设置 cookie、不识别个人，也不与插件的香客或安装身份合并。统计数据留在 GoatCounter，不进入社区后端 `api.liang.today`。后台地址为 [`stats.liang.today`](https://stats.liang.today/)（GoatCounter 自定义域名）；`fangcc.goatcounter.com` 仍然可用。
+
 官网源码在 [`liang-today/liang-today.github.io`](https://github.com/liang-today/liang-today.github.io)；插件源码在 [`liang-today/dsh-liangxiang`](https://github.com/liang-today/dsh-liangxiang)。
 
 ---

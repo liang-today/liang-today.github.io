@@ -29,7 +29,7 @@ sections:
 
 全局装过 DSH 就写 `dsh`；否则把下面的 `dsh` 整段换成 `npx --yes @deepseek-ai/dsh`。
 
-> 当前版本 **v0.8.6-beta**。远程安装请写 `dsh-liangxiang@beta`，不要写 `@0.8.0`。
+> 当前版本 **v0.8.7-beta**。远程安装请写 `dsh-liangxiang@beta`，不要写 `@0.8.0`。
 
 <h2 id="install">安装</h2>
 
@@ -53,7 +53,7 @@ npx --yes @deepseek-ai/dsh web
 ```bash
 export DSH_HOME="$HOME/.dsh"
 cd "$HOME/Desktop/liangxiang"
-dsh plugin --profile web add ./dsh-liangxiang-0.8.6-beta.tgz
+dsh plugin --profile web add ./dsh-liangxiang-0.8.7-beta.tgz
 dsh web
 ```
 
@@ -157,7 +157,7 @@ Safari 需先到「设置 → 高级」勾选「在菜单栏中显示开发菜�
 ### 安装失败
 
 **报 `ERR_PNPM_FETCH_404`**  
-本地包被当成了 npm 名字。先 `cd` 到包目录，写成 `./dsh-liangxiang-0.8.6-beta.tgz`。走 npm 请写 `dsh-liangxiang@beta`，不要把本地文件名当成包名。
+本地包被当成了 npm 名字。先 `cd` 到包目录，写成 `./dsh-liangxiang-0.8.7-beta.tgz`。走 npm 请写 `dsh-liangxiang@beta`，不要把本地文件名当成包名。
 
 **提示没有 `dsh` 命令**  
 改用 `npx --yes @deepseek-ai/dsh`，不必先全局安装。

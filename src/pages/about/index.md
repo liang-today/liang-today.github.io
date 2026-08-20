@@ -62,7 +62,7 @@ sections:
 
 本项目为独立创作，与 DeepSeek 及其关联主体不存在官方关系。
 
-当前版本为 **v0.8.7-beta**，包名 [`dsh-liangxiang`](https://www.npmjs.com/package/dsh-liangxiang)。官网推荐 `dsh-liangxiang@beta`；固定版本安装包以插件仓库 Releases 为准。
+当前版本为 **v0.8.8-beta**，包名 [`dsh-liangxiang`](https://www.npmjs.com/package/dsh-liangxiang)。官网推荐 `dsh-liangxiang@beta`；固定版本安装包以插件仓库 Releases 为准。
 
 <h2 id="principles">设计原则</h2>
 

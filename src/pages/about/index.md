@@ -53,7 +53,7 @@ sections:
 
 <h2 id="open-source">作者与开源</h2>
 
-梁相由 npm 账户 [`liang-today`](https://www.npmjs.com/~liang-today) 发起。公开仓库统一收在 **liang-today** 组织：
+梁相由 [`liang-today`](https://www.npmjs.com/~liang-today) 发起。公开仓库统一收在 **liang-today** 组织：
 
 | 仓库 | 内容 |
 |---|---|

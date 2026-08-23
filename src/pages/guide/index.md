@@ -21,7 +21,7 @@ sections:
 
 # 部署指南
 
-梁相是 DeepSeek Harness 的 WebUI 插件。当前版本 **v0.8.9-beta**，请安装 `dsh-liangxiang@beta`。
+梁相是 DeepSeek Harness 的 WebUI 插件。当前版本 **v0.8.10-beta**，请安装 `dsh-liangxiang@beta`。
 
 改插件前先退出 WebUI，做完再打开，并刷新一次。没有全局 `dsh` 时，把命令里的 `dsh` 换成 `npx --yes @deepseek-ai/dsh`。`web` 若不是你的 profile 名，换成实际名字。
 
@@ -62,7 +62,7 @@ npx --yes @deepseek-ai/dsh web
 ```bash
 export DSH_HOME="$HOME/.dsh"
 cd "$HOME/Desktop/liangxiang"
-dsh plugin --profile web add ./dsh-liangxiang-0.8.9-beta.tgz
+dsh plugin --profile web add ./dsh-liangxiang-0.8.10-beta.tgz
 dsh web
 ```
 
@@ -136,7 +136,7 @@ macOS 用 Chrome / Edge 时按 <kbd>⌘</kbd> <kbd>⌥</kbd> <kbd>J</kbd>；Wind
 用 `npx --yes @deepseek-ai/dsh`，不必先全局安装。
 
 **报 `ERR_PNPM_FETCH_404`**  
-本地包要写成 `./dsh-liangxiang-0.8.9-beta.tgz`。走网上安装请写 `dsh-liangxiang@beta`。
+本地包要写成 `./dsh-liangxiang-0.8.10-beta.tgz`。走网上安装请写 `dsh-liangxiang@beta`。
 
 **设置里找不到插件市场**  
 先退出 WebUI，执行 `dsh plugin --profile web add dshmarket`，再打开并刷新。

@@ -54,6 +54,8 @@ npx --yes @deepseek-ai/dsh web
 
 ![在插件市场搜索 liangxiang，卡片显示 dsh-liangxiang 已安装，分类为娱乐](/guide/dshmarket-search-liangxiang.jpg)
 
+也已列入 [1024 Store](https://deepseek1024.com/) 和 [awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness)。安装仍按上面的 dsh-market 走。
+
 ### npm（命令行）
 
 ```bash

@@ -7,6 +7,8 @@ aside: 先退出 WebUI，再改插件。升级和卸载都不会删账本。
 sections:
   - href: '#install'
     label: 安装
+  - href: '#desktop'
+    label: DSH Desktop
   - href: '#upgrade'
     label: 升级
   - href: '#uninstall'
@@ -70,6 +72,24 @@ pnpm install && pnpm run dev:install && pnpm run dev:web
 ```
 
 默认地址 `http://127.0.0.1:3080`。
+
+<h2 id="desktop">DSH Desktop</h2>
+
+梁相不单独适配桌面客户端。Desktop 只是换了一套 DSH 家目录和自带的 `dsh` / `pnpm`。不设对的 `DSH_HOME` 时，命令会写进 `~/.dsh`，Desktop 不读那里，看起来像「安装成功、界面没变化」。这不是插件代码故障。
+
+先**完全退出** DSH Desktop，再在 PowerShell 里：
+
+```powershell
+$env:DSH_HOME = "$env:APPDATA\dsh-desktop\harness"
+$env:PATH = "$env:DSH_HOME\.desktop-bin;$env:PATH"
+dsh plugin --profile web add dsh-liangxiang@beta
+```
+
+若 `dsh` 不在 PATH 里，用 Desktop 安装目录里的 `@deepseek-ai/dsh` 启动器，不要用本机全局的 `dsh` 或 pnpm 11。Desktop 的 node_modules 按 pnpm 10 的 store 链接，PATH 里若是 pnpm 11 会报 `ERR_PNPM_UNEXPECTED_STORE`。
+
+装完再打开 Desktop，强制刷新一次。升级、卸载同样先设 `$env:DSH_HOME`，再 `plugin add` / `plugin remove`。
+
+macOS Desktop 若家目录不在 `~/.dsh`，先在桌面应用的设置或文档里确认 harness 路径，再 `export DSH_HOME=那个路径`。
 
 <h2 id="upgrade">升级</h2>
 
@@ -189,6 +209,9 @@ lsof -nP -iTCP:3080 -sTCP:LISTEN
 换 Git Bash 或 WSL，并确认 `node`、`pnpm` 可用。
 
 ### 入口不对
+
+**Desktop 里命令成功，界面没有「今日梁相」**  
+插件装进了默认的 `~/.dsh`，Desktop 读的是自己的 harness 目录。按 [DSH Desktop](#desktop) 设 `$env:DSH_HOME` 后再装一次。
 
 **配置里有插件，页面没有入口**  
 确认安装和启动用了同一个 profile、同一个系统用户。完全退出后重启，再强制刷新。

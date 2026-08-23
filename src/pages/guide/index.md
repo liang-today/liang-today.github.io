@@ -7,6 +7,8 @@ aside: 先退出 WebUI，再改插件。升级和卸载都不会删账本。
 sections:
   - href: '#install'
     label: 安装
+  - href: '#market'
+    label: 插件市场
   - href: '#desktop'
     label: DSH Desktop
   - href: '#upgrade'
@@ -35,9 +37,24 @@ sections:
 
 <h2 id="install">安装</h2>
 
-页面边缘出现「今日梁相」，即表示装好。
+页面边缘出现「今日梁相」，即表示装好。推荐走[插件市场](#market)；也可以用下面的命令行。
 
-### npm（推荐）
+<h3 id="market">插件市场</h3>
+
+梁相已上架社区商店 [dsh-market](https://dshmarket.com/)（货架来自 [awesome-dsh-plugin](https://awesome-dsh-plugin.com)）。商店**不会**替换官方「设置 → 插件」页，而是另开一项 **插件市场 / Plugin Market**。
+
+若还没有商店：
+
+```bash
+npx --yes @deepseek-ai/dsh plugin --profile web add dshmarket
+npx --yes @deepseek-ai/dsh web
+```
+
+打开 WebUI → **设置 → 插件市场** → 搜索 `liangxiang` → 安装 `dsh-liangxiang`。部分 Desktop 已内置商店，可跳过上面两条，但仍要按 [DSH Desktop](#desktop) 设好家目录。需要 `dsh web` ≥ `0.1.0-rc.6`。
+
+![在插件市场搜索 liangxiang，卡片显示 dsh-liangxiang 已安装，分类为娱乐](/guide/dshmarket-search-liangxiang.jpg)
+
+### npm（命令行）
 
 ```bash
 npx --yes @deepseek-ai/dsh plugin --profile web add dsh-liangxiang@beta
@@ -212,6 +229,9 @@ lsof -nP -iTCP:3080 -sTCP:LISTEN
 
 **Desktop 里命令成功，界面没有「今日梁相」**  
 插件装进了默认的 `~/.dsh`，Desktop 读的是自己的 harness 目录。按 [DSH Desktop](#desktop) 设 `$env:DSH_HOME` 后再装一次。
+
+**设置里只有旧的「插件」页，没有商店**  
+官方「插件」是已装清单，不会被替换。商店在旁边的 **插件市场**。没有这一项时，先对同一个 `DSH_HOME` 安装 `dshmarket`，再强制刷新。
 
 **配置里有插件，页面没有入口**  
 确认安装和启动用了同一个 profile、同一个系统用户。完全退出后重启，再强制刷新。

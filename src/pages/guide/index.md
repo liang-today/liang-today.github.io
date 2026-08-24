@@ -21,7 +21,7 @@ sections:
 
 # 部署指南
 
-梁相是 DeepSeek Harness 的 WebUI 插件。当前版本 **v0.8.19-beta**，请安装 `dsh-liangxiang@beta`。
+梁相是 DeepSeek Harness 的 WebUI 插件。当前正式版 **v1.0.0**，请安装 `dsh-liangxiang`（npm `latest`）。安装和升级是同一条命令。
 
 改插件前先退出 WebUI，做完再打开，并刷新一次。没有全局 `dsh` 时，把命令里的 `dsh` 换成 `npx --yes @deepseek-ai/dsh`。`web` 若不是你的 profile 名，换成实际名字。
 
@@ -47,11 +47,11 @@ npx --yes @deepseek-ai/dsh web
 <h3 id="cli">命令行</h3>
 
 ```bash
-npx --yes @deepseek-ai/dsh plugin --profile web add dsh-liangxiang@beta
+npx --yes @deepseek-ai/dsh plugin --profile web add dsh-liangxiang
 npx --yes @deepseek-ai/dsh web
 ```
 
-已有全局 `dsh` 时，把开头换成 `dsh` 即可。不要运行 `npm i dsh-liangxiang`，那不会进入 DSH。不要写成 `@0.8.0`。
+已有全局 `dsh` 时，把开头换成 `dsh` 即可。不要运行 `npm i dsh-liangxiang`，那不会进入 DSH。不要写成 `@0.8.0` 或 `@beta`。
 
 国内 npm 慢时：`npm config set registry https://registry.npmmirror.com`
 
@@ -62,7 +62,7 @@ npx --yes @deepseek-ai/dsh web
 ```bash
 export DSH_HOME="$HOME/.dsh"
 cd "$HOME/Desktop/liangxiang"
-dsh plugin --profile web add ./dsh-liangxiang-0.8.19-beta.tgz
+dsh plugin --profile web add ./dsh-liangxiang-1.0.0.tgz
 dsh web
 ```
 
@@ -73,22 +73,21 @@ Desktop 读的是自己的家目录。先退出 Desktop，再在 PowerShell 里�
 ```powershell
 $env:DSH_HOME = "$env:APPDATA\dsh-desktop\harness"
 $env:PATH = "$env:DSH_HOME\.desktop-bin;$env:PATH"
-dsh plugin --profile web add dsh-liangxiang@beta
+dsh plugin --profile web add dsh-liangxiang
 ```
 
 然后打开 Desktop，刷新一次。macOS 若家目录不在 `~/.dsh`，先在 Desktop 的设置里确认 harness 路径，再 `export DSH_HOME=那个路径`。
 
 <h2 id="upgrade">升级</h2>
 
-退出 WebUI，再执行和安装相同的命令，仍然写 `@beta`。账本不会被删掉。
-
-如果界面还是旧版本，先卸载再安装：
+退出 WebUI，再执行和安装相同的命令。账本不会被删掉。以后升级也是这一条，不必先卸载。
 
 ```bash
-npx --yes @deepseek-ai/dsh plugin --profile web remove dsh-liangxiang
-npx --yes @deepseek-ai/dsh plugin --profile web add dsh-liangxiang@beta
+npx --yes @deepseek-ai/dsh plugin --profile web add dsh-liangxiang
 npx --yes @deepseek-ai/dsh web
 ```
+
+如果界面还是旧版本：先启动一次让 1.0.0 Host 把清单改成 `latest`，退出后再执行上面同一条。只有从未改写过的旧清单，才需要先 `remove` 再 `add`。
 
 <h2 id="uninstall">卸载</h2>
 
@@ -138,7 +137,7 @@ macOS 用 Chrome / Edge 时按 <kbd>⌘</kbd> <kbd>⌥</kbd> <kbd>J</kbd>；Wind
 用 `npx --yes @deepseek-ai/dsh`，不必先全局安装。
 
 **报 `ERR_PNPM_FETCH_404`**  
-本地包要写成 `./dsh-liangxiang-0.8.19-beta.tgz`。走网上安装请写 `dsh-liangxiang@beta`。
+本地包要写成 `./dsh-liangxiang-1.0.0.tgz`。走网上安装请写 `dsh-liangxiang`。
 
 **设置里找不到插件市场**  
 先退出 WebUI，执行 `dsh plugin --profile web add dshmarket`，再打开并刷新。

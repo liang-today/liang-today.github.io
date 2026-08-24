@@ -62,7 +62,7 @@ sections:
 
 本项目为独立创作，与 DeepSeek 及其关联主体不存在官方关系。
 
-当前版本为 **v0.8.14-beta**，包名 [`dsh-liangxiang`](https://www.npmjs.com/package/dsh-liangxiang)。官网推荐 `dsh-liangxiang@beta`；固定版本安装包以插件仓库 Releases 为准。已上架社区商店 [dsh-market](https://dshmarket.com/)，也列入 [1024 Store](https://deepseek1024.com/) 和 [awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness)；怎么装见[部署指南](/guide/#market)。
+当前版本为 **v0.8.15-beta**，包名 [`dsh-liangxiang`](https://www.npmjs.com/package/dsh-liangxiang)。官网推荐 `dsh-liangxiang@beta`；固定版本安装包以插件仓库 Releases 为准。已上架社区商店 [dsh-market](https://dshmarket.com/)，也列入 [1024 Store](https://deepseek1024.com/) 和 [awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness)；怎么装见[部署指南](/guide/#market)。
 
 <h2 id="principles">设计原则</h2>
 

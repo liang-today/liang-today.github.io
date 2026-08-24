@@ -9,6 +9,10 @@ sections:
     label: 安装
   - href: '#upgrade'
     label: 升级
+  - href: '#upgrade-market'
+    label: 市场升级
+  - href: '#upgrade-cli'
+    label: 命令行升级
   - href: '#uninstall'
     label: 卸载
   - href: '#reset'
@@ -80,14 +84,26 @@ dsh plugin --profile web add dsh-liangxiang
 
 <h2 id="upgrade">升级</h2>
 
-退出 WebUI，再执行和安装相同的命令。账本不会被删掉。以后升级也是这一条，不必先卸载。
+从 `@beta` / `0.8.x-beta` 升到正式版，和以后跟 `latest`，都不必先卸载。账本、梁祠、今日香火都保留。
+
+<h3 id="upgrade-market">插件市场</h3>
+
+已装过梁相时：打开 WebUI → **设置 → 插件市场** → **检查更新**（或卡片上的更新）。市场比的是 npm `latest`（现在是 `1.0.0`），高于 `0.8.6-beta`，应出现可更新。点更新后刷新；需要重启时按提示重启。缓存大约 30 分钟，看不到更新就强制检查一次。
+
+还没有市场时，先按上面的 [插件市场](#market) 装 `dshmarket`。
+
+<h3 id="upgrade-cli">命令行</h3>
+
+完全退出 WebUI（Desktop 也要退干净），对**实际在用的** `DSH_HOME` 执行和安装相同的命令。不要再写 `@beta`。
 
 ```bash
 npx --yes @deepseek-ai/dsh plugin --profile web add dsh-liangxiang
 npx --yes @deepseek-ai/dsh web
 ```
 
-如果界面还是旧版本：先启动一次让 1.0.0 Host 把清单改成 `latest`，退出后再执行上面同一条。只有从未改写过的旧清单，才需要先 `remove` 再 `add`。
+浏览器强制刷新，梁相案牍应为 **v1.0.0**。启动一次后，Host 会把残留的 `beta`、精确号、本地 `.tgz` 改成 `latest`。以后升级仍是这一条。
+
+如果界面还是旧版本：先启动一次让 1.0.0 Host 改清单，退出后再执行上面同一条。只有从未改写过的钉死 tarball，才需要先 `remove` 再 `add`。刚发版当天若 pnpm 冷静期挡住了：启动一次写入排除后再 add；或先装 [Releases](https://github.com/liang-today/dsh-liangxiang/releases) 里的 `./dsh-liangxiang-1.0.0.tgz`，启动后会切回 `latest`。
 
 <h2 id="uninstall">卸载</h2>
 

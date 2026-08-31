@@ -21,7 +21,7 @@ sections:
 
 梁相是一个 DeepSeek Harness 社区玩法。每天一道梁案，大家在使用模型的过程中凝成香火，投下一炷“夯”或“拉”；众人的选择汇成梁位，显出今日梁子。日终之后，结果收入梁祠。
 
-刚装上备 10 炷，对话还能继续攒。点一下一炷，长按两秒倾炉。同一台机器当天重装，不会再领一份见面礼。
+刚装上备 10 炷，对话还能继续攒。点一下一炷，长按 1.5 秒倾炉。同一台机器当天重装，不会再领一份见面礼。梁祠里的日梁、周梁、月梁都记五行香客。
 
 <h2 id="story">梁相的含义</h2>
 
@@ -64,7 +64,7 @@ sections:
 
 本项目为独立创作，与 DeepSeek 及其关联主体不存在官方关系。
 
-**2026-08-24 正式发布 v1.0.0。** 源码本点是 v1.0.1：见面礼 10 炷、欢迎页改疏。安装和升级同一条命令：`dsh plugin --profile web add dsh-liangxiang`。包名 [`dsh-liangxiang`](https://www.npmjs.com/package/dsh-liangxiang)，走 npm `latest`（发包后市场才会升到 1.0.1）；固定安装包以插件仓库 Latest Release 为准。已上架社区商店 [dsh-market](https://dshmarket.com/)，也列入 [1024 Store](https://deepseek1024.com/) 和 [awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness)；怎么装见[部署指南](/guide/#market)。
+**2026-08-24 正式发布 v1.0.0。** 源码本点是 v1.0.2：梁祠香客、倾炉 1.5 秒、见面礼 10 炷。安装和升级同一条命令：`dsh plugin --profile web add dsh-liangxiang`。包名 [`dsh-liangxiang`](https://www.npmjs.com/package/dsh-liangxiang)，走 npm `latest`（发包后市场才会升到 1.0.2）；固定安装包以插件仓库 Latest Release 为准。已上架社区商店 [dsh-market](https://dshmarket.com/)，也列入 [1024 Store](https://deepseek1024.com/) 和 [awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness)；怎么装见[部署指南](/guide/#market)。
 
 <h2 id="principles">设计原则</h2>
 

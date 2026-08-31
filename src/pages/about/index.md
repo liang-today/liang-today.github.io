@@ -62,7 +62,7 @@ sections:
 
 本项目为独立创作，与 DeepSeek 及其关联主体不存在官方关系。
 
-**2026-08-24 正式发布 v1.0.0。** 安装和升级同一条命令：`dsh plugin --profile web add dsh-liangxiang`。包名 [`dsh-liangxiang`](https://www.npmjs.com/package/dsh-liangxiang)，走 npm `latest`；固定安装包以插件仓库 Latest Release 为准。已上架社区商店 [dsh-market](https://dshmarket.com/)，也列入 [1024 Store](https://deepseek1024.com/) 和 [awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness)；怎么装见[部署指南](/guide/#market)。
+**2026-08-24 正式发布 v1.0.0；当前为 v1.0.1。** 安装和升级同一条命令：`dsh plugin --profile web add dsh-liangxiang`。包名 [`dsh-liangxiang`](https://www.npmjs.com/package/dsh-liangxiang)，走 npm `latest`；固定安装包以插件仓库 Latest Release 为准。已上架社区商店 [dsh-market](https://dshmarket.com/)，也列入 [1024 Store](https://deepseek1024.com/) 和 [awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness)；怎么装见[部署指南](/guide/#market)。
 
 <h2 id="principles">设计原则</h2>
 

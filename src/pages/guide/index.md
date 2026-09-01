@@ -25,7 +25,7 @@ sections:
 
 # 部署指南
 
-梁相是 DeepSeek Harness 的 WebUI 插件。请安装 `dsh-liangxiang`（npm `latest`）。安装和升级是同一条命令。源码本点是 v1.0.2：刚装上备 10 炷，梁祠记香客，倾炉 1.5 秒；npm 与 GitHub Release 随后发。
+梁相是 DeepSeek Harness 的 WebUI 插件。请安装 `dsh-liangxiang`（npm `latest`）。安装和升级是同一条命令。源码本点是 v1.0.7：第四区两列居中、梁祠日档不再横滑、悬浮即走。GitHub Release 已附本号 tarball；npm `latest` 发包后市场升到 1.0.7。
 
 改插件前先退出 WebUI，做完再打开，并刷新一次。没有全局 `dsh` 时，把命令里的 `dsh` 换成 `npx --yes @deepseek-ai/dsh`。`web` 若不是你的 profile 名，换成实际名字。
 
@@ -66,7 +66,7 @@ npx --yes @deepseek-ai/dsh web
 ```bash
 export DSH_HOME="$HOME/.dsh"
 cd "$HOME/Desktop/liangxiang"
-dsh plugin --profile web add ./dsh-liangxiang-1.0.2.tgz
+dsh plugin --profile web add ./dsh-liangxiang-1.0.7.tgz
 dsh web
 ```
 
@@ -88,7 +88,7 @@ dsh plugin --profile web add dsh-liangxiang
 
 <h3 id="upgrade-market">插件市场</h3>
 
-已装过梁相时：打开 WebUI → **设置 → 插件市场** → **检查更新**（或卡片上的更新）。市场比的是 npm `latest`。1.0.2 发包之后才会高于现在的 `1.0.0`。点更新后刷新；需要重启时按提示重启。缓存大约 30 分钟，看不到更新就强制检查一次。
+已装过梁相时：打开 WebUI → **设置 → 插件市场** → **检查更新**（或卡片上的更新）。市场比的是 npm `latest`。1.0.7 进 npm 之后才会高于现在的 `1.0.0`。点更新后刷新；需要重启时按提示重启。缓存大约 30 分钟，看不到更新就强制检查一次。
 
 还没有市场时，先按上面的 [插件市场](#market) 装 `dshmarket`。
 
@@ -101,9 +101,9 @@ npx --yes @deepseek-ai/dsh plugin --profile web add dsh-liangxiang
 npx --yes @deepseek-ai/dsh web
 ```
 
-浏览器强制刷新。启动一次后，Host 会把残留的 `beta`、精确号、本地 `.tgz` 改成 `latest`。以后升级仍是这一条。1.0.2 进 npm 之后，梁相案牍才会显示 v1.0.2。
+浏览器强制刷新。启动一次后，Host 会把残留的 `beta`、精确号、本地 `.tgz` 改成 `latest`。以后升级仍是这一条。1.0.7 进 npm 之后，梁相案牍才会显示 v1.0.7。
 
-如果界面还是旧版本：先启动一次让 Host 改清单，退出后再执行上面同一条。只有从未改写过的钉死 tarball，才需要先 `remove` 再 `add`。刚发版当天若 pnpm 冷静期挡住了：启动一次写入排除后再 add；或先装 [Releases](https://github.com/liang-today/dsh-liangxiang/releases) 里的 `./dsh-liangxiang-1.0.2.tgz`，启动后会切回 `latest`。
+如果界面还是旧版本：先启动一次让 Host 改清单，退出后再执行上面同一条。只有从未改写过的钉死 tarball，才需要先 `remove` 再 `add`。刚发版当天若 pnpm 冷静期挡住了：启动一次写入排除后再 add；或先装 [Releases](https://github.com/liang-today/dsh-liangxiang/releases) 里的 `./dsh-liangxiang-1.0.7.tgz`，启动后会切回 `latest`。
 
 <h2 id="uninstall">卸载</h2>
 
@@ -155,7 +155,7 @@ macOS 用 Chrome / Edge 时按 <kbd>⌘</kbd> <kbd>⌥</kbd> <kbd>J</kbd>；Wind
 用 `npx --yes @deepseek-ai/dsh`，不必先全局安装。
 
 **报 `ERR_PNPM_FETCH_404`**  
-本地包要写成 `./dsh-liangxiang-1.0.2.tgz`。走网上安装请写 `dsh-liangxiang`。
+本地包要写成 `./dsh-liangxiang-1.0.7.tgz`。走网上安装请写 `dsh-liangxiang`。
 
 **设置里找不到插件市场**  
 先退出 WebUI，执行 `dsh plugin --profile web add dshmarket`，再打开并刷新。

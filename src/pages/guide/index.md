@@ -44,6 +44,8 @@ npx --yes @deepseek-ai/dsh web
 
 再用上面的步骤搜索安装。用 DSH Desktop 时，先看下面的 [Desktop](#desktop)。
 
+> **DSH 0.1.2-alpha.4 Preview 提示：** 部分 `dshmarket` 版本仍调用 DSH 已移除的 `installSettingsSection` / `settingsNamespace`，会在梁相加载前让整个插件树失败。遇到这两段报错时，先使用下面的[命令行](#cli)直接安装梁相，并暂时从该 Profile 移除不兼容的市场；重新安装梁相不能修复市场自身的兼容问题。上游同类现象见 [DeepSeek Harness Discussion #5237](https://github.com/deepseek-ai/deepseek-harness/discussions/5237)。
+
 ![在插件市场搜索 liangxiang](/guide/dshmarket-search-liangxiang.jpg)
 
 也已列入 [1024 Store](https://deepseek1024.com/) 和 [awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness)。
@@ -90,7 +92,7 @@ dsh plugin --profile web add dsh-liangxiang
 
 已装过梁相时：打开 WebUI → **设置 → 插件市场** → **检查更新**（或卡片上的更新）。市场比较的是 npm `latest`；当前安装版本低于 v1.0.7 时即可更新。点更新后刷新；需要重启时按提示重启。缓存大约 30 分钟，看不到更新就强制检查一次。
 
-还没有市场时，先按上面的 [插件市场](#market) 装 `dshmarket`。
+还没有市场时，通常可按上面的 [插件市场](#market) 装 `dshmarket`。若当前 DSH 是 0.1.2-alpha.4 且启动报设置接口不存在，改用下面的命令行升级，等待市场发布明确兼容版本。
 
 <h3 id="upgrade-cli">命令行</h3>
 
@@ -159,6 +161,10 @@ macOS 用 Chrome / Edge 时按 <kbd>⌘</kbd> <kbd>⌥</kbd> <kbd>J</kbd>；Wind
 
 **设置里找不到插件市场**  
 先退出 WebUI，执行 `dsh plugin --profile web add dshmarket`，再打开并刷新。
+
+**alpha.4 启动时报 `installSettingsSection` / `settingsNamespace` 不存在**
+
+这是当前 Profile 内第三方插件尚未适配 DSH 0.1.2-alpha.4，不是梁相安装包损坏。先退出 WebUI，从报错点名的 Profile 移除不兼容插件，并用[命令行](#cli)直接安装梁相；不要删除会话或梁相账本。
 
 **Desktop 里命令成功，但没有「今日梁相」**  
 插件装进了默认的 `~/.dsh`，Desktop 不读那里。按 [Desktop](#desktop) 设好家目录再装一次。

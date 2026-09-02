@@ -64,7 +64,7 @@ sections:
 
 本项目为独立创作，与 DeepSeek 及其关联主体不存在官方关系。
 
-**2026-08-24 正式发布 v1.0.0。** 源码本点是 v1.0.7：第四区两列居中、梁祠日档不再横滑、悬浮即走。安装和升级同一条命令：`dsh plugin --profile web add dsh-liangxiang`。包名 [`dsh-liangxiang`](https://www.npmjs.com/package/dsh-liangxiang)，走 npm `latest`（发包后市场升到 1.0.7）；固定安装包以插件仓库 Latest Release 为准。已上架社区商店 [dsh-market](https://dshmarket.com/)，也列入 [1024 Store](https://deepseek1024.com/) 和 [awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness)；怎么装见[部署指南](/guide/#market)。
+**2026-08-24 正式发布 v1.0.0，当前公开版为 v1.0.7。** v1.0.7 完成了第四区两列居中、梁祠日档不再横滑和悬浮即走。安装和升级使用同一条命令：`dsh plugin --profile web add dsh-liangxiang`。包名 [`dsh-liangxiang`](https://www.npmjs.com/package/dsh-liangxiang)，npm `latest` 与插件仓库 Latest Release 均以当前公开版为准。已上架社区商店 [dsh-market](https://dshmarket.com/)，也列入 [1024 Store](https://deepseek1024.com/) 和 [awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness)；怎么装见[部署指南](/guide/#market)。
 
 <h2 id="principles">设计原则</h2>
 

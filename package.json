@@ -8,6 +8,7 @@
     "dev": "astro dev",
     "build": "astro check && astro build && node scripts/check-dist.mjs",
     "check": "astro check",
+    "test": "node --test scripts/*.test.mjs",
     "preview": "astro preview",
     "render:social": "node scripts/render-social-card.mjs",
     "sync:social": "node scripts/update-social-card.mjs"

@@ -37,8 +37,8 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
       - name: Sync today's public Liangxiang card
         run: pnpm run sync:social
-      - name: Check and build
-        run: pnpm run build
+      - name: Test, check and build
+        run: pnpm run test && pnpm run build
       - name: Render today's high-resolution social card
         run: pnpm run render:social
       - name: Configure Pages

@@ -1,11 +1,11 @@
 {
-  "business_date": "2026-08-18",
-  "case_title": "DeepSeek Harness 是夯还是拉",
-  "up_ratio": 0.9054726368159204,
-  "total_incense": 201,
-  "unique_voters": 2,
-  "liangzi_state": "liang_sheng",
-  "snapshot_version": 202,
-  "updated_at": "2026-08-18T00:15:10.143Z",
+  "business_date": "2026-09-02",
+  "case_title": "程序员不会被AI取代",
+  "up_ratio": 0.6870705808869456,
+  "total_incense": 1601,
+  "unique_voters": 5,
+  "liangzi_state": "liang_zong",
+  "snapshot_version": 37,
+  "updated_at": "2026-09-02T00:23:03.983Z",
   "source": "live"
 }

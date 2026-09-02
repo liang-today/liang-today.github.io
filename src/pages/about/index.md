@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/MarkdownLayout.astro
 title: 关于梁相
-description: 梁相的故事、命名、作者、开源仓库与设计原则。
+description: 梁相的故事、命名、开源仓库与设计原则。
 eyebrow: 关于
 aside: 一个从 DeepSeek Harness 使用中长出来的每日社区玩法。
 sections:
@@ -10,7 +10,7 @@ sections:
   - href: '#names'
     label: 命名体系
   - href: '#open-source'
-    label: 作者与开源
+    label: 社区与开源
   - href: '#principles'
     label: 设计原则
 ---
@@ -53,9 +53,9 @@ sections:
 | 历史空间 | 梁祠 |
 | 历史结果 | 日梁 / 周梁 / 月梁 |
 
-<h2 id="open-source">作者与开源</h2>
+<h2 id="open-source">社区与开源</h2>
 
-梁相由 [`liang-today`](https://www.npmjs.com/~liang-today) 发起。公开仓库统一收在 **liang-today** 组织：
+梁相由独立社区发起。公开仓库统一收在 **liang-today** 组织：
 
 | 仓库 | 内容 |
 |---|---|
@@ -64,7 +64,7 @@ sections:
 
 本项目为独立创作，与 DeepSeek 及其关联主体不存在官方关系。
 
-**2026-08-24 正式发布 v1.0.0，当前公开版为 v1.0.7。** v1.0.7 完成了第四区两列居中、梁祠日档不再横滑和悬浮即走。安装和升级使用同一条命令：`dsh plugin --profile web add dsh-liangxiang`。包名 [`dsh-liangxiang`](https://www.npmjs.com/package/dsh-liangxiang)，npm `latest` 与插件仓库 Latest Release 均以当前公开版为准。已上架社区商店 [dsh-market](https://dshmarket.com/)，也列入 [1024 Store](https://deepseek1024.com/) 和 [awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness)；怎么装见[部署指南](/guide/#market)。
+**2026-08-24 正式发布 v1.0.0，当前公开版为 v1.1.5。** 这一版为新香客备 10 炷，把倾炉缩短为长按 1.5 秒，适配 DSH 新版本，并新增可随时关闭的梁相广播台。安装和升级使用同一条命令：`dsh plugin --profile web add dsh-liangxiang`。包名 [`dsh-liangxiang`](https://www.npmjs.com/package/dsh-liangxiang)，npm `latest` 与插件仓库 Latest Release 均以当前公开版为准。已上架社区商店 [dsh-market](https://dshmarket.com/)，也列入 [1024 Store](https://deepseek1024.com/) 和 [awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness)；怎么装见[部署指南](/guide/#market)。
 
 <h2 id="principles">设计原则</h2>
 

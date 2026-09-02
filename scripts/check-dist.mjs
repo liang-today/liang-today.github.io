@@ -36,11 +36,20 @@ async function existsAsPage(path) {
 await walk(root)
 const broken = []
 const mismatchedVersions = []
+const analyticsFailures = []
 
 for (const file of htmlFiles) {
   const html = await readFile(file, 'utf8')
   if (html.includes('class="site-footer"') && !html.includes(`梁相 · v${releaseVersion} · MIT License`)) {
     mismatchedVersions.push(`${file}: footer is not v${releaseVersion}`)
+  }
+  if (html.includes('class="site-footer"')) {
+    if (!html.includes('data-goatcounter="https://stats.liang.today/count"')) {
+      analyticsFailures.push(`${file}: missing first-party GoatCounter endpoint`)
+    }
+    if (!html.includes('src="https://gc.zgo.at/count.js"')) {
+      analyticsFailures.push(`${file}: missing GoatCounter client`)
+    }
   }
   for (const match of html.matchAll(/(?:href|src)=["']([^"']+)["']/g)) {
     const target = localTarget(match[1])
@@ -67,5 +76,9 @@ if (mismatchedVersions.length) {
   console.error(`Public version mismatch (package ${releaseVersion}):\n${mismatchedVersions.join('\n')}`)
   process.exit(1)
 }
+if (analyticsFailures.length) {
+  console.error(`GoatCounter integration mismatch:\n${analyticsFailures.join('\n')}`)
+  process.exit(1)
+}
 
-console.log(`Verified ${htmlFiles.length} generated HTML pages, local links/assets, and public v${releaseVersion}.`)
+console.log(`Verified ${htmlFiles.length} generated HTML pages, local links/assets, GoatCounter, and public v${releaseVersion}.`)

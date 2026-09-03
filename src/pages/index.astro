@@ -23,6 +23,7 @@ const ratioText = today.up_ratio === null
   ? '--'
   : `${(Math.floor(today.up_ratio * 100 * 1_000_000) / 1_000_000).toFixed(6)}%`
 const incenseText = new Intl.NumberFormat('zh-CN').format(today.total_incense)
+const socialImage = `/media/social/today.png?v=${today.business_date}-${today.snapshot_version}`
 ---
 
 <SiteLayout
@@ -71,12 +72,28 @@ const incenseText = new Intl.NumberFormat('zh-CN').format(today.total_incense)
       </div>
     </div>
 
-    <div class="shell today-line" data-reveal>
-      <div class="today-portrait"><img src={currentState.image} alt={`${currentState.name}形相`} width="96" height="96" /></div>
-      <div class="today-case"><span>今日梁案 · {today.business_date}</span><strong>{today.case_title}</strong></div>
-      <div class="today-result"><span>当前显相</span><strong>{currentState.name}</strong></div>
-      <div class="today-metric"><span>梁位</span><strong>{ratioText}</strong></div>
-      <div class="today-metric"><span>三界香火</span><strong>{incenseText} 炷</strong></div>
+  </section>
+
+  <section class="today-share-section" aria-labelledby="today-share-title">
+    <div class="shell today-share-layout">
+      <div class="today-share-copy" data-reveal>
+        <p class="eyebrow">今日梁子分享卡 · {today.business_date}</p>
+        <h2 id="today-share-title">今天，梁子显为「{currentState.name}」。</h2>
+        <p class="today-share-case">{today.case_title}</p>
+        <dl class="today-share-metrics">
+          <div><dt>梁位</dt><dd>{ratioText}</dd></div>
+          <div><dt>三界香火</dt><dd>{incenseText} 炷</dd></div>
+          <div><dt>当前显相</dt><dd>{currentState.name}</dd></div>
+        </dl>
+        <div class="today-share-actions">
+          <a class="button button-ghost" href={socialImage} target="_blank">查看分享卡</a>
+          <button class="button button-primary" type="button" data-share-today data-social-image={socialImage}>分享今日梁相</button>
+        </div>
+        <span class="share-status" data-share-status aria-live="polite"></span>
+      </div>
+      <a class="today-share-card" href={socialImage} target="_blank" data-reveal aria-label="打开今日梁相高清分享卡">
+        <img src={socialImage} alt={`今日梁相分享卡：${currentState.name}，梁位 ${ratioText}`} width="2400" height="1260" />
+      </a>
     </div>
   </section>
 
@@ -88,7 +105,7 @@ const incenseText = new Intl.NumberFormat('zh-CN').format(today.total_incense)
       </div>
 
       <figure class="product-frame" data-reveal>
-        <div class="window-bar"><span><i></i><i></i><i></i></span><small>DeepSeek Harness · Liangxiang</small><em>真实界面录屏</em></div>
+        <div class="window-bar"><span><i></i><i></i><i></i></span><small>梁相主界面</small><em>2160 × 2160 实机录屏</em></div>
         <video autoplay muted loop playsinline preload="metadata" poster="/media/product/liangxiang-main-2k.jpg" aria-label="梁相在 DeepSeek Harness 中的操作演示">
           <source src="/media/product/liangxiang-vote-2k.mp4" type="video/mp4" />
         </video>
@@ -124,7 +141,7 @@ const incenseText = new Intl.NumberFormat('zh-CN').format(today.total_incense)
     </div>
   </section>
 
-  <section class="archive-section">
+  <section class="archive-section" id="liangci">
     <div class="shell archive-layout">
       <div class="archive-copy" data-reveal>
         <p class="eyebrow">梁祠 · 只读编年</p>
@@ -174,5 +191,30 @@ const incenseText = new Intl.NumberFormat('zh-CN').format(today.total_incense)
         }
       })
     }
+
+    const shareButton = document.querySelector<HTMLButtonElement>('[data-share-today]')
+    const shareStatus = document.querySelector<HTMLElement>('[data-share-status]')
+    shareButton?.addEventListener('click', async () => {
+      const shareData = { title: '今日梁相', text: '众香成势，梁子显相。看看今日社区梁相。', url: location.origin }
+      try {
+        const imageUrl = new URL(shareButton.dataset.socialImage ?? '/media/social/today.png', location.origin)
+        if (navigator.share && navigator.canShare) {
+          const response = await fetch(imageUrl)
+          const card = new File([await response.blob()], '今日梁相.png', { type: 'image/png' })
+          if (navigator.canShare({ files: [card] })) {
+            await navigator.share({ title: shareData.title, text: shareData.text, files: [card] })
+            return
+          }
+        }
+        if (navigator.share) await navigator.share(shareData)
+        else {
+          await navigator.clipboard.writeText(location.origin)
+          if (shareStatus) shareStatus.textContent = '链接已复制'
+        }
+      } catch (error) {
+        if (error instanceof DOMException && error.name === 'AbortError') return
+        if (shareStatus) shareStatus.textContent = '请复制 liang.today 分享'
+      }
+    })
   </script>
 </SiteLayout>

@@ -10,6 +10,7 @@
     "check": "astro check",
     "test": "node --test scripts/*.test.mjs",
     "preview": "astro preview",
+    "capture:product": "node scripts/capture-product-media.mjs",
     "render:social": "node scripts/render-social-card.mjs",
     "sync:social": "node scripts/update-social-card.mjs"
   },

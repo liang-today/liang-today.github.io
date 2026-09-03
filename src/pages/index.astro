@@ -4,17 +4,10 @@ import today from '../data/today.json'
 
 const states = [
   { name: '梁工', range: '< 50%', image: '/artwork/gong.png' },
-  { name: '梁总', range: '50% – 70%', image: '/artwork/zong.png' },
-  { name: '梁神', range: '70% – 85%', image: '/artwork/shen.png' },
-  { name: '梁圣', range: '85% – 95%', image: '/artwork/sheng.png' },
+  { name: '梁总', range: '50% — 70%', image: '/artwork/zong.png' },
+  { name: '梁神', range: '70% — 85%', image: '/artwork/shen.png' },
+  { name: '梁圣', range: '85% — 95%', image: '/artwork/sheng.png' },
   { name: '梁祖', range: '≥ 95%', image: '/artwork/zu.png' },
-]
-
-const rules = [
-  ['二', '只选夯或拉', '没有中立或第三选项；两边共用同一份个人香火。'],
-  ['一', '一炷就是一票', '一次被接受的选择只烧一炷，不设方向倍率。'],
-  ['位', '梁位决定梁子', '中央梁子只看全局夯率，个人进度不能改变显相。'],
-  ['零', '零票待开梁', '没有投票时显示“--”，不制造 50:50 的假均势。'],
 ]
 
 const stateMap: Record<string, { name: string; image: string }> = {
@@ -29,255 +22,157 @@ const currentState = stateMap[today.liangzi_state] ?? stateMap.waiting
 const ratioText = today.up_ratio === null
   ? '--'
   : `${(Math.floor(today.up_ratio * 100 * 1_000_000) / 1_000_000).toFixed(6)}%`
-const socialImage = `/media/social/today.png?v=${today.business_date}-${today.snapshot_version}`
-
-const shrineStates: Record<string, { name: string; image: string }> = {
-  gong: { name: '梁工', image: '/artwork/gong.png' },
-  zong: { name: '梁总', image: '/artwork/zong.png' },
-  shen: { name: '梁神', image: '/artwork/shen.png' },
-  sheng: { name: '梁圣', image: '/artwork/sheng.png' },
-  zu: { name: '梁祖', image: '/artwork/zu.png' },
-}
-type ShrineDay = { day: number; state?: string; outside?: boolean; future?: boolean; today?: boolean }
-type ShrineWeek = { days: ShrineDay[]; state: string | null; label: string }
-const shrineWeeks: ShrineWeek[] = [
-  { days: [{ day: 27, outside: true }, { day: 28, outside: true }, { day: 29, outside: true }, { day: 30, outside: true }, { day: 31, outside: true }, { day: 1, state: 'gong' }, { day: 2, state: 'zong' }], state: 'zong', label: '周梁' },
-  { days: [{ day: 3, state: 'shen' }, { day: 4, state: 'zong' }, { day: 5, state: 'sheng' }, { day: 6, state: 'zu' }, { day: 7, state: 'shen' }, { day: 8, state: 'gong' }, { day: 9, state: 'sheng' }], state: 'shen', label: '周梁' },
-  { days: [{ day: 10, state: 'zong' }, { day: 11, state: 'shen' }, { day: 12, state: 'sheng' }, { day: 13, state: 'zu' }, { day: 14, state: 'shen' }, { day: 15, state: 'sheng' }, { day: 16, state: 'zong' }], state: 'sheng', label: '周梁' },
-  { days: [{ day: 17, state: 'sheng' }, { day: 18, today: true }, { day: 19, future: true }, { day: 20, future: true }, { day: 21, future: true }, { day: 22, future: true }, { day: 23, future: true }], state: null, label: '本周暂梁' },
-  { days: [{ day: 24, future: true }, { day: 25, future: true }, { day: 26, future: true }, { day: 27, future: true }, { day: 28, future: true }, { day: 29, future: true }, { day: 30, future: true }], state: null, label: '待积' },
-  { days: [{ day: 31, future: true }, { day: 1, outside: true }, { day: 2, outside: true }, { day: 3, outside: true }, { day: 4, outside: true }, { day: 5, outside: true }, { day: 6, outside: true }], state: null, label: '待积' },
-]
+const incenseText = new Intl.NumberFormat('zh-CN').format(today.total_incense)
 ---
 
 <SiteLayout
   title="梁相"
-  description="用 DeepSeek Harness 凝聚香火，投下一炷夯或拉；众香汇成梁位，共同显出今日梁相。"
+  description="长在 DeepSeek Harness 里的社区插件。每天一道梁案，用香火投下夯或拉，众香汇成梁位，共同显出今日梁相。"
   pageClass="home-page"
 >
-  <section class="hero">
-    <div class="shell hero-grid">
-      <div class="hero-copy">
-        <p class="eyebrow">DeepSeek Harness 社区玩法 · 新香客备 10 炷</p>
-        <h1>众香成势，<span>梁子显相。</span></h1>
-        <p class="hero-lede">每天一道梁案。刚装上备 10 炷，对话还能继续攒。使用 DeepSeek Harness 凝成香火，点一下一炷夯或拉，长按 1.5 秒倾炉；众人的选择汇成梁位，决定今天的梁子。</p>
-        <p class="hero-rally">梁相还得梁人出！</p>
-        <div class="button-row">
-          <a class="button button-primary" href="#play">看懂玩法</a>
-          <a class="button" href="/guide/">部署指南</a>
-          <a class="button button-quiet" href="https://github.com/liang-today/dsh-liangxiang">查看源码 ↗</a>
+  <section class="home-hero">
+    <div class="hero-grid-bg" aria-hidden="true"></div>
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="shell hero-layout">
+      <div class="hero-copy" data-reveal>
+        <p class="eyebrow">DeepSeek Harness 社区插件</p>
+        <h1>今天的梁子，<span>夯上去还是拉下来？</span></h1>
+        <p class="hero-lede">每天一道梁案。你在 DSH 里写代码、跑会话，Token 凝成香火；一炷一票，所有人的选择汇成梁位，决定今天的梁子。</p>
+        <div class="hero-actions">
+          <button class="button button-primary" type="button" data-deploy-open>安装梁相</button>
+          <a class="button button-ghost" href="#how">看懂玩法</a>
         </div>
-        <div class="hero-proof" aria-label="产品要点">
-          <span>新香客备 10 炷</span><span>长按 1.5 秒倾炉</span><span>日终入梁祠</span>
+        <div class="hero-facts" aria-label="梁相特点">
+          <span>新香客备 10 炷</span>
+          <span>点按上香</span>
+          <span>长按倾炉</span>
         </div>
       </div>
 
-      <div class="demo-stage">
-        <div class="demo-panel" data-liang-demo>
-          <div class="demo-kicker"><span>今日梁案</span><span class="live-dot">一炷开梁</span></div>
-          <p class="demo-case">DeepSeek Harness 是夯还是拉？</p>
-          <div class="demo-core">
-            <div class="demo-flank demo-flank-left">今日凝香<strong>1 炷</strong></div>
-            <div class="incense-ring" aria-hidden="true"><div class="demo-avatar-wrap"><img class="demo-avatar" data-demo-avatar src="/artwork/zu.png" alt="" /></div></div>
-            <div class="demo-flank demo-flank-right">下一炷<strong>50K</strong></div>
-            <div class="ratio-pill" aria-live="polite">梁位 <span data-demo-ratio>100.000000%</span> → <span data-demo-state>梁祖</span></div>
-          </div>
-          <div class="demo-votes" aria-label="梁相网页演示按钮">
-            <button class="demo-vote" type="button" data-vote="up">夯 · 升梁</button>
-            <button class="demo-vote" type="button" data-vote="down">拉 · 降梁</button>
-          </div>
-          <div class="demo-stats">
-            <span>三界香火<strong data-demo-total>1</strong></span>
-            <span>五行香客<strong data-demo-users>1</strong></span>
-            <button class="demo-reset" type="button" data-demo-reset>重置</button>
-          </div>
+      <div class="install-terminal" data-reveal>
+        <div class="terminal-bar">
+          <span class="terminal-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span>安装到 web profile</span>
+          <button type="button" data-copy-target="hero-cli">复制</button>
         </div>
-        <p class="demo-caption">这是从一炷“夯”开始的本地演示，不会写入社区今日梁案。</p>
+        <div class="install-tabs" role="tablist" aria-label="安装方式">
+          <button type="button" role="tab" aria-selected="true" aria-controls="install-cli" data-install-tab="cli">命令行</button>
+          <button type="button" role="tab" aria-selected="false" aria-controls="install-market" data-install-tab="market">dshmarket</button>
+        </div>
+        <div class="terminal-panel" id="install-cli" role="tabpanel" data-install-panel="cli">
+          <span class="prompt" aria-hidden="true">$</span>
+          <code id="hero-cli">dsh plugin --profile web add dsh-liangxiang</code>
+        </div>
+        <div class="terminal-panel" id="install-market" role="tabpanel" data-install-panel="market" hidden>
+          <span class="prompt" aria-hidden="true">→</span>
+          <code>设置 · 插件市场 · 搜索 liangxiang</code>
+        </div>
+        <p>安装完成后启动 <code>dsh web</code>，页面边缘会出现「今日梁相」。</p>
       </div>
+    </div>
 
-      <aside class="today-snapshot" aria-label="今日社区快照">
-        <figure class="today-snapshot-figure">
-          <img src={currentState.image} alt={`${currentState.name}形相`} width="192" height="192" />
-        </figure>
-        <div class="today-snapshot-body">
-          <div class="today-snapshot-head">
-            <span>今日社区快照</span>
-            <time datetime={today.business_date}>{today.business_date}</time>
-          </div>
-          <div class="today-snapshot-state">
-            <strong>{currentState.name}</strong>
-            <span>梁位 <em>{ratioText}</em></span>
-          </div>
-          <p class="today-snapshot-case">{today.case_title}</p>
-          <dl class="today-snapshot-metrics">
-            <div>
-              <dt>三界香火</dt>
-              <dd>{today.total_incense}<small>炷</small></dd>
-            </div>
-            <div>
-              <dt>五行香客</dt>
-              <dd>{today.unique_voters}<small>位</small></dd>
-            </div>
-          </dl>
-        </div>
-        <div class="today-actions">
-          <a class="button" href={socialImage} target="_blank">查看社交卡</a>
-          <button class="button button-primary" type="button" data-share-today data-social-image={socialImage}>分享今日梁相</button>
-          <span class="share-status" data-share-status aria-live="polite"></span>
-        </div>
-      </aside>
+    <div class="shell today-line" data-reveal>
+      <div class="today-portrait"><img src={currentState.image} alt={`${currentState.name}形相`} width="96" height="96" /></div>
+      <div class="today-case"><span>今日梁案 · {today.business_date}</span><strong>{today.case_title}</strong></div>
+      <div class="today-result"><span>当前显相</span><strong>{currentState.name}</strong></div>
+      <div class="today-metric"><span>梁位</span><strong>{ratioText}</strong></div>
+      <div class="today-metric"><span>三界香火</span><strong>{incenseText} 炷</strong></div>
     </div>
   </section>
 
-  <section class="section" id="play">
+  <section class="product-section" id="how">
     <div class="shell">
-      <div class="section-heading" data-reveal>
-        <p class="eyebrow">一天的梁相</p><h2>从一次对话，到一页编年。</h2>
-        <p>玩法只有四步：凝香、表态、显相、入祠。个人香火与全局梁位在画面上相遇，在计算中始终分开。</p>
+      <div class="section-intro split-intro" data-reveal>
+        <div><p class="eyebrow">写代码，也写今日梁相</p><h2>不离开 DSH，顺手上一炷香。</h2></div>
+        <p>输入与输出 Token 按模型折成香火。香火环告诉你还剩多少，以及下一炷走到哪里；点一下投一炷，长按把整炉都交出去。</p>
       </div>
-      <div class="steps-grid" data-reveal>
-        <article class="step-card"><div class="step-index"><span>01 · 凝香</span></div><h3>使用 DSH</h3><p>刚装上备 10 炷。之后 Input + Output Token 按模型权重折算，默认每 50,000 Pro 当量再凝一炷。</p></article>
-        <article class="step-card"><div class="step-index"><span>02 · 表态</span></div><h3>投下一炷</h3><p>面对今日梁案，选择“夯 · 升梁”或“拉 · 降梁”。点一下一炷；长按 1.5 秒倾炉。</p></article>
-        <article class="step-card"><div class="step-index"><span>03 · 显相</span></div><h3>众香成梁位</h3><p>社区夯率就是梁位；跨过固定门槛时，梁子随同一份快照显相。</p></article>
-        <article class="step-card"><div class="step-index"><span>04 · 入祠</span></div><h3>日终封存</h3><p>今日只显示进行中；业务日结束后，结果成为不可改写的日梁。</p></article>
-      </div>
-      <div class="ritual-strip" data-reveal>
-        <div><strong>见面礼 10 炷</strong><span>刚装上就能打梁；同机当天重装不重复领</span></div>
-        <div><strong>三界香火</strong><span>今天已经接受的全部票数</span></div>
-        <div><strong>五行香客</strong><span>至少成功投过一次的参与者</span></div>
+
+      <figure class="product-frame" data-reveal>
+        <div class="window-bar"><span><i></i><i></i><i></i></span><small>DeepSeek Harness · Liangxiang</small><em>真实界面录屏</em></div>
+        <video autoplay muted loop playsinline preload="metadata" poster="/media/product/liangxiang-main-2k.jpg" aria-label="梁相在 DeepSeek Harness 中的操作演示">
+          <source src="/media/product/liangxiang-vote-2k.mp4" type="video/mp4" />
+        </video>
+      </figure>
+
+      <div class="flow-grid" data-reveal>
+        <article><span>01</span><strong>凝香</strong><p>默认每 50,000 Pro 当量凝成一炷。</p></article>
+        <article><span>02</span><strong>上香</strong><p>一炷一票，只能夯或拉。</p></article>
+        <article><span>03</span><strong>显相</strong><p>众香汇成梁位，梁子依势变化。</p></article>
+        <article><span>04</span><strong>入祠</strong><p>每日结案，再汇成周梁与月梁。</p></article>
       </div>
     </div>
   </section>
 
-  <section class="section section-quiet" id="rules" aria-labelledby="states-title">
+  <section class="states-section">
     <div class="shell">
-      <div class="section-heading" data-reveal>
-        <p class="eyebrow">显相与约束</p><h2 id="states-title">一炷一票，梁子依势显相。</h2>
-        <p>零票时是待开梁；有票后，梁子只按全局夯率跨过 50 / 70 / 85 / 95% 四道门槛。</p>
+      <div class="section-intro centered-intro" data-reveal>
+        <p class="eyebrow">一条梁位，五种显相</p>
+        <h2>从梁工，一路夯到梁祖。</h2>
+        <p>中央梁子只看社区夯率。门槛越高，显相越离谱。</p>
       </div>
-      <div class="state-rail" data-reveal>
-        {states.map((state) => <article class="state-card"><img src={state.image} alt={`${state.name}形相`} loading="lazy" width="256" height="256" /><strong>{state.name}</strong><small>{state.range}</small></article>)}
+      <div class="state-line" data-reveal>
+        {states.map((state, index) => (
+          <article>
+            <span class="state-index">0{index + 1}</span>
+            <img src={state.image} alt={`${state.name}形相`} loading="lazy" width="256" height="256" />
+            <strong>{state.name}</strong>
+            <small>{state.range}</small>
+          </article>
+        ))}
       </div>
-      <div class="waiting-note" data-reveal><img src="/artwork/waiting.png" alt="" width="54" height="54" /><span><strong>零票状态：待开梁</strong>第一炷投下后，梁子进入五档显相。</span></div>
-      <div class="rules-grid compact-rules">
-        {rules.map(([mark, title, text]) => <article class="rule" data-reveal><span class="rule-mark" aria-hidden="true">{mark}</span><div><h3>{title}</h3><p>{text}</p></div></article>)}
-      </div>
-      <div class="notice" data-reveal><strong>说明：</strong>梁位仅代表梁相社区的匿名参与结果，不构成民意调查，也不代表任何个人或机构立场。</div>
+      <p class="state-note" data-reveal>零票时显示「待开梁」；第一炷投下后进入五档显相。</p>
     </div>
   </section>
 
-  <section class="section" id="liangci">
-    <div class="shell">
-      <div class="liangci-heading" data-reveal>
-        <div><p class="eyebrow">梁祠 · 只读编年</p><h2>梁祠，记录每日显相。</h2></div>
-        <div><p>今日不提前下结论。业务日结束后，原始夯拉票数封存为日梁，再按票数加权汇成周梁与月梁。</p><div class="archive-pills"><span>日梁</span><span>周梁</span><span>月梁</span><span>今日进行中</span></div></div>
+  <section class="archive-section">
+    <div class="shell archive-layout">
+      <div class="archive-copy" data-reveal>
+        <p class="eyebrow">梁祠 · 只读编年</p>
+        <h2>今天有结果，日后有来处。</h2>
+        <p>每天结案后，日梁收入梁祠。原始夯拉票数继续汇成周梁和月梁，今日进行中永远不会被提前定论。</p>
+        <div class="archive-tags"><span>日梁</span><span>周梁</span><span>月梁</span></div>
       </div>
-      <div class="liangci-native" data-reveal aria-label="梁祠界面预览">
-        <header class="liangci-native-header">
-          <div class="liangci-native-brand"><span aria-hidden="true">祠</span><div><strong>梁祠</strong><small>日梁 · 周梁 · 月梁</small></div></div>
-          <div class="liangci-native-month"><i aria-hidden="true">‹</i><strong>2026 年 8 月</strong><i aria-hidden="true">›</i></div>
-          <div class="liangci-native-summary"><span>本月暂梁 · 截至昨日</span><strong>梁圣 <small>88.230000%</small></strong></div>
-        </header>
-        <div class="liangci-native-scroll">
-          <div class="liangci-native-calendar">
-            <div class="liangci-weekdays">{['一', '二', '三', '四', '五', '六', '日'].map((day) => <span>周{day}</span>)}<span>周梁</span></div>
-            {shrineWeeks.map((week) => (
-              <div class="liangci-calendar-row">
-                {week.days.map((item) => {
-                  const state = item.state ? shrineStates[item.state] : null
-                  return <div class:list={['liangci-day', { 'is-outside': item.outside, 'is-future': item.future, 'is-today': item.today }]}>
-                    <span class="liangci-day-number">{item.day}</span>
-                    {item.today
-                      ? <strong class="liangci-today-mark">今日<br />进行中</strong>
-                      : state
-                        ? <><img src={state.image} alt="" width="54" height="54" /><small>{state.name}</small></>
-                        : <small>--</small>}
-                  </div>
-                })}
-                <div class="liangci-week-result">
-                  <span>{week.label}</span>
-                  {week.state ? <><img src={shrineStates[week.state].image} alt="" width="54" height="54" /><strong>{shrineStates[week.state].name}</strong></> : <strong>--</strong>}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <footer class="liangci-native-detail"><span class="liangci-detail-seal" aria-hidden="true">今</span><div><strong>8 月 18 日 · 今日进行中</strong><p>今日梁案不会提前入祠；日终后才封存为不可改写的日梁。</p></div><span class="liangci-preview-label">界面预览</span></footer>
-      </div>
+      <figure class="archive-frame" data-reveal>
+        <video autoplay muted loop playsinline preload="metadata" poster="/media/product/liangxiang-liangci-2k.jpg" aria-label="梁祠日历打开演示">
+          <source src="/media/product/liangxiang-liangci-2k.mp4" type="video/mp4" />
+        </video>
+      </figure>
     </div>
   </section>
 
-  <section class="section section-quiet">
-    <div class="shell cta-band" data-reveal>
-      <div><p class="eyebrow">今日开梁</p><h2>把梁相装进 DeepSeek Harness。</h2><p>新香客备 10 炷。安装和升级是同一条命令，见部署指南。</p></div>
-      <div class="button-row">
-        <a class="button button-primary" href="/guide/">部署指南</a>
-        <a class="button" href="/privacy/">隐私边界</a>
-        <a class="button button-quiet" href="/about/">关于</a>
-      </div>
+  <section class="final-cta">
+    <div class="shell final-cta-inner" data-reveal>
+      <div><p class="eyebrow">今日开梁</p><h2>众香成势，梁子显相。</h2><p>装进 DeepSeek Harness，领十炷见面香。</p></div>
+      <div class="final-actions"><button class="button button-primary" type="button" data-deploy-open>查看部署方式</button><a class="button button-ghost" href="https://github.com/liang-today/dsh-liangxiang">查看源码 ↗</a></div>
     </div>
   </section>
 
   <script is:inline type="application/ld+json" set:html={JSON.stringify({
     '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: '梁相', alternateName: 'liangxiang',
     applicationCategory: 'DeveloperApplication', operatingSystem: 'Windows, macOS, Linux',
-    description: '用 DeepSeek Harness 凝聚香火，投下一炷夯或拉，共同显出今日梁相。',
+    description: '长在 DeepSeek Harness 里的社区插件。每天一道梁案，用香火投下夯或拉。',
     url: 'https://liang.today', codeRepository: 'https://github.com/liang-today/dsh-liangxiang',
     softwareVersion: '1.1.6', license: 'https://opensource.org/license/mit',
   })} />
 
   <script>
-    const panel = document.querySelector<HTMLElement>('[data-liang-demo]')
-    if (panel) {
-      const stateTable = [
-        { min: 0.95, name: '梁祖', image: '/artwork/zu.png' },
-        { min: 0.85, name: '梁圣', image: '/artwork/sheng.png' },
-        { min: 0.70, name: '梁神', image: '/artwork/shen.png' },
-        { min: 0.50, name: '梁总', image: '/artwork/zong.png' },
-        { min: 0, name: '梁工', image: '/artwork/gong.png' },
-      ]
-      let up = 1
-      let down = 0
-      const ratioNode = panel.querySelector<HTMLElement>('[data-demo-ratio]')
-      const stateNode = panel.querySelector<HTMLElement>('[data-demo-state]')
-      const totalNode = panel.querySelector<HTMLElement>('[data-demo-total]')
-      const usersNode = panel.querySelector<HTMLElement>('[data-demo-users]')
-      const avatar = panel.querySelector<HTMLImageElement>('[data-demo-avatar]')
-      const update = (animate = true) => {
-        const total = up + down
-        const ratio = total === 0 ? null : up / total
-        const state = ratio === null ? { name: '待开梁', image: '/artwork/waiting.png' } : (stateTable.find((item) => ratio >= item.min) ?? stateTable[stateTable.length - 1])
-        if (ratioNode) ratioNode.textContent = ratio === null ? '--' : `${(Math.floor(ratio * 100 * 1_000_000) / 1_000_000).toFixed(6)}%`
-        if (stateNode) stateNode.textContent = state.name
-        if (totalNode) totalNode.textContent = String(total)
-        if (usersNode) usersNode.textContent = total === 0 ? '0' : '1'
-        if (avatar) { avatar.src = state.image; avatar.alt = `${state.name}形相` }
-        if (animate) { panel.classList.remove('is-voting'); void panel.offsetWidth; panel.classList.add('is-voting'); setTimeout(() => panel.classList.remove('is-voting'), 320) }
-      }
-      panel.querySelectorAll<HTMLButtonElement>('[data-vote]').forEach((button) => button.addEventListener('click', () => { if (button.dataset.vote === 'up') up += 1; else down += 1; update() }))
-      panel.querySelector<HTMLButtonElement>('[data-demo-reset]')?.addEventListener('click', () => { up = 1; down = 0; update(false) })
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll<HTMLVideoElement>('video[autoplay]').forEach((video) => video.pause())
     }
 
-    const shareButton = document.querySelector<HTMLButtonElement>('[data-share-today]')
-    const shareStatus = document.querySelector<HTMLElement>('[data-share-status]')
-    shareButton?.addEventListener('click', async () => {
-      const shareData = { title: '今日梁相', text: '众香成势，梁子显相。看看今日社区梁相。', url: location.origin }
-      try {
-        const imageUrl = new URL(shareButton.dataset.socialImage ?? '/media/social/today.png', location.origin)
-        if (navigator.share && navigator.canShare) {
-          const response = await fetch(imageUrl)
-          const card = new File([await response.blob()], '今日梁相.png', { type: 'image/png' })
-          if (navigator.canShare({ files: [card] })) {
-            await navigator.share({ title: shareData.title, text: shareData.text, files: [card] })
-            return
-          }
+    const tabs = [...document.querySelectorAll<HTMLButtonElement>('[data-install-tab]')]
+    const panels = [...document.querySelectorAll<HTMLElement>('[data-install-panel]')]
+    const copyButton = document.querySelector<HTMLButtonElement>('.terminal-bar [data-copy-target]')
+    for (const tab of tabs) {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.installTab
+        for (const item of tabs) item.setAttribute('aria-selected', String(item === tab))
+        for (const panel of panels) panel.hidden = panel.dataset.installPanel !== target
+        if (copyButton) {
+          copyButton.hidden = target !== 'cli'
+          copyButton.dataset.copyTarget = 'hero-cli'
         }
-        if (navigator.share) await navigator.share(shareData)
-        else { await navigator.clipboard.writeText(location.origin); if (shareStatus) shareStatus.textContent = '链接已复制' }
-      } catch (error) {
-        if (error instanceof DOMException && error.name === 'AbortError') return
-        if (shareStatus) shareStatus.textContent = '请复制 liang.today 分享'
-      }
-    })
+      })
+    }
   </script>
 </SiteLayout>

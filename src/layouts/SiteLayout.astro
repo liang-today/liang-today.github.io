@@ -9,12 +9,7 @@ interface Props {
   pageClass?: string
 }
 
-const {
-  title,
-  description,
-  image,
-  pageClass = '',
-} = Astro.props
+const { title, description, image, pageClass = '' } = Astro.props
 const canonical = new URL(Astro.url.pathname, Astro.site)
 const pageTitle = title === '梁相' ? '梁相 · 众香成势，梁子显相' : `${title} · 梁相`
 const stateNames: Record<string, string> = {
@@ -37,8 +32,7 @@ const socialAlt = `今日梁相：${socialState}。${today.case_title}`
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#f5f5f2" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#111315" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#08090b" />
     <link rel="canonical" href={canonical} />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="icon" href="/artwork/zu.png" type="image/png" />
@@ -60,68 +54,85 @@ const socialAlt = `今日梁相：${socialState}。${today.case_title}`
     <script is:inline>
       document.documentElement.classList.add('js')
       const savedTheme = localStorage.getItem('liangxiang:site-theme')
-      if (savedTheme === 'light' || savedTheme === 'dark') {
-        document.documentElement.dataset.theme = savedTheme
-      }
+      if (savedTheme === 'light' || savedTheme === 'dark') document.documentElement.dataset.theme = savedTheme
     </script>
   </head>
   <body class={pageClass}>
     <a class="skip-link" href="#main">跳到正文</a>
+
     <header class="site-header" data-site-header>
       <div class="shell header-inner">
         <a class="brand" href="/" aria-label="梁相首页">
           <span class="brand-seal" aria-hidden="true">相</span>
-          <span class="brand-copy"><strong>梁相</strong><small>liangxiang</small></span>
+          <strong>梁相</strong>
+          <span class="brand-tag">DSH 社区插件</span>
         </a>
-        <nav class="main-nav" aria-label="主导航">
-          <details class="nav-menu">
-            <summary>了解</summary>
-            <div><a href="/#play">玩法</a><a href="/#rules">约束</a><a href="/#liangci">梁祠</a></div>
-          </details>
-          <details class="nav-menu">
-            <summary>使用</summary>
-            <div><a href="/guide/">部署指南</a><a href="/privacy/">隐私边界</a><a href="/about/">关于</a></div>
-          </details>
-          <details class="nav-menu">
-            <summary>源码</summary>
-            <div><a href="https://github.com/liang-today/dsh-liangxiang">插件仓库 ↗</a><a href="https://github.com/liang-today/liang-today.github.io">官网仓库 ↗</a></div>
-          </details>
-        </nav>
         <div class="header-actions">
-          <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题">
-            <span aria-hidden="true"></span>
-          </button>
+          <button class="header-link" type="button" data-deploy-open>部署</button>
+          <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题"><span aria-hidden="true"></span></button>
+          <a class="github-link" href="https://github.com/liang-today/dsh-liangxiang">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.88c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.35 1.09 2.92.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 6.82a9.5 9.5 0 0 1 2.5.34c1.91-1.3 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.86v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2Z" /></svg>
+            <span>GitHub</span>
+          </a>
         </div>
       </div>
     </header>
-    <main id="main">
-      <slot />
-    </main>
+
+    <main id="main"><slot /></main>
+
     <footer class="site-footer">
-      <div class="shell footer-grid">
-        <div>
-          <a class="brand footer-brand" href="/">
-            <span class="brand-seal" aria-hidden="true">相</span>
-            <span class="brand-copy"><strong>梁相</strong><small>众香成势，梁子显相。</small></span>
-          </a>
-          <p>用 DeepSeek Harness 凝聚香火，投下一炷“夯”或“拉”，共同显出今日梁相。梁相还得梁人出！</p>
+      <div class="shell footer-inner">
+        <div class="footer-signature">
+          <span class="brand-seal" aria-hidden="true">相</span>
+          <div><strong>众香成势，梁子显相。</strong><small>梁相 · v1.1.6 · MIT License</small></div>
         </div>
-        <div class="footer-links">
-          <div><strong>了解</strong><a href="/#play">玩法</a><a href="/#rules">约束</a><a href="/#liangci">梁祠</a></div>
-          <div><strong>使用</strong><a href="/guide/">部署指南</a><a href="/privacy/">隐私边界</a><a href="/about/">关于</a></div>
-          <div><strong>源码</strong><a href="https://github.com/liang-today/dsh-liangxiang">插件仓库</a><a href="https://github.com/liang-today/liang-today.github.io">官网仓库</a></div>
-        </div>
-      </div>
-      <div class="shell footer-bottom">
-        <span>© {new Date().getFullYear()} 梁相 · v1.1.6 · MIT License</span>
-        <span>独立社区项目，非 DeepSeek 官方产品。</span>
+        <nav aria-label="页尾链接">
+          <button type="button" data-deploy-open>部署指南</button>
+          <a href="/privacy/">隐私边界</a>
+          <a href="/about/">关于</a>
+          <a href="https://github.com/liang-today/dsh-liangxiang">插件源码</a>
+          <a href="https://github.com/liang-today/liang-today.github.io">官网源码</a>
+        </nav>
+        <p>独立社区项目，非 DeepSeek 官方产品。© {new Date().getFullYear()} 梁相</p>
       </div>
     </footer>
+
+    <dialog class="deploy-dialog" data-deploy-dialog aria-labelledby="deploy-title">
+      <div class="deploy-dialog-head">
+        <div><span>GET LIANGXIANG</span><h2 id="deploy-title">把梁相装进 DSH</h2></div>
+        <button type="button" data-deploy-close aria-label="关闭部署指南">×</button>
+      </div>
+      <div class="deploy-methods">
+        <section>
+          <div class="method-index">01</div>
+          <h3>命令行安装</h3>
+          <p>退出 WebUI，在实际使用的 profile 中添加梁相，再重新启动。</p>
+          <div class="mini-command"><code id="deploy-cli">dsh plugin --profile web add dsh-liangxiang</code><button type="button" data-copy-target="deploy-cli">复制</button></div>
+          <p class="method-note">没有全局 dsh 时，将开头换成 <code>npx --yes @deepseek-ai/dsh</code>。</p>
+        </section>
+        <section>
+          <div class="method-index">02</div>
+          <h3>dshmarket 安装</h3>
+          <p>打开设置 → 插件市场，搜索 <code>liangxiang</code>，点击安装。</p>
+          <div class="mini-command"><code id="deploy-market">dsh plugin --profile web add dshmarket</code><button type="button" data-copy-target="deploy-market">复制</button></div>
+          <p class="method-note">如果还没有插件市场，先运行上面的命令安装 dshmarket。</p>
+        </section>
+      </div>
+      <div class="deploy-maintenance">
+        <div><span>升级</span><code>dsh plugin --profile web add dsh-liangxiang</code></div>
+        <div><span>卸载</span><code>dsh plugin --profile web remove dsh-liangxiang</code></div>
+      </div>
+      <div class="deploy-dialog-foot">
+        <span>安装与升级不会删除本机梁相账本。</span>
+        <a href="/guide/">查看完整部署说明 →</a>
+      </div>
+    </dialog>
+
     <script>
       const root = document.documentElement
-      const toggle = document.querySelector('.theme-toggle')
+      const toggle = document.querySelector<HTMLButtonElement>('.theme-toggle')
       toggle?.addEventListener('click', () => {
-        const current = root.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+        const current = root.dataset.theme || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark')
         const next = current === 'dark' ? 'light' : 'dark'
         root.dataset.theme = next
         localStorage.setItem('liangxiang:site-theme', next)
@@ -132,37 +143,36 @@ const socialAlt = `今日梁相：${socialState}。${today.case_title}`
       updateHeader()
       addEventListener('scroll', updateHeader, { passive: true })
 
-      const menus = [...document.querySelectorAll<HTMLDetailsElement>('.nav-menu')]
-      for (const menu of menus) {
-        menu.addEventListener('toggle', () => {
-          if (!menu.open) return
-          for (const other of menus) if (other !== menu) other.open = false
+      const dialog = document.querySelector<HTMLDialogElement>('[data-deploy-dialog]')
+      document.querySelectorAll<HTMLButtonElement>('[data-deploy-open]').forEach((button) => button.addEventListener('click', () => dialog?.showModal()))
+      document.querySelector<HTMLButtonElement>('[data-deploy-close]')?.addEventListener('click', () => dialog?.close())
+      dialog?.addEventListener('click', (event) => { if (event.target === dialog) dialog.close() })
+
+      document.querySelectorAll<HTMLButtonElement>('[data-copy-target]').forEach((button) => {
+        button.addEventListener('click', async () => {
+          const target = document.getElementById(button.dataset.copyTarget ?? '')
+          const value = target?.textContent?.trim()
+          if (!value) return
+          const previous = button.textContent
+          try {
+            await navigator.clipboard.writeText(value)
+            button.textContent = '已复制'
+          } catch {
+            button.textContent = '请手动复制'
+          }
+          setTimeout(() => { button.textContent = previous }, 1400)
         })
-      }
-      document.addEventListener('pointerdown', (event) => {
-        const target = event.target
-        if (!(target instanceof Node) || menus.some((menu) => menu.contains(target))) return
-        for (const menu of menus) menu.open = false
-      })
-      document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape') for (const menu of menus) menu.open = false
       })
 
       const observer = new IntersectionObserver((entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible')
-            observer.unobserve(entry.target)
-          }
+          if (!entry.isIntersecting) continue
+          entry.target.classList.add('is-visible')
+          observer.unobserve(entry.target)
         }
-      }, { threshold: 0.12 })
+      }, { threshold: 0.1 })
       document.querySelectorAll('[data-reveal]').forEach((element) => observer.observe(element))
     </script>
-    <script
-      is:inline
-      data-goatcounter="https://stats.liang.today/count"
-      async
-      src="https://gc.zgo.at/count.js"
-    ></script>
+    <script is:inline data-goatcounter="https://stats.liang.today/count" async src="https://gc.zgo.at/count.js"></script>
   </body>
 </html>

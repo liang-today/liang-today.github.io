@@ -118,6 +118,16 @@ const socialAlt = `今日梁相：${socialState}。${today.case_title}`
           <p class="method-note">如果还没有插件市场，先运行上面的命令安装 dshmarket。</p>
         </section>
       </div>
+      <section class="deploy-proxy">
+        <h3>需要代理时</h3>
+        <p>在 <code>$DSH_HOME/.env</code> 为 Node（DSH 全局）添加代理配置。<code>7890</code> 换成自己的代理端口，保存后重新启动 DSH。Desktop 写入它实际使用的 <code>DSH_HOME</code>。</p>
+        <div class="mini-command deploy-proxy-command">
+          <pre id="deploy-proxy"><code>HTTPS_PROXY = "http://127.0.0.1:7890"
+HTTP_PROXY = "http://127.0.0.1:7890"
+NODE_USE_ENV_PROXY = "1"</code></pre>
+          <button type="button" data-copy-target="deploy-proxy">复制</button>
+        </div>
+      </section>
       <div class="deploy-maintenance">
         <div><span>升级</span><code>dsh plugin --profile web add dsh-liangxiang</code></div>
         <div><span>卸载</span><code>dsh plugin --profile web remove dsh-liangxiang</code></div>

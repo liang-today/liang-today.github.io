@@ -753,6 +753,32 @@ svg { display: block; }
   background: var(--bg-deep);
 }
 
+.deploy-proxy {
+  padding: 22px 32px 26px;
+  border-top: 1px solid var(--line);
+}
+
+.deploy-proxy h3 { margin: 0 0 8px; font-size: 16px; }
+.deploy-proxy p { margin: 0; color: var(--text-soft); font-size: 13px; }
+.deploy-proxy code { color: var(--text-soft); }
+
+.deploy-proxy-command {
+  align-items: start;
+  margin-top: 16px;
+}
+
+.deploy-proxy-command pre,
+.deploy-proxy-command code {
+  margin: 0;
+  overflow: auto;
+  color: var(--text-soft);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  text-overflow: clip;
+  white-space: pre;
+}
+
 .mini-command code,
 .deploy-maintenance code {
   overflow: hidden;
@@ -909,6 +935,7 @@ svg { display: block; }
   .deploy-methods { grid-template-columns: 1fr; }
   .deploy-methods section { padding: 24px 20px; }
   .deploy-methods section:first-child { border-right: 0; border-bottom: 1px solid var(--line); }
+  .deploy-proxy { padding: 20px 20px 22px; }
   .deploy-maintenance { grid-template-columns: 1fr; }
   .deploy-maintenance > div { padding: 15px 20px; }
   .deploy-maintenance > div:first-child { border-right: 0; border-bottom: 1px solid var(--line); }
@@ -919,6 +946,7 @@ svg { display: block; }
     white-space: normal;
     word-break: break-word;
   }
+  .deploy-proxy-command code { white-space: pre; word-break: normal; }
   .deploy-dialog-foot { align-items: start; flex-direction: column; padding: 18px 20px 22px; }
   .document-shell { padding: 122px 0 82px; }
   .document-aside { display: none; }

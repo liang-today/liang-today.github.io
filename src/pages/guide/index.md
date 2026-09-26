@@ -13,6 +13,8 @@ sections:
     label: 升级
   - href: '#uninstall'
     label: 卸载
+  - href: '#proxy'
+    label: 代理
   - href: '#notes'
     label: 遇到问题
 ---
@@ -69,6 +71,16 @@ dsh plugin --profile web remove dsh-liangxiang
 ```
 
 卸载只移除插件，不会自动删除本机梁相账本。
+
+<h2 id="proxy">需要代理时</h2>
+
+在 `$DSH_HOME/.env` 为 Node（DSH 全局）添加代理配置。`7890` 换成自己的代理端口，保存后重新启动 DSH。Desktop 写入它实际使用的 `DSH_HOME`。
+
+```bash
+HTTPS_PROXY = "http://127.0.0.1:7890"
+HTTP_PROXY = "http://127.0.0.1:7890"
+NODE_USE_ENV_PROXY = "1"
+```
 
 <h2 id="notes">遇到问题</h2>
 

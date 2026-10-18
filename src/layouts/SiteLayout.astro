@@ -68,7 +68,7 @@ const socialAlt = `今日梁相：${socialState}。${today.case_title}`
           <span class="brand-tag">DSH 社区插件</span>
         </a>
         <div class="header-actions">
-          <button class="header-link" type="button" data-deploy-open>部署</button>
+          <button class="header-link" type="button" data-deploy-open>安装</button>
           <button class="theme-toggle" type="button" aria-label="切换明暗主题" title="切换明暗主题"><span aria-hidden="true"></span></button>
           <a class="github-link" href="https://github.com/liang-today/dsh-liangxiang" aria-label="GitHub" title="GitHub">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.88c-2.78.6-3.37-1.18-3.37-1.18-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.53 2.35 1.09 2.92.83.09-.65.35-1.09.64-1.34-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02A9.56 9.56 0 0 1 12 6.82a9.5 9.5 0 0 1 2.5.34c1.91-1.3 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.86v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2Z" /></svg>
@@ -87,7 +87,7 @@ const socialAlt = `今日梁相：${socialState}。${today.case_title}`
           <div><strong>众香成势，梁子显相。</strong><small>梁相 · v1.1.6 · MIT License</small></div>
         </div>
         <nav aria-label="页尾链接">
-          <button type="button" data-deploy-open>部署指南</button>
+          <a href="/guide/">安装指南</a>
           <a href="/privacy/">隐私边界</a>
           <a href="/about/">关于</a>
           <a href="https://github.com/liang-today/dsh-liangxiang">插件源码</a>
@@ -100,41 +100,43 @@ const socialAlt = `今日梁相：${socialState}。${today.case_title}`
     <dialog class="deploy-dialog" data-deploy-dialog aria-labelledby="deploy-title">
       <div class="deploy-dialog-head">
         <div><span>GET LIANGXIANG</span><h2 id="deploy-title">把梁相装进 DSH</h2></div>
-        <button type="button" data-deploy-close aria-label="关闭部署指南">×</button>
+        <button type="button" data-deploy-close aria-label="关闭安装指南">×</button>
       </div>
       <div class="deploy-methods">
         <section>
           <div class="method-index">01</div>
-          <h3>命令行安装</h3>
-          <p>退出 WebUI，在实际使用的 profile 中添加梁相，再重新启动。</p>
-          <div class="mini-command"><code id="deploy-cli">dsh plugin --profile web add dsh-liangxiang</code><button type="button" data-copy-target="deploy-cli">复制</button></div>
-          <p class="method-note">没有全局 dsh 时，将开头换成 <code>npx --yes @deepseek-ai/dsh</code>。</p>
+          <h3>Desktop · 推荐</h3>
+          <ol class="install-steps">
+            <li>打开 <strong>插件 → 发现</strong></li>
+            <li>搜索 <code>梁相</code> 或 <code>liangxiang</code></li>
+            <li>安装 <code>dsh-liangxiang</code>，完成后启用</li>
+          </ol>
+          <p class="method-note">没有「发现」或搜不到？可在 <strong>插件 → 添加插件</strong> 输入包名直接安装。<a href="/guide/#desktop">首次使用说明 →</a></p>
         </section>
         <section>
           <div class="method-index">02</div>
-          <h3>dshmarket 安装</h3>
-          <p>打开设置 → 插件市场，搜索 <code>liangxiang</code>，点击安装。</p>
-          <div class="mini-command"><code id="deploy-market">dsh plugin --profile web add dshmarket</code><button type="button" data-copy-target="deploy-market">复制</button></div>
-          <p class="method-note">如果还没有插件市场，先运行上面的命令安装 dshmarket。</p>
+          <h3>Cmd / Web</h3>
+          <p>退出 WebUI，在实际使用的 profile 中添加梁相，再重新启动。</p>
+          <div class="mini-command"><code id="deploy-cli">dsh plugin --profile web add dsh-liangxiang</code><button type="button" data-copy-target="deploy-cli">复制</button></div>
+          <p class="method-note">没有全局 dsh 时，将开头换成 <code>npx --yes @deepseek-ai/dsh</code>。此命令用于 Web，不用于 Desktop。</p>
         </section>
       </div>
       <section class="deploy-proxy">
-        <h3>需要代理时</h3>
-        <p>在 <code>$DSH_HOME/.env</code> 为 Node（DSH 全局）添加代理配置。<code>7890</code> 换成自己的代理端口，保存后重新启动 DSH。Desktop 写入它实际使用的 <code>DSH_HOME</code>。</p>
+        <h3>在线一直连不上？</h3>
+        <p>可能是 DSH 无法连接社区服务器。检查网络，必要时使用代理；浏览器能访问不代表 DSH 已走代理。可启用 TUN，或将下面配置写入 DSH 主目录的 <code>.env</code>，换成自己的 HTTP 代理端口后重启 DSH。<a href="/guide/#proxy">排障说明 →</a></p>
         <div class="mini-command deploy-proxy-command">
-          <pre id="deploy-proxy"><code>HTTPS_PROXY = "http://127.0.0.1:7890"
-HTTP_PROXY = "http://127.0.0.1:7890"
-NODE_USE_ENV_PROXY = "1"</code></pre>
+          <pre id="deploy-proxy"><code>HTTPS_PROXY="http://127.0.0.1:7890"
+HTTP_PROXY="http://127.0.0.1:7890"</code></pre>
           <button type="button" data-copy-target="deploy-proxy">复制</button>
         </div>
       </section>
       <div class="deploy-maintenance">
-        <div><span>升级</span><code>dsh plugin --profile web add dsh-liangxiang</code></div>
-        <div><span>卸载</span><code>dsh plugin --profile web remove dsh-liangxiang</code></div>
+        <div><span>Desktop</span><a href="/guide/#upgrade">在插件页更新或卸载 →</a></div>
+        <div><span>Cmd / Web</span><a href="/guide/#upgrade">查看更新与卸载命令 →</a></div>
       </div>
       <div class="deploy-dialog-foot">
         <span>安装与升级不会删除本机梁相账本。</span>
-        <a href="/guide/">查看完整部署说明 →</a>
+        <a href="/guide/">查看完整安装说明 →</a>
       </div>
     </dialog>
 

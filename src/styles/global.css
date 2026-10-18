@@ -434,6 +434,8 @@ svg { display: block; }
 
 .terminal-bar button:hover,
 .mini-command button:hover { color: #fff; }
+.mini-command button { color: var(--text-soft); }
+.mini-command button:hover { color: var(--text); }
 
 .install-tabs {
   display: flex;
@@ -482,6 +484,12 @@ svg { display: block; }
 }
 
 .install-terminal > p code { color: #afb2b5; }
+.install-terminal > p a { color: #afb2b5; text-underline-offset: 3px; }
+.install-steps { display: grid; gap: 10px; margin: 0; padding-left: 1.5em; color: var(--text-soft); font-size: 14px; }
+.install-steps strong { color: var(--text); }
+.terminal-panel .install-steps { color: #b7bbc2; }
+.terminal-panel .install-steps strong { color: #eeeee9; }
+.terminal-panel .install-steps code { font-size: 14px; }
 
 .today-share-section { padding: 78px 0 112px; border-top: 1px solid var(--line); background: var(--bg-deep); }
 
@@ -737,6 +745,7 @@ svg { display: block; }
 .deploy-methods section:first-child { border-right: 1px solid var(--line); }
 .method-index { color: var(--gold); font-family: ui-monospace, monospace; font-size: 11px; }
 .deploy-methods h3 { margin: 15px 0 8px; font-size: 20px; }
+.deploy-methods .install-steps { margin-block: 16px; }
 .deploy-methods p { margin: 0; color: var(--text-soft); font-size: 13px; }
 .method-note { margin-top: 12px !important; color: var(--text-faint) !important; }
 .method-note code { color: var(--text-soft); }
@@ -768,7 +777,7 @@ svg { display: block; }
 }
 
 .deploy-proxy-command pre,
-.deploy-proxy-command code {
+.deploy-proxy-command pre code {
   margin: 0;
   overflow: auto;
   color: var(--text-soft);
@@ -793,6 +802,10 @@ svg { display: block; }
 .deploy-maintenance > div { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 16px; padding: 18px 32px; }
 .deploy-maintenance > div:first-child { border-right: 1px solid var(--line); }
 .deploy-maintenance span { color: var(--gold); font-size: 11px; }
+.deploy-maintenance a,
+.deploy-methods a,
+.deploy-proxy a { color: var(--text-soft); text-underline-offset: 3px; }
+.deploy-maintenance a { font-size: 12px; }
 
 .deploy-dialog-foot { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 20px 32px 24px; color: var(--text-faint); font-size: 12px; }
 .deploy-dialog-foot a { color: var(--text-soft); text-decoration: none; }
@@ -836,6 +849,9 @@ svg { display: block; }
 .prose th { color: var(--text); }
 .prose blockquote { margin: 24px 0; padding: 1px 20px; border-left: 2px solid var(--gold); background: var(--gold-soft); }
 .prose hr { margin: 58px 0; border: 0; border-top: 1px solid var(--line); }
+.prose details { margin: 24px 0; padding: 16px 20px; border: 1px solid var(--line); border-radius: 12px; }
+.prose summary { color: var(--text); font-weight: 650; cursor: pointer; }
+.prose details > :last-child { margin-bottom: 0; }
 
 .not-found { display: grid; min-height: 100vh; place-items: center; padding: 130px 24px 80px; text-align: center; }
 .not-found img { width: 210px; margin-inline: auto; }

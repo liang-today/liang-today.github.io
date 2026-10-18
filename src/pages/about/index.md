@@ -64,7 +64,9 @@ sections:
 
 本项目为独立创作，与 DeepSeek 及其关联主体不存在官方关系。
 
-**2026-08-24 正式发布 v1.0.0，当前公开版为 v1.1.6。** 这一版为新香客备 10 炷，把倾炉缩短为长按 1.5 秒，适配 DSH 新版本，并新增可随时关闭的梁相广播台。安装和升级使用同一条命令：`dsh plugin --profile web add dsh-liangxiang`。包名 [`dsh-liangxiang`](https://www.npmjs.com/package/dsh-liangxiang)，npm `latest` 与插件仓库 Latest Release 均以当前公开版为准。已上架社区商店 [dsh-market](https://dshmarket.com/)，也列入 [1024 Store](https://deepseek1024.com/) 和 [awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness)；怎么装见[部署指南](/guide/#market)。
+**2026-08-24 正式发布 v1.0.0，当前公开版为 v1.1.6。** 这一版为新香客备 10 炷，把倾炉缩短为长按 1.5 秒，适配 DSH 新版本，并新增可随时关闭的梁相广播台。Desktop 推荐使用 DSH 内置插件市场，搜索梁相并安装；Cmd / Web 用户可用命令行。包名 [`dsh-liangxiang`](https://www.npmjs.com/package/dsh-liangxiang)，npm `latest` 与插件仓库 Latest Release 均以当前公开版为准。已上架社区商店 [dsh-market](https://dshmarket.com/)，也列入 [1024 Store](https://deepseek1024.com/) 和 [awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness)；具体见[安装指南](/guide/#desktop)。
+
+感谢 **XChen446、Ritanlisa、xunxiaoQ**，以及每一位提出建议、修复问题和参与测试的社区贡献者。
 
 <h2 id="principles">设计原则</h2>
 

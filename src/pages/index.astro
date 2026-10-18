@@ -53,22 +53,25 @@ const socialImage = `/media/social/today.png?v=${today.business_date}-${today.sn
       <div class="install-terminal" data-reveal>
         <div class="terminal-bar">
           <span class="terminal-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-          <span>安装到 web profile</span>
-          <button type="button" data-copy-target="hero-cli">复制</button>
+          <span>装进 DeepSeek Harness</span>
+          <button type="button" data-copy-target="hero-cli" hidden>复制</button>
         </div>
         <div class="install-tabs" role="tablist" aria-label="安装方式">
-          <button type="button" role="tab" aria-selected="true" aria-controls="install-cli" data-install-tab="cli">命令行</button>
-          <button type="button" role="tab" aria-selected="false" aria-controls="install-market" data-install-tab="market">dshmarket</button>
+          <button id="install-tab-market" type="button" role="tab" aria-selected="true" aria-controls="install-market" data-install-tab="market">Desktop · 推荐</button>
+          <button id="install-tab-cli" type="button" role="tab" aria-selected="false" aria-controls="install-cli" data-install-tab="cli" tabindex="-1">Cmd / Web</button>
         </div>
-        <div class="terminal-panel" id="install-cli" role="tabpanel" data-install-panel="cli">
+        <div class="terminal-panel" id="install-market" role="tabpanel" aria-labelledby="install-tab-market" data-install-panel="market">
+          <ol class="install-steps">
+            <li>打开 <strong>插件 → 发现</strong></li>
+            <li>搜索 <code>liangxiang</code></li>
+            <li>点击安装，完成后启用</li>
+          </ol>
+        </div>
+        <div class="terminal-panel" id="install-cli" role="tabpanel" aria-labelledby="install-tab-cli" data-install-panel="cli" hidden>
           <span class="prompt" aria-hidden="true">$</span>
           <code id="hero-cli">dsh plugin --profile web add dsh-liangxiang</code>
         </div>
-        <div class="terminal-panel" id="install-market" role="tabpanel" data-install-panel="market" hidden>
-          <span class="prompt" aria-hidden="true">→</span>
-          <code>设置 · 插件市场 · 搜索 liangxiang</code>
-        </div>
-        <p>安装完成后启动 <code>dsh web</code>，页面边缘会出现「今日梁相」。</p>
+        <p>页面边缘出现「今日梁相」即可开始。<a href="/guide/">首次使用、安装和升级说明 →</a></p>
       </div>
     </div>
 
@@ -101,7 +104,7 @@ const socialImage = `/media/social/today.png?v=${today.business_date}-${today.sn
     <div class="shell">
       <div class="section-intro split-intro" data-reveal>
         <div><p class="eyebrow">写代码，也写今日梁相</p><h2>不离开 DSH，顺手上一炷香。</h2></div>
-        <p>输入与输出 Token 按模型折成香火。香火环告诉你还剩多少，以及下一炷走到哪里；点一下投一炷，长按把整炉都交出去。</p>
+        <p>输入与输出 Token 按模型折成香火。香火环告诉你还剩多少，以及下一炷走到哪里；点一下投一炷，长按按限额批量上香。</p>
       </div>
 
       <figure class="product-frame" data-reveal>
@@ -160,7 +163,7 @@ const socialImage = `/media/social/today.png?v=${today.business_date}-${today.sn
   <section class="final-cta">
     <div class="shell final-cta-inner" data-reveal>
       <div><p class="eyebrow">今日开梁</p><h2>众香成势，梁子显相。</h2><p>装进 DeepSeek Harness，领十炷见面香。</p></div>
-      <div class="final-actions"><button class="button button-primary" type="button" data-deploy-open>查看部署方式</button><a class="button button-ghost" href="https://github.com/liang-today/dsh-liangxiang">查看源码 ↗</a></div>
+      <div class="final-actions"><button class="button button-primary" type="button" data-deploy-open>查看安装方式</button><a class="button button-ghost" href="https://github.com/liang-today/dsh-liangxiang">查看源码 ↗</a></div>
     </div>
   </section>
 
@@ -183,12 +186,23 @@ const socialImage = `/media/social/today.png?v=${today.business_date}-${today.sn
     for (const tab of tabs) {
       tab.addEventListener('click', () => {
         const target = tab.dataset.installTab
-        for (const item of tabs) item.setAttribute('aria-selected', String(item === tab))
+        for (const item of tabs) {
+          item.setAttribute('aria-selected', String(item === tab))
+          item.tabIndex = item === tab ? 0 : -1
+        }
         for (const panel of panels) panel.hidden = panel.dataset.installPanel !== target
         if (copyButton) {
           copyButton.hidden = target !== 'cli'
           copyButton.dataset.copyTarget = 'hero-cli'
         }
+      })
+      tab.addEventListener('keydown', (event) => {
+        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return
+        event.preventDefault()
+        const index = tabs.indexOf(tab)
+        const next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length
+        tabs[next]?.click()
+        tabs[next]?.focus()
       })
     }
 

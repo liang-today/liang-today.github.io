@@ -63,6 +63,15 @@ const versionMarkers = [
   [join('guide', 'index.html'), `当前公开版是 v${releaseVersion}`],
   [join('guide', 'index.html'), `dsh-liangxiang-${releaseVersion}.tgz`],
 ]
+const earningRuleMarkers = [
+  ['index.html', 'Pro 类 ×1，Flash 类与其他模型 ×0.5'],
+  [join('about', 'index.html'), 'Pro 类 ×1，Flash 类与其他模型 ×0.5'],
+  [join('about', 'index.html'), '默认 Pro 每 50,000 Token 一炷，Flash 与其他模型每 100,000 Token 一炷'],
+]
+for (const [relative, marker] of earningRuleMarkers) {
+  const html = await readFile(join(root, relative), 'utf8')
+  if (!html.includes(marker)) throw new Error(`${relative}: missing static earning rule ${marker}`)
+}
 for (const [relative, marker] of versionMarkers) {
   const html = await readFile(join(root, relative), 'utf8')
   if (!html.includes(marker)) mismatchedVersions.push(`${relative}: missing ${marker}`)

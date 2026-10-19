@@ -7,7 +7,7 @@
   --surface-3: #1b1f25;
   --text: #f3f2ed;
   --text-soft: #a7a8a7;
-  --text-faint: #72767a;
+  --text-faint: #8e949b;
   --line: rgba(255, 255, 255, 0.1);
   --line-strong: rgba(255, 255, 255, 0.18);
   --gold: #d9a85f;
@@ -31,11 +31,11 @@
   --surface-3: #e4e6e1;
   --text: #191d21;
   --text-soft: #596068;
-  --text-faint: #7c8388;
+  --text-faint: #5b646b;
   --line: rgba(22, 28, 32, 0.11);
   --line-strong: rgba(22, 28, 32, 0.2);
-  --gold: #a86b2d;
-  --gold-bright: #bc7a36;
+  --gold: #965c26;
+  --gold-bright: #8e5420;
   --gold-soft: rgba(177, 112, 45, 0.1);
   --vermillion: #ad4f3e;
   --blue: #526ca4;
@@ -447,7 +447,7 @@ svg { display: block; }
   padding: 7px 12px;
   border: 0;
   border-radius: 8px;
-  color: #73777c;
+  color: #969ca4;
   background: transparent;
   font-size: 12px;
   cursor: pointer;
@@ -479,7 +479,7 @@ svg { display: block; }
   margin: 0;
   padding: 15px 30px 18px;
   border-top: 1px solid var(--line);
-  color: #74787e;
+  color: #9299a0;
   font-size: 12px;
 }
 
@@ -570,7 +570,7 @@ svg { display: block; }
   align-items: center;
   padding: 0 18px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  color: #74787d;
+  color: #93999f;
   font-size: 11px;
   letter-spacing: 0.04em;
 }
@@ -613,7 +613,7 @@ svg { display: block; }
 
 .state-line {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   border-top: 1px solid var(--line);
 }
 
@@ -874,7 +874,7 @@ svg { display: block; }
   .flow-grid article:nth-child(2) { border-right: 0; }
   .flow-grid article:nth-child(-n + 2) { border-bottom: 1px solid var(--line); }
   .state-line { grid-template-columns: repeat(3, 1fr); }
-  .state-line article:nth-child(3) { border-right: 0; }
+  .state-line article:nth-child(3n) { border-right: 0; }
   .state-line article:nth-child(-n + 3) { border-bottom: 1px solid var(--line); }
   .archive-copy { max-width: 650px; }
   .archive-frame { transform: none; }
@@ -938,7 +938,7 @@ svg { display: block; }
   .state-line article,
   .state-line article:nth-child(3) { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
   .state-line article:nth-child(even) { border-right: 0; }
-  .state-line article:last-child { grid-column: 1 / -1; border-right: 0; border-bottom: 0; }
+  .state-line article:nth-last-child(-n + 2) { border-bottom: 0; }
   .state-line img { width: 132px; }
   .archive-layout { gap: 34px; }
   .archive-frame video { aspect-ratio: 1.35 / 1; }

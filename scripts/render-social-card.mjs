@@ -2,11 +2,12 @@ import { createServer } from 'node:http'
 import { access, mkdir, readFile, stat } from 'node:fs/promises'
 import { dirname, extname, join, resolve } from 'node:path'
 import { chromium } from 'playwright'
+import { states } from '../src/data/liangzi.mjs'
 
 const distRoot = resolve('dist')
 const [outputArgument, stateArgument] = process.argv.slice(2).filter((argument) => argument !== '--')
 const outputPath = resolve(outputArgument ?? 'dist/media/social/today.png')
-const allowedStates = new Set(['waiting', 'liang_gong', 'liang_zong', 'liang_shen', 'liang_sheng', 'liang_zu'])
+const allowedStates = new Set(Object.keys(states))
 if (stateArgument && !allowedStates.has(stateArgument)) throw new Error(`Unknown Liangxiang state: ${stateArgument}`)
 
 const yaheiRegular = '/Applications/Microsoft Word.app/Contents/Resources/DFonts/msyh.ttc'

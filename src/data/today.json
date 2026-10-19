@@ -1,11 +1,12 @@
 {
-  "business_date": "2026-09-02",
-  "case_title": "程序员不会被AI取代",
-  "up_ratio": 0.6870705808869456,
-  "total_incense": 1601,
-  "unique_voters": 5,
-  "liangzi_state": "liang_zong",
-  "snapshot_version": 37,
-  "updated_at": "2026-09-02T00:23:03.983Z",
+  "business_date": "2026-10-19",
+  "case_title": "模型废话是不是太多",
+  "up_ratio": 0.899255982304444,
+  "total_incense": 4973,
+  "unique_voters": 14,
+  "liangzi_state": "liang_sheng",
+  "policy_version": "liangzi-v0.1-50-70-85-95",
+  "snapshot_version": 813,
+  "updated_at": "2026-10-19T03:45:07.333Z",
   "source": "live"
 }

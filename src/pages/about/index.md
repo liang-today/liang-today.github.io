@@ -23,6 +23,8 @@ sections:
 
 刚装上备 10 炷，对话还能继续攒。点一下一炷，长按 1.5 秒倾炉。同一台机器当天重装，不会再领一份见面礼。梁祠里的日梁、周梁、月梁都记五行香客。
 
+可在梁相案牍开启日终上香：DSH 运行时，于 23:59 按限额尽量倾炉；右键夯或拉，只设置默认方向，不会立即投票。默认关闭，手动上香优先。
+
 输入＋输出 Token 按固定倍率凝香：Pro 类 ×1，Flash 类与其他模型 ×0.5。默认 Pro 每 50,000 Token 一炷，Flash 与其他模型每 100,000 Token 一炷。
 
 <h2 id="story">梁相的含义</h2>
@@ -66,7 +68,7 @@ sections:
 
 本项目为独立创作，与 DeepSeek 及其关联主体不存在官方关系。
 
-**2026-08-24 正式发布 v1.0.0，当前公开版为 v1.1.6。** 这一版为新香客备 10 炷，把倾炉缩短为长按 1.5 秒，适配 DSH 新版本，并新增可随时关闭的梁相广播台。Desktop 推荐使用 DSH 内置插件市场，搜索梁相并安装；Cmd / Web 用户可用命令行。包名 [`dsh-liangxiang`](https://www.npmjs.com/package/dsh-liangxiang)，npm `latest` 与插件仓库 Latest Release 均以当前公开版为准。已上架社区商店 [dsh-market](https://dshmarket.com/)，也列入 [1024 Store](https://deepseek1024.com/) 和 [awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness)；具体见[安装指南](/guide/#desktop)。
+**2026-08-24 正式发布 v1.0.0，当前公开版为 v1.2.0。** 这一版新增小难梁与轻落短句，统一单击、双击交互；用量结算适配新版 DSH，并可选择 23:59 自动倾炉。Desktop 推荐使用 DSH 内置插件市场，搜索梁相并安装；Cmd / Web 用户可用命令行。包名 [`dsh-liangxiang`](https://www.npmjs.com/package/dsh-liangxiang)，npm `latest` 与插件仓库 Latest Release 均以当前公开版为准。已上架社区商店 [dsh-market](https://dshmarket.com/)，也列入 [1024 Store](https://deepseek1024.com/) 和 [awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness)；具体见[安装指南](/guide/#desktop)。
 
 感谢 **XChen446、Ritanlisa、xunxiaoQ**，以及每一位提出建议、修复问题和参与测试的社区贡献者。
 

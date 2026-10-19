@@ -3,7 +3,7 @@ layout: ../../layouts/MarkdownLayout.astro
 title: 安装指南
 description: 在 DeepSeek Harness Desktop 的插件市场安装梁相，或使用 Cmd / Web 命令行安装、升级和卸载。
 eyebrow: 安装指南
-aside: Desktop 优先用内置插件市场，无需安装 Node.js 或输入命令。当前公开版是 v1.1.6。
+aside: Desktop 优先用内置插件市场，无需安装 Node.js 或输入命令。当前公开版是 v1.2.0。
 sections:
   - href: '#desktop'
     label: Desktop 安装
@@ -24,20 +24,19 @@ sections:
 <h2 id="desktop">Desktop：在插件市场安装</h2>
 <span id="market"></span>
 
-1. **打开市场**：在 DSH 侧栏打开 **插件 → 发现**。
-2. **搜索梁相**：输入 `梁相` 或 `liangxiang`。
-3. **点击安装**：核对包名为 `dsh-liangxiang`，确认安装，完成后选择 **立即启用**。如 DSH 提示需要重启，再重启应用。
+1. **打开添加插件**：在 DSH 侧栏点 **插件**，再点右上角 **添加插件**。
+2. **输入完整包名**：输入 **`dsh-liangxiang`**，点击 **安装**。搜索时同样使用完整包名。
+3. **立即启用**：安装完成后点 **立即启用**；页面边缘出现「今日梁相」即完成。若提示刷新或重启，按提示操作。
 
-<details>
-<summary>第一次使用，没有「发现」或搜不到梁相？</summary>
+![第一步：打开插件并点击添加插件](/guide/desktop-add-plugin.jpg)
 
-在 **插件 → 实验性插件 → 更多** 中开启 **自定义插件市场**，再进入「发现」。官方市场不预置索引源；空白页需要先添加你信任、且收录梁相的市场索引，具体见 [DSH 官方市场说明](https://deepseek-harness.github.io/deepseek-harness/guide/plugin-market)。
+![第二步：输入完整包名 dsh-liangxiang 并安装](/guide/desktop-package-name.jpg)
 
-也可以直接在 **插件 → 添加插件** 输入 `dsh-liangxiang`，点击 **安装**，完成后选择 **立即启用**。这同样使用 DSH 内置安装流程，无需命令行。
+![第三步：安装完成后立即启用](/guide/desktop-enable-plugin.jpg)
 
-若你使用的社区 Desktop 显示 **设置 → 插件市场**，可以在该入口搜索相同包名。不同 Desktop 的菜单和运行时可能不同，请以所用应用的说明为准。
+*截图为安装流程示意，图中旧版本号不代表当前发行版；安装后的版本以「梁相案牍 → 当前版本」为准。*
 
-</details>
+以上流程无需命令行、额外市场插件或索引配置。已有「发现」或社区市场入口时，同样搜索完整包名 `dsh-liangxiang`。
 
 Desktop 的插件由应用自己的 `desktop` profile 管理。不要把下面的 `web` 命令用于 Desktop，也不要用 npm 版 DSH 命令修改它。
 
@@ -66,7 +65,9 @@ npx --yes @deepseek-ai/dsh web
 
 ### Desktop
 
-在 **插件 → 已安装** 打开梁相，按所用市场的提示更新。若没有更新按钮，先卸载梁相，再按上面的市场或「添加插件」流程重新安装。升级后可在 **梁相案牍 → 当前版本** 核对版本和更新说明。
+在 **插件 → 已安装** 打开梁相，按所用市场的提示更新。若没有更新按钮，先卸载梁相，再按上面的市场或「添加插件」流程重新安装。升级后可在 **梁相案牍 → 当前版本** 核对版本和更新说明。首次打开需明确选择在线或离线模式，不会自动代选。
+
+**日终上香（可选）**：在梁相案牍点击整格开关，悬停可看 23:59 时刻与运行条件；右键夯或拉设置默认方向。默认关闭，DSH 运行时按限额尽量上香，浏览器可以关闭。
 
 卸载同样在插件页面完成。卸载插件不会自动删除本机梁相账本；不要额外删除 DSH 的数据目录。
 
@@ -111,4 +112,4 @@ HTTP_PROXY="http://127.0.0.1:7890"
 
 仍未解决时，请到[插件仓库](https://github.com/liang-today/dsh-liangxiang/issues)提交 Issue。附上系统、DSH 版本和脱敏后的错误信息，不要提交 API key 或完整日志。
 
-当前公开版是 v1.1.6。发行包也可从 [GitHub Releases](https://github.com/liang-today/dsh-liangxiang/releases) 下载，例如 `dsh-liangxiang-1.1.6.tgz`。
+当前公开版是 v1.2.0。发行包也可从 [GitHub Releases](https://github.com/liang-today/dsh-liangxiang/releases) 下载，例如 `dsh-liangxiang-1.2.0.tgz`。

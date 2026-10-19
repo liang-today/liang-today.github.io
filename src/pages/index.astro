@@ -2,22 +2,8 @@
 import SiteLayout from '../layouts/SiteLayout.astro'
 import today from '../data/today.json'
 
-const states = [
-  { name: '梁工', range: '< 50%', image: '/artwork/gong.png' },
-  { name: '梁总', range: '50% — 70%', image: '/artwork/zong.png' },
-  { name: '梁神', range: '70% — 85%', image: '/artwork/shen.png' },
-  { name: '梁圣', range: '85% — 95%', image: '/artwork/sheng.png' },
-  { name: '梁祖', range: '≥ 95%', image: '/artwork/zu.png' },
-]
+import { votedStates as states, states as stateMap } from '../data/liangzi.mjs'
 
-const stateMap: Record<string, { name: string; image: string }> = {
-  waiting: { name: '待开梁', image: '/artwork/waiting.png' },
-  liang_gong: { name: '梁工', image: '/artwork/gong.png' },
-  liang_zong: { name: '梁总', image: '/artwork/zong.png' },
-  liang_shen: { name: '梁神', image: '/artwork/shen.png' },
-  liang_sheng: { name: '梁圣', image: '/artwork/sheng.png' },
-  liang_zu: { name: '梁祖', image: '/artwork/zu.png' },
-}
 const currentState = stateMap[today.liangzi_state] ?? stateMap.waiting
 const ratioText = today.up_ratio === null
   ? '--'
@@ -47,6 +33,7 @@ const socialImage = `/media/social/today.png?v=${today.business_date}-${today.sn
           <span>新香客备 10 炷</span>
           <span>点按上香</span>
           <span>长按倾炉</span>
+          <span>可选日终自动上香</span>
         </div>
       </div>
 
@@ -62,8 +49,8 @@ const socialImage = `/media/social/today.png?v=${today.business_date}-${today.sn
         </div>
         <div class="terminal-panel" id="install-market" role="tabpanel" aria-labelledby="install-tab-market" data-install-panel="market">
           <ol class="install-steps">
-            <li>打开 <strong>插件 → 发现</strong></li>
-            <li>搜索 <code>liangxiang</code></li>
+            <li>打开 <strong>插件 → 添加插件</strong></li>
+            <li>输入 <code>dsh-liangxiang</code></li>
             <li>点击安装，完成后启用</li>
           </ol>
         </div>
@@ -126,8 +113,8 @@ const socialImage = `/media/social/today.png?v=${today.business_date}-${today.sn
   <section class="states-section">
     <div class="shell">
       <div class="section-intro centered-intro" data-reveal>
-        <p class="eyebrow">一条梁位，五种显相</p>
-        <h2>从梁工，一路夯到梁祖。</h2>
+        <p class="eyebrow">一条梁位，六种显相</p>
+        <h2>从小难梁，一路夯到梁祖。</h2>
         <p>中央梁子只看社区夯率。门槛越高，显相越离谱。</p>
       </div>
       <div class="state-line" data-reveal>
@@ -140,7 +127,7 @@ const socialImage = `/media/social/today.png?v=${today.business_date}-${today.sn
           </article>
         ))}
       </div>
-      <p class="state-note" data-reveal>零票时显示「待开梁」；第一炷投下后进入五档显相。</p>
+      <p class="state-note" data-reveal>零票时显示「待开梁」；第一炷投下后进入六档显相。</p>
     </div>
   </section>
 
@@ -172,7 +159,7 @@ const socialImage = `/media/social/today.png?v=${today.business_date}-${today.sn
     applicationCategory: 'DeveloperApplication', operatingSystem: 'Windows, macOS, Linux',
     description: '长在 DeepSeek Harness 里的社区插件。每天一道梁案，用香火投下夯或拉。',
     url: 'https://liang.today', codeRepository: 'https://github.com/liang-today/dsh-liangxiang',
-    softwareVersion: '1.1.6', license: 'https://opensource.org/license/mit',
+    softwareVersion: '1.2.0', license: 'https://opensource.org/license/mit',
   })} />
 
   <script>

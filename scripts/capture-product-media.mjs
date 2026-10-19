@@ -25,7 +25,7 @@ async function dismissIfVisible(locator, timeout = 1_200) {
 async function bootLiangxiang(page, url) {
   await page.addInitScript(() => {
     localStorage.setItem('liangxiang:welcome:v2', 'seen')
-    localStorage.setItem('liangxiang:release-notes:1.1.6', 'seen')
+    localStorage.setItem('liangxiang:release-notes:1.2.0', 'seen')
     localStorage.setItem('liangxiang:panel-open:v1', '0')
     localStorage.removeItem('liangxiang:badge-position:v2')
   })

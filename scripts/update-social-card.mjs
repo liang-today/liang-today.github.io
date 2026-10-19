@@ -1,29 +1,14 @@
 import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
+import { states, expectedState, LEGACY_POLICY, CURRENT_POLICY, POLICY_HEADER } from '../src/data/liangzi.mjs'
 
 const endpoint = process.env.LIANGXIANG_SNAPSHOT_URL ?? 'https://api.liang.today/v1/snapshot'
 const publishedEndpoint = process.env.LIANGXIANG_PUBLISHED_SNAPSHOT_URL ?? 'https://liang.today/data/today.json'
 const outputDirectory = resolve('public/media/social')
 const dataPath = resolve('src/data/today.json')
 const publicDataPath = resolve('public/data/today.json')
-const allowedStates = new Set([
-  'waiting',
-  'liang_gong',
-  'liang_zong',
-  'liang_shen',
-  'liang_sheng',
-  'liang_zu',
-])
-
-function expectedState(upRatio) {
-  if (upRatio === null) return 'waiting'
-  if (upRatio < 0.5) return 'liang_gong'
-  if (upRatio < 0.7) return 'liang_zong'
-  if (upRatio < 0.85) return 'liang_shen'
-  if (upRatio < 0.95) return 'liang_sheng'
-  return 'liang_zu'
-}
+const allowedStates = new Set(Object.keys(states))
 
 export function waitingSnapshot(now = new Date()) {
   return {
@@ -33,6 +18,7 @@ export function waitingSnapshot(now = new Date()) {
     total_incense: 0,
     unique_voters: 0,
     liangzi_state: 'waiting',
+    policy_version: CURRENT_POLICY,
     snapshot_version: 0,
     updated_at: now.toISOString(),
     source: 'fallback',
@@ -66,7 +52,8 @@ export function parsePublishedSnapshot(payload, source = 'cached') {
   if ((payload.total_incense === 0) !== (payload.up_ratio === null)) {
     throw new Error('published ratio and vote count disagree')
   }
-  if (payload.liangzi_state !== expectedState(payload.up_ratio)) {
+  const policy = payload.policy_version ?? LEGACY_POLICY
+  if (payload.liangzi_state !== expectedState(payload.up_ratio, policy)) {
     throw new Error('published state and ratio disagree')
   }
   if (typeof payload.updated_at !== 'string' || !Number.isFinite(Date.parse(payload.updated_at))) {
@@ -80,6 +67,7 @@ export function parsePublishedSnapshot(payload, source = 'cached') {
     total_incense: payload.total_incense,
     unique_voters: payload.unique_voters,
     liangzi_state: payload.liangzi_state,
+    policy_version: policy,
     snapshot_version: payload.snapshot_version,
     updated_at: new Date(payload.updated_at).toISOString(),
     source,
@@ -101,6 +89,7 @@ export function parseSnapshot(payload) {
     total_incense: snapshot.total_incense,
     unique_voters: snapshot.unique_voters,
     liangzi_state: snapshot.liangzi_state,
+    policy_version: snapshot.policy_version,
     snapshot_version: snapshot.sequence,
     updated_at: serverTime.toISOString(),
   }, 'live')
@@ -124,7 +113,7 @@ export async function resolveTodaySnapshot(loaders, now = new Date()) {
 
 async function fetchJson(url, timeout) {
   const response = await fetch(url, {
-    headers: { accept: 'application/json', 'user-agent': 'liang.today-pages-build' },
+    headers: { accept: 'application/json', 'user-agent': 'liang.today-pages-build', [POLICY_HEADER]: CURRENT_POLICY },
     signal: AbortSignal.timeout(timeout),
   })
   if (!response.ok) throw new Error(`${url} returned HTTP ${response.status}`)

@@ -1,24 +1,9 @@
 ---
 import today from '../data/today.json'
+import { states } from '../data/liangzi.mjs'
 
-const labels: Record<string, string> = {
-  waiting: '待开梁',
-  liang_gong: '梁工',
-  liang_zong: '梁总',
-  liang_shen: '梁神',
-  liang_sheng: '梁圣',
-  liang_zu: '梁祖',
-}
-const artwork: Record<string, string> = {
-  waiting: '/artwork/waiting.png',
-  liang_gong: '/artwork/gong.png',
-  liang_zong: '/artwork/zong.png',
-  liang_shen: '/artwork/shen.png',
-  liang_sheng: '/artwork/sheng.png',
-  liang_zu: '/artwork/zu.png',
-}
-const name = labels[today.liangzi_state] ?? labels.waiting
-const image = artwork[today.liangzi_state] ?? artwork.waiting
+const name = states[today.liangzi_state]?.name ?? states.waiting.name
+const image = states[today.liangzi_state]?.image ?? states.waiting.image
 const ratio = today.up_ratio === null ? '--' : `${(Math.floor(today.up_ratio * 100 * 1_000_000) / 1_000_000).toFixed(6)}%`
 ---
 
@@ -140,7 +125,7 @@ const ratio = today.up_ratio === null ? '--' : `${(Math.floor(today.up_ratio * 1
         background: #f0f1ec;
         border-top: 1px solid rgba(105, 112, 110, .22);
       }
-      .state span { display: block; color: #6d757c; font-size: 16px; font-weight: 700; letter-spacing: 0.08em; }
+      .state span { display: block; color: #626a72; font-size: 16px; font-weight: 700; letter-spacing: 0.08em; }
       .state strong { display: block; margin-top: 2px; font-size: 42px; font-weight: 700; line-height: 1.1; }
       .state small { display: block; margin-top: 6px; color: #c56a1c; font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; }
       .qr { display: flex; align-items: center; gap: 14px; }
@@ -165,7 +150,7 @@ const ratio = today.up_ratio === null ? '--' : `${(Math.floor(today.up_ratio * 1
     <main class="card" data-card>
       <section class="copy">
         <div class="brand"><span class="seal" aria-hidden="true">相</span><div><strong>梁相</strong><small>LIANGXIANG</small></div></div>
-        <p class="eyebrow">今日梁相 · {today.business_date}</p>
+        <p class="eyebrow" data-card-date>今日梁相 · {today.business_date}</p>
         <h1>众香成势，<span>梁子显相。</span></h1>
         <p class="case" data-card-case>{today.case_title}</p>
         <p class="rally">梁相还得梁人出！</p>
@@ -183,14 +168,10 @@ const ratio = today.up_ratio === null ? '--' : `${(Math.floor(today.up_ratio * 1
       </section>
     </main>
     <script>
-      const templates = {
-        waiting: { name: '待开梁', image: '/artwork/waiting.png', ratio: '梁位 --', caseTitle: '今日梁案待开' },
-        liang_gong: { name: '梁工', image: '/artwork/gong.png', ratio: '梁位 < 50%', caseTitle: '今日梁案 · 众香成势' },
-        liang_zong: { name: '梁总', image: '/artwork/zong.png', ratio: '梁位 50%–70%', caseTitle: '今日梁案 · 众香成势' },
-        liang_shen: { name: '梁神', image: '/artwork/shen.png', ratio: '梁位 70%–85%', caseTitle: '今日梁案 · 众香成势' },
-        liang_sheng: { name: '梁圣', image: '/artwork/sheng.png', ratio: '梁位 85%–95%', caseTitle: '今日梁案 · 众香成势' },
-        liang_zu: { name: '梁祖', image: '/artwork/zu.png', ratio: '梁位 ≥ 95%', caseTitle: '今日梁案 · 众香成势' },
-      }
+      import { states } from '../data/liangzi.mjs'
+      const templates = Object.fromEntries(Object.entries(states).map(([id, state]) => [id, {
+        ...state, ratio: `梁位 ${state.range}`, caseTitle: id === 'waiting' ? '今日梁案待开' : '今日梁案 · 众香成势',
+      }]))
       const requested = new URLSearchParams(location.search).get('state')
       const card = requested && requested in templates ? templates[requested as keyof typeof templates] : null
       if (card) {
@@ -198,10 +179,12 @@ const ratio = today.up_ratio === null ? '--' : `${(Math.floor(today.up_ratio * 1
         const state = document.querySelector<HTMLElement>('[data-card-state]')
         const ratio = document.querySelector<HTMLElement>('[data-card-ratio]')
         const caseTitle = document.querySelector<HTMLElement>('[data-card-case]')
+        const date = document.querySelector<HTMLElement>('[data-card-date]')
         if (image) { image.src = card.image; image.alt = `${card.name}形相` }
         if (state) state.textContent = card.name
         if (ratio) ratio.textContent = card.ratio
         if (caseTitle) caseTitle.textContent = card.caseTitle
+        if (date) date.textContent = '今日梁相 · 显相示意'
       }
     </script>
   </body>

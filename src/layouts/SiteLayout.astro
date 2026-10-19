@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css'
 import today from '../data/today.json'
+import { states } from '../data/liangzi.mjs'
 
 interface Props {
   title: string
@@ -12,15 +13,7 @@ interface Props {
 const { title, description, image, pageClass = '' } = Astro.props
 const canonical = new URL(Astro.url.pathname, Astro.site)
 const pageTitle = title === '梁相' ? '梁相 · 众香成势，梁子显相' : `${title} · 梁相`
-const stateNames: Record<string, string> = {
-  waiting: '待开梁',
-  liang_gong: '梁工',
-  liang_zong: '梁总',
-  liang_shen: '梁神',
-  liang_sheng: '梁圣',
-  liang_zu: '梁祖',
-}
-const socialState = stateNames[today.liangzi_state] ?? '待开梁'
+const socialState = states[today.liangzi_state]?.name ?? states.waiting.name
 const socialVersion = `${today.business_date}-${today.snapshot_version}`
 const socialImage = image ?? `/media/social/today.png?v=${socialVersion}`
 const socialAlt = `今日梁相：${socialState}。${today.case_title}`
@@ -54,7 +47,8 @@ const socialAlt = `今日梁相：${socialState}。${today.case_title}`
     <script is:inline>
       document.documentElement.classList.add('js')
       const savedTheme = localStorage.getItem('liangxiang:site-theme')
-      if (savedTheme === 'light' || savedTheme === 'dark') document.documentElement.dataset.theme = savedTheme
+      document.documentElement.dataset.theme = savedTheme === 'light' || savedTheme === 'dark'
+        ? savedTheme : matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'
     </script>
   </head>
   <body class={pageClass}>
@@ -84,7 +78,7 @@ const socialAlt = `今日梁相：${socialState}。${today.case_title}`
       <div class="shell footer-inner">
         <div class="footer-signature">
           <span class="brand-seal" aria-hidden="true">相</span>
-          <div><strong>众香成势，梁子显相。</strong><small>梁相 · v1.1.6 · MIT License</small></div>
+          <div><strong>众香成势，梁子显相。</strong><small>梁相 · v1.2.0 · MIT License</small></div>
         </div>
         <nav aria-label="页尾链接">
           <a href="/guide/">安装指南</a>
@@ -107,11 +101,11 @@ const socialAlt = `今日梁相：${socialState}。${today.case_title}`
           <div class="method-index">01</div>
           <h3>Desktop · 推荐</h3>
           <ol class="install-steps">
-            <li>打开 <strong>插件 → 发现</strong></li>
-            <li>搜索 <code>梁相</code> 或 <code>liangxiang</code></li>
+            <li>打开 <strong>插件 → 添加插件</strong></li>
+            <li>输入完整包名 <code>dsh-liangxiang</code></li>
             <li>安装 <code>dsh-liangxiang</code>，完成后启用</li>
           </ol>
-          <p class="method-note">没有「发现」或搜不到？可在 <strong>插件 → 添加插件</strong> 输入包名直接安装。<a href="/guide/#desktop">首次使用说明 →</a></p>
+          <p class="method-note">无需命令行、额外市场插件或索引配置。<a href="/guide/#desktop">首次使用说明 →</a></p>
         </section>
         <section>
           <div class="method-index">02</div>

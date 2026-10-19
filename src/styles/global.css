@@ -852,6 +852,8 @@ svg { display: block; }
 .prose details { margin: 24px 0; padding: 16px 20px; border: 1px solid var(--line); border-radius: 12px; }
 .prose summary { color: var(--text); font-weight: 650; cursor: pointer; }
 .prose details > :last-child { margin-bottom: 0; }
+.prose .install-shot { margin: 16px 0 28px; }
+.prose .install-shot img { width: 100%; height: auto; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
 
 .not-found { display: grid; min-height: 100vh; place-items: center; padding: 130px 24px 80px; text-align: center; }
 .not-found img { width: 210px; margin-inline: auto; }

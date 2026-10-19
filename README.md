@@ -23,4 +23,4 @@ pnpm run build
 
 品牌与产品契约以插件仓库的 `AGENTS.md` 和 `docs/140-liangxiang-brand.md` 为准。当前官网不处理真实投票或 Token，只做产品介绍和本地交互演示。
 
-安装入口统一指向 `/guide/`：Desktop 优先使用官方原生「插件 → 发现」，首次启用和索引前置条件在折叠说明中交代；Cmd / Web 单独说明 profile 命令。公开版本信息跟随已发布版本，不随候选分支提前更新。
+安装入口统一指向 `/guide/`：Desktop 使用官方原生「插件 → 添加插件」，输入完整包名 `dsh-liangxiang` 后安装并启用，配三步截图；Cmd / Web 单独说明 profile 命令。公开版本信息跟随已发布版本，不随候选分支提前更新。

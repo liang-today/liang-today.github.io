@@ -68,7 +68,11 @@ sections:
 
 本项目为独立创作，与 DeepSeek 及其关联主体不存在官方关系。
 
-**2026-08-24 正式发布 v1.0.0，当前公开版为 v1.2.0。** 这一版新增小难梁与轻落短句，统一单击、双击交互；用量结算适配新版 DSH，并可选择 23:59 自动倾炉。Desktop 推荐使用 DSH 的 **插件 → 添加插件**，输入完整包名 **`dsh-liangxiang`** 后安装并启用；Cmd / Web 用户可用命令行。包名 [`dsh-liangxiang`](https://www.npmjs.com/package/dsh-liangxiang)，npm `latest` 与插件仓库 Latest Release 均以当前公开版为准。已上架社区商店 [dsh-market](https://dshmarket.com/)，也列入 [1024 Store](https://deepseek1024.com/) 和 [awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness)；具体见[安装指南](/guide/#desktop)。
+**当前公开版为 v1.2.0**：新增小难梁、轻落短句与可选的 23:59 自动倾炉，适配新版 DSH。
+
+Desktop 在 **插件 → 添加插件** 输入 **`dsh-liangxiang`** 后安装并启用；安装和升级步骤见[安装指南](/guide/#desktop)。也可从 [npm](https://www.npmjs.com/package/dsh-liangxiang) 或 [GitHub Releases](https://github.com/liang-today/dsh-liangxiang/releases) 查看发行信息。
+
+社区目录：[dsh-market](https://dshmarket.com/) · [1024 Store](https://deepseek1024.com/) · [awesome-deepseek-harness](https://github.com/Dominic789654/awesome-deepseek-harness)。
 
 欢迎从个人 fork 提交改进：插件 PR 统一投向主仓 `dev`，通过检查与维护者审阅后集成；详见[贡献指南](https://github.com/liang-today/dsh-liangxiang/blob/main/CONTRIBUTING.md)。
 

@@ -58,7 +58,7 @@ npx --yes @deepseek-ai/dsh web
 
 安装和启动必须使用同一个 profile；自定义 profile 请把 `web` 换成实际名称。不要运行 `npm i dsh-liangxiang`，它不会把插件加入 DSH profile。
 
-已经使用社区 `dshmarket` 的 Cmd / Web 用户，也可以在 **设置 → 插件市场** 搜索 `liangxiang`。新版 DSH 自带插件管理，不必为了安装梁相再装一个市场插件。
+已经使用社区 `dshmarket` 的 Cmd / Web 用户，也可以在 **设置 → 插件市场** 搜索完整包名 `dsh-liangxiang`。新版 DSH 自带插件管理，不必为了安装梁相再装一个市场插件。
 
 <h2 id="upgrade">升级与卸载</h2>
 <span id="uninstall"></span>

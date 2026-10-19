@@ -117,7 +117,7 @@ const socialAlt = `今日梁相：${socialState}。${today.case_title}`
       </div>
       <section class="deploy-proxy">
         <h3>在线一直连不上？</h3>
-        <p>可能是 DSH 无法连接社区服务器。检查网络，必要时使用代理；浏览器能访问不代表 DSH 已走代理。可启用 TUN，或将下面配置写入 DSH 主目录的 <code>.env</code>，换成自己的 HTTP 代理端口后重启 DSH。<a href="/guide/#proxy">排障说明 →</a></p>
+        <p>检查网络连接；仍无法连接时，可启用代理软件的 TUN 模式，或将下面配置写入 DSH 主目录的 <code>.env</code>。将端口换成自己的 HTTP 代理端口，保存后完全退出并重启 DSH。<a href="/guide/#proxy">代理设置 →</a></p>
         <div class="mini-command deploy-proxy-command">
           <pre id="deploy-proxy"><code>HTTPS_PROXY="http://127.0.0.1:7890"
 HTTP_PROXY="http://127.0.0.1:7890"</code></pre>
@@ -125,7 +125,7 @@ HTTP_PROXY="http://127.0.0.1:7890"</code></pre>
         </div>
       </section>
       <div class="deploy-maintenance">
-        <div><span>Desktop</span><a href="/guide/#upgrade">在插件页更新或卸载 →</a></div>
+        <div><span>Desktop</span><a href="/guide/#upgrade">卸载梁相后重新安装新版 →</a></div>
         <div><span>Cmd / Web</span><a href="/guide/#upgrade">查看更新与卸载命令 →</a></div>
       </div>
       <div class="deploy-dialog-foot">

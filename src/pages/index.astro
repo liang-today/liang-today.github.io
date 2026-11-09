@@ -1,233 +1,103 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro'
 import today from '../data/today.json'
-
 import { votedStates as states, states as stateMap } from '../data/liangzi.mjs'
+import { formatPosition, SNAPSHOT_URL } from '../data/snapshot.mjs'
 
 const currentState = stateMap[today.liangzi_state] ?? stateMap.waiting
-const ratioText = today.up_ratio === null
-  ? '--'
-  : `${(Math.floor(today.up_ratio * 100 * 1_000_000) / 1_000_000).toFixed(6)}%`
+const ratioText = formatPosition(today)
 const incenseText = new Intl.NumberFormat('zh-CN').format(today.total_incense)
-const socialImage = `/media/social/today.png?v=${today.business_date}-${today.snapshot_version}`
+const liveEndpoint = import.meta.env.DEV ? '/__liangxiang_live_snapshot' : SNAPSHOT_URL
+const capturedTime = new Intl.DateTimeFormat('zh-CN', { timeZone: 'Asia/Shanghai', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).format(new Date(today.updated_at))
 ---
 
-<SiteLayout
-  title="梁相"
-  description="梁股开盘了！对话攒香火，夯拉定梁位；早午晚三盘做多做空，午夜揭晓，在线香火与收益跨日保留。"
-  pageClass="home-page"
->
+<SiteLayout title="梁相" description="梁相是DeepSeek Harness社区插件：对话攒香火，夯拉定梁位；早午晚三盘玩梁股，在线香火与收益跨日保留。" pageClass="home-page">
   <section class="home-hero">
     <div class="hero-grid-bg" aria-hidden="true"></div>
     <div class="hero-glow" aria-hidden="true"></div>
     <div class="shell hero-layout">
       <div class="hero-copy" data-reveal>
-        <p class="eyebrow">DeepSeek Harness 社区插件</p>
+        <p class="eyebrow">梁相2.0.0 · DeepSeek Harness社区插件</p>
         <h1>香火能攒了，<span>梁股开盘了。</span></h1>
-        <p class="hero-lede">对话攒香火，夯拉定梁位；早午晚三盘做多做空，K线和潮汐看实时行情，午夜一起揭晓。在线香火与收益跨日保留，明天接着玩。</p>
+        <p class="hero-slogan">在大A受的伤，让梁股为你抚平。</p>
+        <p class="hero-lede">用DSH攒香火，一炷夯或拉，让梁子随众香显相。再选一盘多空，和梁友一起等午夜揭晓。</p>
         <div class="hero-actions">
           <button class="button button-primary" type="button" data-deploy-open>安装梁相</button>
-          <a class="button button-ghost" href="#how">看懂玩法</a>
+          <a class="button button-ghost" href="#market">梁股怎么玩 ↓</a>
         </div>
-        <div class="hero-facts" aria-label="梁相特点">
-          <span>新香客备 10 炷</span>
-          <span>在线香火跨日保留</span>
-          <span>梁股早午晚三盘</span>
-          <span>午夜一起揭晓</span>
-        </div>
+        <div class="hero-facts"><span>新香客备10炷</span><span>在线香火跨日保留</span><span>免费开源</span></div>
       </div>
-
       <div class="install-terminal" data-reveal>
-        <div class="terminal-bar">
-          <span class="terminal-dots" aria-hidden="true"><i></i><i></i><i></i></span>
-          <span>装进 DeepSeek Harness</span>
-          <button type="button" data-copy-target="hero-cli" hidden>复制</button>
-        </div>
-        <div class="install-tabs" role="tablist" aria-label="安装方式">
-          <button id="install-tab-market" type="button" role="tab" aria-selected="true" aria-controls="install-market" data-install-tab="market">Desktop · 推荐</button>
-          <button id="install-tab-cli" type="button" role="tab" aria-selected="false" aria-controls="install-cli" data-install-tab="cli" tabindex="-1">Cmd / Web</button>
-        </div>
-        <div class="terminal-panel" id="install-market" role="tabpanel" aria-labelledby="install-tab-market" data-install-panel="market">
-          <ol class="install-steps">
-            <li>打开 <strong>插件 → 添加插件</strong></li>
-            <li>输入 <code>dsh-liangxiang</code></li>
-            <li>点击安装，完成后启用</li>
-          </ol>
-        </div>
-        <div class="terminal-panel" id="install-cli" role="tabpanel" aria-labelledby="install-tab-cli" data-install-panel="cli" hidden>
-          <span class="prompt" aria-hidden="true">$</span>
-          <code id="hero-cli">dsh plugin --profile web add dsh-liangxiang</code>
-        </div>
-        <p>页面边缘出现「今日梁相」即可开始。<a href="/guide/">首次使用、安装和升级说明 →</a></p>
+        <div class="terminal-bar"><span class="terminal-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>安装到DSH · v2.0.0</span><button type="button" data-copy-target="hero-cli">复制</button></div>
+        <div class="install-command-label">Cmd / Web · 一行安装</div>
+        <div class="terminal-panel"><span class="prompt" aria-hidden="true">$</span><code id="hero-cli">dsh plugin --profile web add dsh-liangxiang@2.0.0</code></div>
+        <div class="desktop-quick"><span>Desktop</span><p>插件 → 添加插件 → 输入<code>dsh-liangxiang@2.0.0</code>，安装并启用。</p></div>
+        <p>需要先安装DSH。<a href="/guide/">安装、升级与卸载 →</a></p>
       </div>
     </div>
-
   </section>
 
-  <section class="today-share-section" aria-labelledby="today-share-title">
+  <section class="today-share-section" id="today" aria-labelledby="today-share-title" data-live-today data-initial-snapshot={JSON.stringify(today)} data-live-endpoint={liveEndpoint} data-connection="saved">
     <div class="shell today-share-layout">
       <div class="today-share-copy" data-reveal>
-        <p class="eyebrow">今日梁子分享卡 · {today.business_date}</p>
-        <h2 id="today-share-title">今天，梁子显为「{currentState.name}」。</h2>
-        <p class="today-share-case">{today.case_title}</p>
+        <p class="eyebrow">今日梁案 · <span data-live-date>{today.business_date}</span></p>
+        <h2 id="today-share-title">众香汇处，<br />梁子显为<span data-live-state>{currentState.name}</span>。</h2>
+        <p class="today-share-case" data-live-case>{today.case_title}</p>
         <dl class="today-share-metrics">
-          <div><dt>梁位</dt><dd>{ratioText}</dd></div>
-          <div><dt>三界香火</dt><dd>{incenseText} 炷</dd></div>
-          <div><dt>当前显相</dt><dd>{currentState.name}</dd></div>
+          <div><dt>梁位</dt><dd data-live-ratio>{ratioText}</dd></div>
+          <div><dt>三界香火</dt><dd><span data-live-incense>{incenseText}</span> 炷</dd></div>
         </dl>
-        <div class="today-share-actions">
-          <a class="button button-ghost" href={socialImage} target="_blank">查看分享卡</a>
-          <button class="button button-primary" type="button" data-share-today data-social-image={socialImage}>分享今日梁相</button>
-        </div>
-        <span class="share-status" data-share-status aria-live="polite"></span>
+        <p class="live-status"><i aria-hidden="true"></i><span data-live-connection role="status">已保存快照</span></p>
+        <div class="today-share-actions"><button class="button button-ghost" type="button" data-download-today disabled>下载分享卡</button><button class="button button-primary" type="button" data-share-today disabled>分享今日梁相</button></div>
+        <span class="share-status" data-share-status aria-live="polite"></span><noscript><p class="utility-note">开启JavaScript可查看实时结果并下载分享卡。</p></noscript>
       </div>
-      <a class="today-share-card" href={socialImage} target="_blank" data-reveal aria-label="打开今日梁相高清分享卡">
-        <img src={socialImage} alt={`今日梁相分享卡：${currentState.name}，梁位 ${ratioText}`} width="2400" height="1260" />
-      </a>
-    </div>
-  </section>
-
-  <section class="product-section" id="how">
-    <div class="shell">
-      <div class="section-intro split-intro" data-reveal>
-        <div><p class="eyebrow">写代码，也写今日梁相</p><h2>不离开 DSH，顺手上一炷香。</h2></div>
-        <p>输入与输出 Token 按模型折成香火。香火环告诉你还剩多少，以及下一炷走到哪里；点一下投一炷，长按按限额批量上香。</p>
-      </div>
-
-      <figure class="product-frame product-frame-main" data-reveal>
-        <div class="window-bar"><span><i></i><i></i><i></i></span><small>梁相主UI</small><em>2.0.0</em></div>
-        <img class="product-shot" src="/media/product/2.0.0/main.webp" alt="梁相主UI：浅蓝水景、梁子与香火环" width="512" height="728" loading="lazy" />
-        <figcaption>功能示例，香火数据仅作演示。</figcaption>
-      </figure>
-
-      <div class="flow-grid" data-reveal>
-        <article><span>01</span><strong>凝香</strong><p>Pro 类 ×1，Flash 类与其他模型 ×0.5。默认每 50,000 当量一炷。</p></article>
-        <article><span>02</span><strong>上香</strong><p>一炷一票，只能夯或拉。</p></article>
-        <article><span>03</span><strong>显相</strong><p>众香汇成梁位，梁子依势变化。</p></article>
-        <article><span>04</span><strong>入祠</strong><p>每日结案，再汇成周梁与月梁。</p></article>
+      <div class="live-share-card" data-reveal aria-label="今日梁相分享卡预览">
+        <div class="live-card-copy"><span class="live-card-brand">梁相 <small>liang.today</small></span><p>众香成势，<br />梁子显相。</p><span data-live-case>{today.case_title}</span><small data-live-date>{today.business_date}</small></div>
+        <div class="live-card-figure"><div class="live-card-orbit"><img data-live-portrait src={currentState.image} alt={`${currentState.name}形相`} width="256" height="256" /></div><strong data-live-state>{currentState.name}</strong><span>梁位 <b data-live-ratio>{ratioText}</b></span></div>
+        <div class="live-card-foot"><span data-live-asof>北京时间 {capturedTime} · 快照{today.snapshot_version}</span><span>2400×1260高清导出</span></div>
       </div>
     </div>
   </section>
 
-  <section class="product-section" id="market">
-    <div class="shell">
-      <div class="section-intro split-intro" data-reveal>
-        <div><p class="eyebrow">梁股 · 香火市场</p><h2>早午晚三盘，午夜一起揭晓。</h2></div>
-        <p>每盘独立选多空，封盘前可改可撤。K线、潮汐随你切换，梁位、持仓与回执集中看；投入、撤回和到账都有轻声回应。</p>
+  <section class="product-section everyday-section" id="how">
+    <div class="shell everyday-layout">
+      <figure class="product-frame product-frame-main" data-reveal><img class="product-shot" src="/media/product/2.0.0/main.webp" alt="梁相2.0主界面：梁子、香火环、在线钱包与梁股入口" width="512" height="728" loading="lazy" /><figcaption>功能示例，香火数据仅作演示。</figcaption></figure>
+      <div class="everyday-copy" data-reveal>
+        <p class="eyebrow">对话之外，多一点热闹</p><h2>代码照写，<br />香火照攒。</h2>
+        <ol class="ritual-steps">
+          <li><span>01</span><div><h3>对话凝香</h3><p>输入与输出Token折成香火。默认50,000 Pro当量一炷，香火环同时显示余香与下一炷进度。</p></div></li>
+          <li><span>02</span><div><h3>一炷夯或拉</h3><p>点一下一炷，长按1.5秒倾炉。众人的夯拉汇成梁位，决定今日梁子。</p></div></li>
+          <li><span>03</span><div><h3>香火收益，跨日保留</h3><p>2.0在线钱包把可用与冻结分开显示。今天攒下的余香、已到账的收益，明天接着用。</p></div></li>
+        </ol>
+        <p class="earning-note">Pro 类 ×1，Flash 类与其他模型 ×0.5。</p>
+        <p class="utility-note">想让上香更省心？可在梁相案牍开启定时上香，需DSH保持运行。<a href="/guide/#upgrade">查看规则 →</a></p>
       </div>
-      <figure class="product-frame" data-reveal>
-        <div class="window-bar"><span><i></i><i></i><i></i></span><small>梁股 · 香火市场</small><em>2.0.0</em></div>
-        <img class="product-shot" src="/media/product/2.0.0/market.webp" alt="梁股香火市场：行情、三盘投入与个人钱包" width="1600" height="1024" loading="lazy" />
-        <figcaption>功能示例，香火数据仅作演示。香火只用于插件内游玩，不兑换现金。</figcaption>
-      </figure>
+    </div>
+  </section>
+
+  <section class="product-section market-section" id="market">
+    <div class="shell">
+      <div class="section-intro market-intro" data-reveal><p class="eyebrow">梁股 · 香火市场</p><h2>看涨做多，看跌做空。<br /><span>三盘多空，午夜揭晓。</span></h2><p>每盘比较「定梁时刻」与「午夜结案」的梁位。选多空、投入整炷香火；封盘前可改方向、改金额，也可撤回。</p></div>
+      <figure class="product-frame market-frame" data-reveal><img class="product-shot" src="/media/product/2.0.0/market.webp" alt="梁股：K线与潮汐行情，早午晚三盘，以及可用与冻结香火" width="1600" height="1024" loading="lazy" /><figcaption>功能示例，香火数据仅作演示。</figcaption></figure>
+      <div class="market-guide" data-reveal>
+        <div><h3>同一个午夜，三份独立判断。</h3><p>猜中方向，收回本盘投入，再按投入比例分对面香火；猜错失去本盘投入。持平、单边或场次取消，投入退回。结果在「我的回执」查看，结算不用客户端在线。</p><p class="market-disclaimer">香火只用于插件内游玩，不兑换现金。</p></div>
+        <div class="market-time-wrap"><table class="market-times"><caption>北京时间 · 以插件盘面时间为准</caption><thead><tr><th>盘次</th><th>可投、可改、可撤</th><th>定梁</th></tr></thead><tbody><tr><th>早盘</th><td>07:00—11:00</td><td>12:00</td></tr><tr><th>午盘</th><td>12:00—16:00</td><td>17:00</td></tr><tr><th>晚盘</th><td>17:00—21:00</td><td>22:00</td></tr></tbody></table></div>
+      </div>
     </div>
   </section>
 
   <section class="states-section">
-    <div class="shell">
-      <div class="section-intro centered-intro" data-reveal>
-        <p class="eyebrow">一条梁位，六种显相</p>
-        <h2>从小难梁，一路夯到梁祖。</h2>
-        <p>中央梁子只看社区夯率。门槛越高，显相越离谱。</p>
-      </div>
-      <div class="state-line" data-reveal>
-        {states.map((state, index) => (
-          <article>
-            <span class="state-index">0{index + 1}</span>
-            <img src={state.image} alt={`${state.name}形相`} loading="lazy" width="256" height="256" />
-            <strong>{state.name}</strong>
-            <small>{state.range}</small>
-          </article>
-        ))}
-      </div>
-      <p class="state-note" data-reveal>零票时显示「待开梁」；第一炷投下后进入六档显相。</p>
+    <div class="shell"><div class="section-intro centered-intro" data-reveal><p class="eyebrow">六种显相，各有梁位</p><h2>从小难梁，到梁祖。</h2><p>梁位是本案香火中「夯」的比例。个人余香不决定梁子的称呼。</p></div>
+      <div class="state-line" data-state-legend data-policy="liangzi-v0.2-25-50-70-85-95" data-reveal>{states.map((state, index) => (<article data-policy-state={Object.keys(stateMap).find(key => stateMap[key] === state)}><span class="state-index">0{index + 1}</span><img src={state.image} alt={`${state.name}形相`} loading="lazy" width="256" height="256" /><strong>{state.name}</strong><small>{state.range}</small></article>))}</div>
+      <p class="state-note" data-policy-note data-reveal>零票为「待开梁」；有票后按本案梁位显相。</p>
     </div>
   </section>
 
-  <section class="archive-section" id="liangci">
-    <div class="shell archive-layout">
-      <div class="archive-copy" data-reveal>
-        <p class="eyebrow">梁祠 · 只读编年</p>
-        <h2>今天有结果，日后有来处。</h2>
-        <p>每天结案后，日梁收入梁祠。原始夯拉票数继续汇成周梁和月梁，今日进行中永远不会被提前定论。</p>
-        <div class="archive-tags"><span>日梁</span><span>周梁</span><span>月梁</span></div>
-      </div>
-      <figure class="archive-frame" data-reveal>
-        <img class="product-shot" src="/media/product/2.0.0/liangci.webp" alt="梁祠：日梁、周梁与月梁日历" width="1760" height="1520" loading="lazy" />
-        <figcaption>功能示例，香火数据仅作演示。</figcaption>
-      </figure>
-    </div>
-  </section>
+  <section class="archive-section" id="liangci"><div class="shell archive-layout"><div class="archive-copy" data-reveal><p class="eyebrow">梁祠 · 日梁 / 周梁 / 月梁</p><h2>今天的热闹，<br />留在梁祠。</h2><p>每日结案后，日梁入祠，再按原始夯拉票数汇成周梁、月梁。正在进行的今天单独标记，不提前定论。</p><p>日历里回看每一日，也回看大家一起夯过、拉过的梁子。</p></div><figure class="archive-frame" data-reveal><img class="product-shot" src="/media/product/2.0.0/liangci.webp" alt="梁祠日历：按日、周、月回看梁子与历史结果" width="1760" height="1520" loading="lazy" /><figcaption>功能示例，香火数据仅作演示。</figcaption></figure></div></section>
 
-  <section class="final-cta">
-    <div class="shell final-cta-inner" data-reveal>
-      <div><p class="eyebrow">今日开梁</p><h2>众香成势，梁子显相。</h2><p>装进 DeepSeek Harness，领十炷见面香。</p></div>
-      <div class="final-actions"><button class="button button-primary" type="button" data-deploy-open>查看安装方式</button><a class="button button-ghost" href="https://github.com/liang-today/dsh-liangxiang">查看源码 ↗</a></div>
-    </div>
-  </section>
+  <section class="home-notes"><div class="shell home-notes-layout"><div data-reveal><p class="eyebrow">开始之前</p><h2>几件小事，先说清楚。</h2><div class="home-faq"><details><summary>从1.2升级，会把历史香火补回来吗？</summary><p>不会。首次启用2.0在线钱包，只承接当天实际余香与进度，不补历史过期余额。启用后，同一身份请继续使用2.0及以上版本；尚未升级的1.2仍按原日账玩法。</p></details><details><summary>在线、离线的香火能一起用吗？</summary><p>分别记账，不合并。梁股使用在线钱包；离线可在本机凝香、上香和回看本地梁祠。网络中断不会自动切换模式，在线会自动重连。</p></details><details><summary>需要上传对话内容吗？</summary><p>不需要。社区只接收玩法所需的计数与操作意图，不接收提示词、模型回复、源码或文件内容。<a href="/privacy/">查看隐私边界 →</a></p></details></div></div><div class="community-copy" data-reveal><p class="eyebrow">社群与鸣谢</p><h2>梁相还得<br />梁人出。</h2><p>出梁案、晒梁位，和梁友聊聊下一次开盘。</p><p class="community-number">QQ群 <strong>453683905</strong></p><a class="text-link" href="https://github.com/liang-today/dsh-liangxiang/issues">去GitHub许愿新特性 ↗</a><div class="thanks"><span>特别感谢</span><p><a href="https://github.com/stuffed-cat">@stuffed-cat</a>、<a href="https://github.com/XChen446">@XChen446</a>、<a href="https://github.com/xunxiaoQ">@xunxiaoQ</a>、<a href="https://github.com/Ritanlisa">@Ritanlisa</a>，以及每一位社区贡献者与香客。</p></div></div></div></section>
 
-  <script is:inline type="application/ld+json" set:html={JSON.stringify({
-    '@context': 'https://schema.org', '@type': 'SoftwareApplication', name: '梁相', alternateName: 'liangxiang',
-    applicationCategory: 'DeveloperApplication', operatingSystem: 'Windows, macOS, Linux',
-    description: '梁相是DeepSeek Harness社区插件：在线香火跨日保留，梁股早午晚三盘做多做空，午夜一起揭晓。',
-    url: 'https://liang.today', codeRepository: 'https://github.com/liang-today/dsh-liangxiang',
-    softwareVersion: '2.0.0', license: 'https://opensource.org/license/mit',
-  })} />
-
-  <script>
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.querySelectorAll<HTMLVideoElement>('video[autoplay]').forEach((video) => video.pause())
-    }
-
-    const tabs = [...document.querySelectorAll<HTMLButtonElement>('[data-install-tab]')]
-    const panels = [...document.querySelectorAll<HTMLElement>('[data-install-panel]')]
-    const copyButton = document.querySelector<HTMLButtonElement>('.terminal-bar [data-copy-target]')
-    for (const tab of tabs) {
-      tab.addEventListener('click', () => {
-        const target = tab.dataset.installTab
-        for (const item of tabs) {
-          item.setAttribute('aria-selected', String(item === tab))
-          item.tabIndex = item === tab ? 0 : -1
-        }
-        for (const panel of panels) panel.hidden = panel.dataset.installPanel !== target
-        if (copyButton) {
-          copyButton.hidden = target !== 'cli'
-          copyButton.dataset.copyTarget = 'hero-cli'
-        }
-      })
-      tab.addEventListener('keydown', (event) => {
-        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return
-        event.preventDefault()
-        const index = tabs.indexOf(tab)
-        const next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length - 1 : (index + (event.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length
-        tabs[next]?.click()
-        tabs[next]?.focus()
-      })
-    }
-
-    const shareButton = document.querySelector<HTMLButtonElement>('[data-share-today]')
-    const shareStatus = document.querySelector<HTMLElement>('[data-share-status]')
-    shareButton?.addEventListener('click', async () => {
-      const shareData = { title: '今日梁相', text: '众香成势，梁子显相。看看今日社区梁相。', url: location.origin }
-      try {
-        const imageUrl = new URL(shareButton.dataset.socialImage ?? '/media/social/today.png', location.origin)
-        if (navigator.share && navigator.canShare) {
-          const response = await fetch(imageUrl)
-          const card = new File([await response.blob()], '今日梁相.png', { type: 'image/png' })
-          if (navigator.canShare({ files: [card] })) {
-            await navigator.share({ title: shareData.title, text: shareData.text, files: [card] })
-            return
-          }
-        }
-        if (navigator.share) await navigator.share(shareData)
-        else {
-          await navigator.clipboard.writeText(location.origin)
-          if (shareStatus) shareStatus.textContent = '链接已复制'
-        }
-      } catch (error) {
-        if (error instanceof DOMException && error.name === 'AbortError') return
-        if (shareStatus) shareStatus.textContent = '请复制 liang.today 分享'
-      }
-    })
-  </script>
+  <section class="final-cta"><div class="shell final-cta-inner" data-reveal><div><p class="eyebrow">下一炷，轮到你</p><h2>众香成势，梁子显相。</h2><p>装进DeepSeek Harness，从十炷见面香开始。</p></div><div class="final-actions"><button class="button button-primary" type="button" data-deploy-open>安装梁相</button><a class="button button-ghost" href="/guide/">安装指南 →</a></div></div></section>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify({ '@context':'https://schema.org','@type':'SoftwareApplication', name:'梁相', alternateName:'liangxiang', applicationCategory:'DeveloperApplication', operatingSystem:'Windows, macOS, Linux', description:'梁相是DeepSeek Harness社区插件：对话凝香、夯拉显相，梁股早午晚三盘做多做空，在线香火与收益跨日保留。', url:'https://liang.today', codeRepository:'https://github.com/liang-today/dsh-liangxiang', softwareVersion:'2.0.0', license:'https://opensource.org/license/mit' })} />
+  <script>import '../client/live-today'</script>
 </SiteLayout>

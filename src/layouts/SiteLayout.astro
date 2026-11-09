@@ -14,7 +14,7 @@ const { title, description, image, pageClass = '' } = Astro.props
 const canonical = new URL(Astro.url.pathname, Astro.site)
 const pageTitle = title === '梁相' ? '梁相 · 众香成势，梁子显相' : `${title} · 梁相`
 const socialState = states[today.liangzi_state]?.name ?? states.waiting.name
-const socialVersion = `${today.business_date}-${today.snapshot_version}`
+const socialVersion = `${today.business_date}-${today.snapshot_version}-${Date.parse(today.updated_at)}`
 const socialImage = image ?? `/media/social/today.png?v=${socialVersion}`
 const socialAlt = `今日梁相：${socialState}。${today.case_title}`
 ---
@@ -25,7 +25,7 @@ const socialAlt = `今日梁相：${socialState}。${today.case_title}`
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#08090b" />
+    <meta name="theme-color" content="#0a1220" />
     <link rel="canonical" href={canonical} />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="icon" href="/artwork/zu.png" type="image/png" />
@@ -59,7 +59,7 @@ const socialAlt = `今日梁相：${socialState}。${today.case_title}`
         <a class="brand" href="/" aria-label="梁相首页">
           <span class="brand-seal" aria-hidden="true">相</span>
           <strong>梁相</strong>
-          <span class="brand-tag">DSH 社区插件</span>
+          <span class="brand-tag">DSH社区插件</span>
         </a>
         <div class="header-actions">
           <button class="header-link" type="button" data-deploy-open>安装</button>
@@ -93,7 +93,7 @@ const socialAlt = `今日梁相：${socialState}。${today.case_title}`
 
     <dialog class="deploy-dialog" data-deploy-dialog aria-labelledby="deploy-title">
       <div class="deploy-dialog-head">
-        <div><span>GET LIANGXIANG</span><h2 id="deploy-title">把梁相装进 DSH</h2></div>
+        <div><span>GET LIANGXIANG</span><h2 id="deploy-title">把梁相装进DSH</h2></div>
         <button type="button" data-deploy-close aria-label="关闭安装指南">×</button>
       </div>
       <div class="deploy-methods">
@@ -102,8 +102,8 @@ const socialAlt = `今日梁相：${socialState}。${today.case_title}`
           <h3>Desktop · 推荐</h3>
           <ol class="install-steps">
             <li>打开 <strong>插件 → 添加插件</strong></li>
-            <li>输入完整包名 <code>dsh-liangxiang</code></li>
-            <li>安装 <code>dsh-liangxiang</code>，完成后启用</li>
+            <li>输入完整包名 <code>dsh-liangxiang@2.0.0</code></li>
+            <li>安装 <code>dsh-liangxiang@2.0.0</code>，完成后启用</li>
           </ol>
           <p class="method-note">无需命令行、额外市场插件或索引配置。<a href="/guide/#desktop">首次使用说明 →</a></p>
         </section>
@@ -111,26 +111,17 @@ const socialAlt = `今日梁相：${socialState}。${today.case_title}`
           <div class="method-index">02</div>
           <h3>Cmd / Web</h3>
           <p>退出 WebUI，在实际使用的 profile 中添加梁相，再重新启动。</p>
-          <div class="mini-command"><code id="deploy-cli">dsh plugin --profile web add dsh-liangxiang</code><button type="button" data-copy-target="deploy-cli">复制</button></div>
+          <div class="mini-command"><code id="deploy-cli">dsh plugin --profile web add dsh-liangxiang@2.0.0</code><button type="button" data-copy-target="deploy-cli">复制</button></div>
           <p class="method-note">没有全局 dsh 时，将开头换成 <code>npx --yes @deepseek-ai/dsh</code>。此命令用于 Web，不用于 Desktop。</p>
         </section>
       </div>
-      <section class="deploy-proxy">
-        <h3>在线一直连不上？</h3>
-        <p>检查网络连接；仍无法连接时，可启用代理软件的 TUN 模式，或将下面配置写入 DSH 主目录的 <code>.env</code>。将端口换成自己的 HTTP 代理端口，保存后完全退出并重启 DSH。<a href="/guide/#proxy">代理设置 →</a></p>
-        <div class="mini-command deploy-proxy-command">
-          <pre id="deploy-proxy"><code>HTTPS_PROXY="http://127.0.0.1:7890"
-HTTP_PROXY="http://127.0.0.1:7890"</code></pre>
-          <button type="button" data-copy-target="deploy-proxy">复制</button>
-        </div>
-      </section>
       <div class="deploy-maintenance">
-        <div><span>Desktop</span><a href="/guide/#upgrade">卸载梁相后重新安装新版 →</a></div>
+        <div><span>Desktop</span><a href="/guide/#upgrade">按版本提示更新；旧版可卸载重装 →</a></div>
         <div><span>Cmd / Web</span><a href="/guide/#upgrade">查看更新与卸载命令 →</a></div>
       </div>
       <div class="deploy-dialog-foot">
-        <span>安装与升级不会删除本机梁相账本。</span>
-        <a href="/guide/">查看完整安装说明 →</a>
+        <span>保留DSH数据目录，继续使用原身份和账本。</span>
+        <a href="/guide/">完整指南</a><a href="/guide/#proxy">连接遇到问题？</a>
       </div>
     </dialog>
 
@@ -179,6 +170,6 @@ HTTP_PROXY="http://127.0.0.1:7890"</code></pre>
       }, { threshold: 0.1 })
       document.querySelectorAll('[data-reveal]').forEach((element) => observer.observe(element))
     </script>
-    <script is:inline data-goatcounter="https://stats.liang.today/count" async src="https://gc.zgo.at/count.js"></script>
+    {import.meta.env.PROD && (<script is:inline data-goatcounter="https://stats.liang.today/count" async src="https://gc.zgo.at/count.js"></script>)}
   </body>
 </html>

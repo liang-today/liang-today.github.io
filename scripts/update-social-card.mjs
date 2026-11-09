@@ -1,14 +1,14 @@
-import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises'
+import { mkdir, readFile, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { states, expectedState, LEGACY_POLICY, CURRENT_POLICY, POLICY_HEADER } from '../src/data/liangzi.mjs'
+import { CURRENT_POLICY, POLICY_HEADER, parseSnapshot, parsePublishedSnapshot } from '../src/data/snapshot.mjs'
+export { parseSnapshot, parsePublishedSnapshot } from '../src/data/snapshot.mjs'
 
 const endpoint = process.env.LIANGXIANG_SNAPSHOT_URL ?? 'https://api.liang.today/v1/snapshot'
 const publishedEndpoint = process.env.LIANGXIANG_PUBLISHED_SNAPSHOT_URL ?? 'https://liang.today/data/today.json'
 const outputDirectory = resolve('public/media/social')
 const dataPath = resolve('src/data/today.json')
 const publicDataPath = resolve('public/data/today.json')
-const allowedStates = new Set(Object.keys(states))
 
 export function waitingSnapshot(now = new Date()) {
   return {
@@ -23,76 +23,6 @@ export function waitingSnapshot(now = new Date()) {
     updated_at: now.toISOString(),
     source: 'fallback',
   }
-}
-
-export function parsePublishedSnapshot(payload, source = 'cached') {
-  if (!payload || typeof payload !== 'object') throw new Error('published snapshot is not an object')
-  if (typeof payload.business_date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(payload.business_date)) {
-    throw new Error('published business date is invalid')
-  }
-  if (typeof payload.case_title !== 'string' || payload.case_title.trim().length === 0) {
-    throw new Error('published case title is invalid')
-  }
-  if (!allowedStates.has(payload.liangzi_state)) throw new Error('published Liangzi state is invalid')
-  if (!Number.isSafeInteger(payload.total_incense) || payload.total_incense < 0) {
-    throw new Error('published incense counter is invalid')
-  }
-  if (!Number.isSafeInteger(payload.unique_voters) || payload.unique_voters < 0) {
-    throw new Error('published unique-voter counter is invalid')
-  }
-  if (payload.unique_voters > payload.total_incense) {
-    throw new Error('published unique-voter count exceeds total votes')
-  }
-  if (!Number.isSafeInteger(payload.snapshot_version) || payload.snapshot_version < 0) {
-    throw new Error('published snapshot version is invalid')
-  }
-  if (payload.up_ratio !== null && (typeof payload.up_ratio !== 'number' || payload.up_ratio < 0 || payload.up_ratio > 1)) {
-    throw new Error('published ratio is invalid')
-  }
-  if ((payload.total_incense === 0) !== (payload.up_ratio === null)) {
-    throw new Error('published ratio and vote count disagree')
-  }
-  const policy = payload.policy_version ?? LEGACY_POLICY
-  if (payload.liangzi_state !== expectedState(payload.up_ratio, policy)) {
-    throw new Error('published state and ratio disagree')
-  }
-  if (typeof payload.updated_at !== 'string' || !Number.isFinite(Date.parse(payload.updated_at))) {
-    throw new Error('published update time is invalid')
-  }
-
-  return {
-    business_date: payload.business_date,
-    case_title: payload.case_title,
-    up_ratio: payload.up_ratio,
-    total_incense: payload.total_incense,
-    unique_voters: payload.unique_voters,
-    liangzi_state: payload.liangzi_state,
-    policy_version: policy,
-    snapshot_version: payload.snapshot_version,
-    updated_at: new Date(payload.updated_at).toISOString(),
-    source,
-  }
-}
-
-export function parseSnapshot(payload) {
-  const snapshot = payload?.global_snapshot
-  const activeCase = payload?.active_case
-  if (!snapshot || !activeCase) throw new Error('snapshot response is missing the expected Liangxiang fields')
-
-  const serverTime = new Date(payload.server_time)
-  if (!Number.isFinite(serverTime.getTime())) throw new Error('snapshot server time is invalid')
-
-  return parsePublishedSnapshot({
-    business_date: payload.business_date,
-    case_title: activeCase.title,
-    up_ratio: snapshot.up_ratio,
-    total_incense: snapshot.total_incense,
-    unique_voters: snapshot.unique_voters,
-    liangzi_state: snapshot.liangzi_state,
-    policy_version: snapshot.policy_version,
-    snapshot_version: snapshot.sequence,
-    updated_at: serverTime.toISOString(),
-  }, 'live')
 }
 
 export async function resolveTodaySnapshot(loaders, now = new Date()) {
@@ -138,7 +68,6 @@ async function main() {
 
   await mkdir(outputDirectory, { recursive: true })
   await mkdir(dirname(publicDataPath), { recursive: true })
-  await copyFile(resolve(outputDirectory, `${today.liangzi_state}.png`), resolve(outputDirectory, 'today.png'))
   const serialized = `${JSON.stringify(today, null, 2)}\n`
   await Promise.all([
     writeFile(dataPath, serialized, 'utf8'),

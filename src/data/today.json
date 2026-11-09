@@ -1,12 +1,17 @@
 {
-  "business_date": "2026-10-19",
-  "case_title": "模型废话是不是太多",
-  "up_ratio": 0.899255982304444,
-  "total_incense": 4973,
-  "unique_voters": 14,
-  "liangzi_state": "liang_sheng",
-  "policy_version": "liangzi-v0.1-50-70-85-95",
-  "snapshot_version": 813,
-  "updated_at": "2026-10-19T03:45:07.333Z",
-  "source": "live"
+  "business_date": "2026-11-09",
+  "case_title": "AI现在够聪明了吗",
+  "up_ratio": 0.23766533697249634,
+  "total_incense": 14289,
+  "unique_voters": 11,
+  "liangzi_state": "xiao_nan_liang",
+  "policy_version": "liangzi-v0.2-25-50-70-85-95",
+  "snapshot_version": 1029,
+  "updated_at": "2026-11-09T00:31:48.757Z",
+  "source": "live",
+  "case_id": "case-2026-11-09",
+  "up_votes": 3396,
+  "down_votes": 10893,
+  "server_time": 1794184308757,
+  "captured_at": 1794183631074
 }
